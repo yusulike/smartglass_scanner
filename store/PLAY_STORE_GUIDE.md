@@ -10,7 +10,8 @@
 | :--- | :--- | :--- | :--- |
 | **릴리스 앱 번들 (AAB)** | R8 난독화·리소스 축소·릴리스 서명 적용 | `app/build/outputs/bundle/release/app-release.aab` | `.gitignore`로 Git 추적 제외됨 (`./gradlew bundleRelease`로 생성) |
 | **앱 아이콘** | 512 × 512 px PNG (32-bit) | `store/icon_512x512.png` | Play Console 앱 아이콘 슬롯 업로드용 |
-| **그래픽 이미지 (Feature Graphic)** | 1024 × 500 px PNG | `store/feature_graphic_1024x500.png` | Play Console 필수 배너 슬롯 |
+| **그래픽 이미지 (한국어 `ko-KR`)** | 1024 × 500 px PNG | `store/feature_graphic_1024x500.png` | Play Console 기본 배너 슬롯 (`ko-KR`) |
+| **그래픽 이미지 (영어 `en-US`)** | 1024 × 500 px 24-bit RGB PNG | `store/feature_graphic_en_1024x500.png` | Play Console 영문 스토어 배너 슬롯 (`en-US`) |
 | **휴대전화 스크린샷 (한국어 `ko-KR`)** | 1080 × 1920 px (9:16) 24-bit RGB PNG (4장) | `store/screenshots/01_dashboard.png` ~ `04_settings_signatures.png` | 대시보드 / 입실 스크리닝 / 알림 / 설정 화면 (타사 알림·상태바 제거, 알파 채널 없음) |
 | **휴대전화 스크린샷 (영어 `en-US`)** | 1080 × 1920 px (9:16) 24-bit RGB PNG (4장) | `store/screenshots/en/01_dashboard.png` ~ `04_settings_signatures.png` | English UI 실기 캡처 기반 9:16 프레임 (Dashboard / Gate Screening / Background Alert / Settings) |
 | **포그라운드 서비스 심사 시연 영상** | 720 × 1560 px MP4 (16.5초, 4.2 MB) | `store/fgs_demo_video.mp4` | YouTube 비공개(일부 공개) 링크 등록용: 스캔 시작 → 백그라운드 알림 유지 → `Stop Scan` 탭으로 즉시 종료 → 앱 상태(`Scan stopped`) 확인 |
