@@ -117,7 +117,6 @@ fun MainScreen(
     }
     lifecycleOwner.lifecycle.addObserver(observer)
     onDispose {
-      viewModel.onForegroundChanged(false)
       lifecycleOwner.lifecycle.removeObserver(observer)
     }
   }

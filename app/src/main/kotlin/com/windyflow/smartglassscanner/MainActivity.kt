@@ -54,4 +54,14 @@ class MainActivity : ComponentActivity() {
       }
     }
   }
+
+  override fun onResume() {
+    super.onResume()
+    DetectionStateHolder.setForegroundUi(true)
+  }
+
+  override fun onPause() {
+    DetectionStateHolder.setForegroundUi(false)
+    super.onPause()
+  }
 }
