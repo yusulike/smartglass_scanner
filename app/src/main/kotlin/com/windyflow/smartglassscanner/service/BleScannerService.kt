@@ -66,8 +66,12 @@ class BleScannerService : Service() {
   private val signalFilter = BleSignalFilter()
 
   private var observationJob: Job? = null
+  private var statusObserverJob: Job? = null
+  private var settingsObserverJob: Job? = null
+  private var gateResetJob: Job? = null
   private var pruneJob: Job? = null
   private var bluetoothReceiverRegistered = false
+  @Volatile private var isStopping = false
 
   @Volatile private var latestSignatures: List<BleSignature> = emptyList()
   @Volatile private var latestSettings: DetectorSettings = DetectorSettings()
@@ -196,25 +200,31 @@ class BleScannerService : Service() {
       statusMessage = getString(R.string.service_status_preparing)
     )
 
+    isStopping = false
+
     // Watch settings independently so RSSI/cooldown/whitelist updates apply without restarting BLE scan.
-    serviceScope.launch {
-      whitelistRepository.settings.collectLatest { settings ->
-        latestSettings = settings
-        val filtered = signalFilter.currentDevices(System.currentTimeMillis(), settings.whitelistedKeys)
-        DetectionStateHolder.updateDetectedDevices(filtered)
+    settingsObserverJob?.cancel()
+    settingsObserverJob =
+      serviceScope.launch {
+        whitelistRepository.settings.collectLatest { settings ->
+          latestSettings = settings
+          val filtered = signalFilter.currentDevices(System.currentTimeMillis(), settings.whitelistedKeys)
+          DetectionStateHolder.updateDetectedDevices(filtered)
+        }
       }
-    }
 
     val scanModeFlow =
       DetectionStateHolder.state
         .map { SmartGlassesScanner.resolveScanMode(it.scanProfile, it.isForegroundUi) }
         .distinctUntilChanged()
 
-    serviceScope.launch {
-      DetectionStateHolder.gateResetEvents.collect {
-        signalFilter.resetGateScreening(System.currentTimeMillis())
+    gateResetJob?.cancel()
+    gateResetJob =
+      serviceScope.launch {
+        DetectionStateHolder.gateResetEvents.collect {
+          signalFilter.resetGateScreening(System.currentTimeMillis())
+        }
       }
-    }
 
     observationJob =
       serviceScope.launch {
@@ -226,34 +236,37 @@ class BleScannerService : Service() {
           }
       }
 
-    serviceScope.launch {
-      combine(scanner.isScanning, scanner.activeScanMode, scanner.lastError) {
-        scanning,
-        mode,
-        error ->
-        Triple(scanning, mode, error)
-      }.collectLatest { (scanning, mode, error) ->
-        updateOngoingNotification(mode, scanning)
-        val statusMsg =
-          when {
-            error != null -> null
-            scanning && mode == BleScanMode.LOW_LATENCY ->
-              getString(R.string.service_status_gate)
-            scanning && mode == BleScanMode.BALANCED ->
-              getString(R.string.service_status_balanced)
-            scanning && mode == BleScanMode.LOW_POWER ->
-              getString(R.string.service_status_low_power)
-            else -> getString(R.string.service_status_standby)
-          }
-        DetectionStateHolder.setServiceState(
-          isServiceRunning = true,
-          isScanning = scanning,
-          scanMode = mode,
-          statusMessage = statusMsg,
-          errorMessage = error
-        )
+    statusObserverJob?.cancel()
+    statusObserverJob =
+      serviceScope.launch {
+        combine(scanner.isScanning, scanner.activeScanMode, scanner.lastError) {
+          scanning,
+          mode,
+          error ->
+          Triple(scanning, mode, error)
+        }.collectLatest { (scanning, mode, error) ->
+          if (isStopping) return@collectLatest
+          updateOngoingNotification(mode, scanning)
+          val statusMsg =
+            when {
+              error != null -> null
+              scanning && mode == BleScanMode.LOW_LATENCY ->
+                getString(R.string.service_status_gate)
+              scanning && mode == BleScanMode.BALANCED ->
+                getString(R.string.service_status_balanced)
+              scanning && mode == BleScanMode.LOW_POWER ->
+                getString(R.string.service_status_low_power)
+              else -> getString(R.string.service_status_standby)
+            }
+          DetectionStateHolder.setServiceState(
+            isServiceRunning = true,
+            isScanning = scanning,
+            scanMode = mode,
+            statusMessage = statusMsg,
+            errorMessage = error
+          )
+        }
       }
-    }
 
     pruneJob?.cancel()
     pruneJob =
@@ -405,8 +418,15 @@ class BleScannerService : Service() {
     )
 
   private fun stopScanningAndSelf() {
+    isStopping = true
     observationJob?.cancel()
     observationJob = null
+    statusObserverJob?.cancel()
+    statusObserverJob = null
+    settingsObserverJob?.cancel()
+    settingsObserverJob = null
+    gateResetJob?.cancel()
+    gateResetJob = null
     pruneJob?.cancel()
     pruneJob = null
     serviceScope.launch {
@@ -419,6 +439,7 @@ class BleScannerService : Service() {
         statusMessage = getString(R.string.status_stopped)
       )
       ServiceCompat.stopForeground(this@BleScannerService, ServiceCompat.STOP_FOREGROUND_REMOVE)
+      getSystemService(NotificationManager::class.java)?.cancel(NOTIFICATION_ID_ONGOING)
       stopSelf()
     }
   }
@@ -492,6 +513,7 @@ class BleScannerService : Service() {
   }
 
   private fun updateOngoingNotification(mode: BleScanMode, isScanning: Boolean) {
+    if (isStopping) return
     if (!PermissionHelper.hasNotificationPermission(this)) return
     val manager = getSystemService(NotificationManager::class.java) ?: return
     manager.notify(NOTIFICATION_ID_ONGOING, buildOngoingNotification(mode, isScanning))
