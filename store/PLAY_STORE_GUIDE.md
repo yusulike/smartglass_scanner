@@ -13,7 +13,7 @@
 | **그래픽 이미지 (Feature Graphic)** | 1024 × 500 px PNG | `store/feature_graphic_1024x500.png` | Play Console 필수 배너 슬롯 |
 | **휴대전화 스크린샷 (한국어 `ko-KR`)** | 1080 × 1920 px (9:16) 24-bit RGB PNG (4장) | `store/screenshots/01_dashboard.png` ~ `04_settings_signatures.png` | 대시보드 / 입실 스크리닝 / 알림 / 설정 화면 (타사 알림·상태바 제거, 알파 채널 없음) |
 | **휴대전화 스크린샷 (영어 `en-US`)** | 1080 × 1920 px (9:16) 24-bit RGB PNG (4장) | `store/screenshots/en/01_dashboard.png` ~ `04_settings_signatures.png` | English UI 실기 캡처 기반 9:16 프레임 (Dashboard / Gate Screening / Background Alert / Settings) |
-| **포그라운드 서비스 심사 시연 영상** | 720 × 1560 px MP4 (13.8초, 5.1 MB) | `store/fgs_demo_video.mp4` | YouTube 비공개(일부 공개) 링크 등록용: 스캔 시작 → 백그라운드 알림 유지 → `Stop Scan` 탭으로 즉시 종료 |
+| **포그라운드 서비스 심사 시연 영상** | 720 × 1560 px MP4 (16.5초, 4.2 MB) | `store/fgs_demo_video.mp4` | YouTube 비공개(일부 공개) 링크 등록용: 스캔 시작 → 백그라운드 알림 유지 → `Stop Scan` 탭으로 즉시 종료 → 앱 상태(`Scan stopped`) 확인 |
 
 > **중요 (서명 키 보관)**: 릴리스 서명 키(`windyflow.jks`)와 `keystore.properties`는 보안상 Git에서 제외되어 있습니다. 반드시 안전한 클라우드/오프라인 백업(예: Google Drive / 암호화 보관소)에 사본을 보관하세요. Play Console 업로드 시 **Google Play 앱 서명(Play App Signing)** 사용을 권장합니다.
 
