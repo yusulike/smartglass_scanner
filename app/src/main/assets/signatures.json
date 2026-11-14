@@ -10,6 +10,14 @@
       "baseConfidence": "HIGH"
     },
     {
+      "id": "meta_rayban_inc_confirmed",
+      "companyId": "0x01AB",
+      "label": "Ray-Ban Meta (Meta Platforms Inc)",
+      "payloadAscii": "META_RB_GLASS",
+      "serviceUuid": null,
+      "baseConfidence": "HIGH"
+    },
+    {
       "id": "luxottica_rayban",
       "companyId": "0x0D53",
       "label": "Ray-Ban Meta Frame (Luxottica)",
@@ -144,6 +152,15 @@
       "baseConfidence": "MEDIUM"
     },
     {
+      "id": "even_realities_company",
+      "companyId": "0x10F9",
+      "label": "Even Realities G1/G2",
+      "payloadAscii": null,
+      "serviceUuid": null,
+      "category": "DISPLAY_AR",
+      "baseConfidence": "MEDIUM"
+    },
+    {
       "id": "even_realities_name",
       "companyId": null,
       "label": "Even Realities Smart Glasses (Name)",
@@ -188,7 +205,16 @@
       "label": "Smart Glasses (Device Name Pattern)",
       "payloadAscii": null,
       "serviceUuid": null,
-      "deviceNamePatterns": ["Rokid", "Vuzix", "RayNeo", "Moverio", "Solos"],
+      "deviceNamePatterns": ["Rokid", "Vuzix", "RayNeo", "Moverio", "Solos", "AirGo"],
+      "baseConfidence": "MEDIUM"
+    },
+    {
+      "id": "brilliant_monocle",
+      "companyId": null,
+      "label": "Brilliant Labs (Monocle / Frame)",
+      "payloadAscii": null,
+      "serviceUuid": null,
+      "deviceNamePrefix": "Monocle",
       "baseConfidence": "MEDIUM"
     }
   ]

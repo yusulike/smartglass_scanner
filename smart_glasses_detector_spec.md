@@ -22,7 +22,7 @@ Native Kotlin(Jetpack Compose) 기반 스마트글래스 근접 탐지 Android �
 app/src/main/
 ├── AndroidManifest.xml
 ├── assets/
-│   └── signatures.json                 # 기본 스마트글래스 BLE 시그니처 DB (22종, CAMERA / DISPLAY_AR)
+│   └── signatures.json                 # 기본 스마트글래스 BLE 시그니처 DB (25종, CAMERA / DISPLAY_AR)
 ├── res/
 │   ├── drawable/
 │   │   ├── ic_launcher_background.xml  # Adaptive 배경 (네이비 그라데이션 + 레이더 링)
@@ -190,10 +190,10 @@ v1.0에서는 Wi-Fi 스캔을 제외하여 API 31+ 환경에서 `ACCESS_FINE_LOC
 }
 ```
 
-* `0x058E`는 `META_RB_GLASS` 페이로드 일치 시 Quest VR 헤드셋과의 오탐을 배제할 수 있고([Hackster.io](https://www.hackster.io/kevin-loeffler/spectacle-a-smart-glasses-detecting-keychain-576576)), `0x0D53` 및 `0x060C`(Vuzix)는 안경 전문 제조사 ID이므로 추가 페이로드 없이도 높은 신뢰도로 판정합니다([Nearby Glasses](https://github.com/yjeanrenaud/yj_nearbyglasses)).
-* 중국계 및 AR 스마트글래스 시그니처로 `Rokid AI Glasses`(Service UUID `00009100-...`), `Da Echo`(`0xFEA8` + Service Data `413149010000`), `TCL / RayNeo`(`0x0BC6`), `Meizu MYVU`(`0x03AB`, `DISPLAY_AR`), `Kopin / Solos`(`0x041F`), `North Focals`(`0x0562`, `DISPLAY_AR`), `Meta BLE Service`(`0xFD5F`), 그리고 기기명 접두사/패턴(`HeyCyan-`, `Even G`, `INMO`, `XREAL`/`NREAL`, `Ray-Ban`, `Spectacles`, `Echo Frames`/`Focals`, `Rokid`/`Vuzix`/`RayNeo`/`Moverio`/`Solos`)까지 총 22종을 내장했습니다([ESP-GlassHole](https://github.com/surveillancewatch/ESP-GlassHole), [Nearby Glasses](https://github.com/yjeanrenaud/yj_nearbyglasses)).
+* `0x058E` 및 `0x01AB`에 `META_RB_GLASS` 페이로드가 함께 일치할 때는 Quest VR 헤드셋과의 오탐을 배제하고 `HIGH`(1회 확정)로 판정하며([Hackster.io](https://www.hackster.io/kevin-loeffler/spectacle-a-smart-glasses-detecting-keychain-576576)), `0x0D53` 및 `0x060C`(Vuzix)는 안경 전문 제조사 ID이므로 추가 페이로드 없이도 `HIGH`로 판정합니다([Nearby Glasses](https://github.com/yjeanrenaud/yj_nearbyglasses)).
+* 중국계·글로벌·AR 스마트글래스 시그니처로 `Rokid AI Glasses`(Service UUID `00009100-...`), `Da Echo`(`0xFEA8` + Service Data `413149010000`), `TCL / RayNeo`(`0x0BC6`), `Meizu MYVU`(`0x03AB`, `DISPLAY_AR`), `Kopin / Solos`(`0x041F`), `North Focals`(`0x0562`, `DISPLAY_AR`), `Even Realities`(`0x10F9`, `DISPLAY_AR`), `Meta BLE Service`(`0xFD5F`), 그리고 기기명 접두사/패턴(`HeyCyan-`, `Even G`, `INMO`, `Monocle`, `XREAL`/`NREAL`, `Ray-Ban`, `Spectacles`, `Echo Frames`/`Focals`, `Rokid`/`Vuzix`/`RayNeo`/`Moverio`/`Solos`/`AirGo`)까지 총 25종을 내장했습니다([ESP-GlassHole](https://github.com/surveillancewatch/ESP-GlassHole), [Spectacle](https://github.com/kevinl95/Spectacle), [Nearby Glasses](https://github.com/yjeanrenaud/yj_nearbyglasses)).
 * `Xiaomi AI Glasses`(`0x038F`)는 샤오미 스마트폰·밴드·IoT 전 제품이 ID를 공유해 단독 매칭 시 오탐이 다발하므로 실기기 패킷(`Xiaomi` 전용 페이로드/서비스) 확보 후 추가 반영할 예정입니다([Bluetooth Assigned Numbers](https://www.bluetooth.com/wp-content/uploads/Files/Specification/Assigned_Numbers.pdf)).
-* **실물 하드웨어 검증 범위**: 내장 22종 시그니처는 공개 Bluetooth SIG/SDK 자료·커뮤니티 시그니처 및 Windows BLE 비콘 에뮬레이션(`SM-S948N` 실기기 E2E 검증)을 기준으로 구성되었으며, **모든 실물 스마트글래스 기종 및 모든 Android 제조사 단말에서 일일이 실측 테스트를 완료한 것은 아닙니다.** 펌웨어·지역·연결 상태에 따라 패킷 형식이 다를 수 있습니다.
+* **실물 하드웨어 검증 범위**: 내장 25종 시그니처는 공개 Bluetooth SIG/SDK 자료·커뮤니티 시그니처 및 Windows BLE 비콘 에뮬레이션(`SM-S948N` 실기기 E2E 검증)을 기준으로 구성되었으며, **모든 실물 스마트글래스 기종 및 모든 Android 제조사 단말에서 일일이 실측 테스트를 완료한 것은 아닙니다.** 펌웨어·지역·연결 상태에 따라 패킷 형식이 다를 수 있습니다.
 
 ### 3.2 `SignatureRepository.kt` 구현 명세
 
@@ -261,10 +261,10 @@ v1.0에서는 Wi-Fi 스캔을 제외하여 API 31+ 환경에서 `ACCESS_FINE_LOC
 ## 6. 테스트 및 검증 방법
 
 ### 6.1 자동화 테스트 (현행)
-* **JVM 유닛 테스트 (`./gradlew testDebugUnitTest`)**: 26건
-  * `BleSignalFilterTest` (14): 시그니처 매칭, Quest VR(`META_QUEST_3`) 배제, `Rokid`/`Vuzix`/`Da Echo`(`serviceDataHex`)/`HeyCyan-`·`Even G`·`XREAL` 기기명 매칭, `CAMERA`/`DISPLAY_AR` 카테고리 구분, EMA 스무딩 + 유연 N-of-M(HIGH 1 / MEDIUM 2 / LOW 3), 히스테리시스 이탈, 화이트리스트/쿨다운, Gate 스크리닝(`-55 dBm` / `CAUTION` / `ALERT` / `ALERT` 유지·리셋)
+* **JVM 유닛 테스트 (`./gradlew testDebugUnitTest`)**: 27건
+  * `BleSignalFilterTest` (15): 시그니처 매칭, Quest VR(`META_QUEST_3`) 배제, `0x01AB + META_RB_GLASS` 우선순위 상향, `Rokid`/`Vuzix`/`Da Echo`(`serviceDataHex`)/`Even Realities(0x10F9)`/`Monocle`/`HeyCyan-`·`Even G`·`XREAL` 매칭, `CAMERA`/`DISPLAY_AR` 카테고리 구분, EMA 스무딩 + 유연 N-of-M(HIGH 1 / MEDIUM 2 / LOW 3), 히스테리시스 이탈, 화이트리스트/쿨다운, Gate 스크리닝(`-55 dBm` / `CAUTION` / `ALERT` / `ALERT` 유지·리셋)
   * `ScanThrottleAndPermissionTest` (4): 6.5초 스로틀 가드, `BALANCED`/`LOW_POWER`/`LOW_LATENCY` 모드 분기, API 31+ 위치 권한 미요청, 포그라운드 이름 비필터 vs 백그라운드 `ScanFilter` 전환 검증
-  * `SignatureRepositoryTest` (4): 22종 JSON 파싱, `serviceDataHex`/`deviceName*`/`DISPLAY_AR` 파싱, Hex 정규화, DataStore 반응형 병합
+  * `SignatureRepositoryTest` (4): 25종 JSON 파싱, `serviceDataHex`/`deviceName*`/`DISPLAY_AR` 파싱, Hex 정규화, DataStore 반응형 병합
   * `DetectionLogPersistenceTest` (2): `files/detection_logs.json` 재시작 영속 복구 및 `[OBSERVED]`/`[ALERT]` 스로틀 로깅 검증
   * `WhitelistRepositoryTest` (2): RSSI·쿨다운·화이트리스트 영속화 및 커스텀 Hex ID 관리
 * **계측 UI 테스트 (`./gradlew connectedDebugAndroidTest`)**: 5건

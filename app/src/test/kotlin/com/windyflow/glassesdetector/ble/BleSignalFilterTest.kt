@@ -543,4 +543,79 @@ class BleSignalFilterTest {
     assertEquals("rayban_name", rayBanNameConfirmed.matchedSignature?.id)
     assertTrue(rayBanNameConfirmed.shouldNotify)
   }
+
+  @Test
+  fun spectacleConfigSignatures_prioritizeSpecificPayloadAndMatchEvenAndMonocle() {
+    val filter = BleSignalFilter()
+    val expanded =
+      signatures +
+        listOf(
+          BleSignature(
+            id = "meta_rayban_inc_confirmed",
+            companyId = "0x01AB",
+            label = "Ray-Ban Meta (Meta Platforms Inc)",
+            payloadAscii = "META_RB_GLASS",
+            baseConfidence = ConfidenceLevel.HIGH
+          ),
+          BleSignature(
+            id = "even_realities_company",
+            companyId = "0x10F9",
+            label = "Even Realities G1/G2",
+            category = GlassesCategory.DISPLAY_AR,
+            baseConfidence = ConfidenceLevel.MEDIUM
+          ),
+          BleSignature(
+            id = "brilliant_monocle",
+            companyId = null,
+            label = "Brilliant Labs (Monocle / Frame)",
+            deviceNamePrefix = "Monocle",
+            baseConfidence = ConfidenceLevel.MEDIUM
+          )
+        )
+
+    // 0x01AB + META_RB_GLASS promotes over generic 0x01AB LOW and confirms on 1st hit
+    val metaInc =
+      filter.process(
+        BleAdvertisement(
+          address = "66:77:88:99:AA:20",
+          rssi = -58,
+          manufacturerData = mapOf(0x01AB to "META_RB_GLASS".encodeToByteArray()),
+          timestampMs = 1_000L
+        ),
+        expanded,
+        entryThresholdDbm = -72
+      )
+    assertEquals("meta_rayban_inc_confirmed", metaInc.matchedSignature?.id)
+    assertTrue(metaInc.shouldNotify)
+
+    // Even Realities 0x10F9 classifies as DISPLAY_AR (2 obs)
+    val evenCompanyAdv =
+      BleAdvertisement(
+        address = "66:77:88:99:AA:21",
+        rssi = -58,
+        manufacturerData = mapOf(0x10F9 to byteArrayOf(0x01)),
+        timestampMs = 2_000L
+      )
+    assertFalse(filter.process(evenCompanyAdv, expanded, entryThresholdDbm = -72).shouldNotify)
+    val evenCompanyConfirmed =
+      filter.process(evenCompanyAdv.copy(timestampMs = 3_000L), expanded, entryThresholdDbm = -72)
+    assertEquals("even_realities_company", evenCompanyConfirmed.matchedSignature?.id)
+    assertEquals(GlassesCategory.DISPLAY_AR, evenCompanyConfirmed.matchedSignature?.category)
+    assertTrue(evenCompanyConfirmed.shouldNotify)
+
+    // Brilliant Labs Monocle prefix classifies as CAMERA (2 obs)
+    val monocleAdv =
+      BleAdvertisement(
+        address = "66:77:88:99:AA:22",
+        deviceName = "Monocle-AB12",
+        rssi = -58,
+        timestampMs = 4_000L
+      )
+    assertFalse(filter.process(monocleAdv, expanded, entryThresholdDbm = -72).shouldNotify)
+    val monocleConfirmed =
+      filter.process(monocleAdv.copy(timestampMs = 5_000L), expanded, entryThresholdDbm = -72)
+    assertEquals("brilliant_monocle", monocleConfirmed.matchedSignature?.id)
+    assertEquals(GlassesCategory.CAMERA, monocleConfirmed.matchedSignature?.category)
+    assertTrue(monocleConfirmed.shouldNotify)
+  }
 }

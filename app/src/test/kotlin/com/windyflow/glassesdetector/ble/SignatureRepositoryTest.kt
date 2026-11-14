@@ -28,7 +28,7 @@ class SignatureRepositoryTest {
 
     val db = SignatureJsonParser.parse(raw)
     assertEquals(1, db.version)
-    assertEquals(22, db.signatures.size)
+    assertEquals(25, db.signatures.size)
 
     val rayBan = db.signatures.first { it.id == "meta_rayban_tech" }
     assertEquals(0x058E, rayBan.companyIdInt())
@@ -57,6 +57,11 @@ class SignatureRepositoryTest {
     val metaGeneral = db.signatures.first { it.id == "meta_platforms_general" }
     assertEquals(0x01AB, metaGeneral.companyIdInt())
     assertEquals(3, metaGeneral.requiredObservations())
+
+    val metaIncConfirmed = db.signatures.first { it.id == "meta_rayban_inc_confirmed" }
+    assertEquals(0x01AB, metaIncConfirmed.companyIdInt())
+    assertEquals("META_RB_GLASS", metaIncConfirmed.payloadAscii)
+    assertEquals(ConfidenceLevel.HIGH, metaIncConfirmed.baseConfidence)
 
     val heyCyan = db.signatures.first { it.id == "heycyan_sdk" }
     assertNull(heyCyan.companyIdInt())
@@ -92,10 +97,19 @@ class SignatureRepositoryTest {
 
     val brandNames = db.signatures.first { it.id == "glasses_brand_names" }
     assertTrue(brandNames.deviceNamePatterns.orEmpty().contains("Rokid"))
+    assertTrue(brandNames.deviceNamePatterns.orEmpty().contains("AirGo"))
     assertEquals(GlassesCategory.CAMERA, brandNames.category)
+
+    val evenCompany = db.signatures.first { it.id == "even_realities_company" }
+    assertEquals(0x10F9, evenCompany.companyIdInt())
+    assertEquals(GlassesCategory.DISPLAY_AR, evenCompany.category)
 
     val evenRealities = db.signatures.first { it.id == "even_realities_name" }
     assertEquals(GlassesCategory.DISPLAY_AR, evenRealities.category)
+
+    val brilliantMonocle = db.signatures.first { it.id == "brilliant_monocle" }
+    assertEquals("Monocle", brilliantMonocle.deviceNamePrefix)
+    assertEquals(GlassesCategory.CAMERA, brilliantMonocle.category)
 
     val xreal = db.signatures.first { it.id == "xreal_name" }
     assertEquals(GlassesCategory.DISPLAY_AR, xreal.category)
