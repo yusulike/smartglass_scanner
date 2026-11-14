@@ -185,3 +185,4 @@
 * [kevinl95/Spectacle](https://github.com/kevinl95/Spectacle) — M5Stack StickS3 기반 스마트글래스 탐지 키체인 (`data/config.json` 시그니처 구성 참고)
 * [yjeanrenaud/yj_nearbyglasses](https://github.com/yjeanrenaud/yj_nearbyglasses) — BLE 기반 주변 스마트글래스 근접 탐지 안드로이드 프로젝트 (제조사 ID 및 탐지 임계 기준 참고)
 * [surveillancewatch/ESP-GlassHole](https://github.com/surveillancewatch/ESP-GlassHole) — ESP 기반 스마트글래스 BLE 시그니처 탐지 레퍼런스 (중국계·AR 모델 및 기기명 패턴 참고)
+* [alextangson/echolens](https://github.com/alextangson/echolens) ([S0-CHECKLIST.md](https://github.com/alextangson/echolens/blob/main/S0-CHECKLIST.md)) — Rokid Glasses 실기기 검증 문서 (Service UUID `00009100-0000-1000-8000-00805f9b34fb` 스캔 및 페어링 후 BLE 광고 특성 참고)
