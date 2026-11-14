@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-14T19:07:00+09:00",
+  "title": "Design System: Daylight Signal Bench",
+  "extensions": {
+    "colorMeta": {
+      "ground": {
+        "role": "neutral",
+        "displayName": "Mineral Ground",
+        "canonical": "oklch(96.9% 0.004 115)",
+        "tonalRamp": ["#191b18", "#323530", "#4d524a", "#6d7369", "#8f968a", "#b4bab0", "#d7dbd3", "#f5f6f3"]
+      },
+      "bench": {
+        "role": "neutral",
+        "displayName": "Calibrated Bench",
+        "canonical": "oklch(94.4% 0.006 115)",
+        "tonalRamp": ["#171915", "#2f332c", "#4b5046", "#6a7064", "#8c9385", "#b1b8aa", "#d3d8cd", "#eceee8"]
+      },
+      "plate": {
+        "role": "neutral",
+        "displayName": "Inspection Plate",
+        "canonical": "oklch(100% 0 0)",
+        "tonalRamp": ["#1a1a1a", "#383838", "#585858", "#787878", "#9a9a9a", "#bdbdbd", "#dfdfdf", "#ffffff"]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Carbon Ink",
+        "canonical": "oklch(21% 0.012 240)",
+        "tonalRamp": ["#14191e", "#2b333b", "#454f5a", "#626d7a", "#838e9b", "#a8b1bc", "#cdd3da", "#eef1f4"]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Slate Muted",
+        "canonical": "oklch(43% 0.016 230)",
+        "tonalRamp": ["#1a2024", "#303940", "#475259", "#647078", "#849098", "#a8b2b8", "#ccd3d7", "#edf0f2"]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline Rule",
+        "canonical": "oklch(87.5% 0.01 120)",
+        "tonalRamp": ["#1a1d18", "#33382f", "#50564a", "#6f7668", "#91998a", "#b5bcb0", "#d4d8cf", "#f0f2ee"]
+      },
+      "line-strong": {
+        "role": "neutral",
+        "displayName": "Control Border",
+        "canonical": "oklch(70.5% 0.016 125)",
+        "tonalRamp": ["#161a14", "#2e352b", "#495244", "#687262", "#889382", "#9ca598", "#cbd1c8", "#ecefed"]
+      },
+      "emerald": {
+        "role": "primary",
+        "displayName": "Signal Emerald",
+        "canonical": "oklch(47.5% 0.115 162)",
+        "tonalRamp": ["#05261b", "#07422f", "#0b6e4f", "#1e8b69", "#44a889", "#77c5ac", "#b2e0d0", "#e7f4ee"]
+      },
+      "emerald-tint": {
+        "role": "primary",
+        "displayName": "Signal Emerald Tint",
+        "canonical": "oklch(94.5% 0.025 162)",
+        "tonalRamp": ["#0a241a", "#184231", "#2a634c", "#42846a", "#64a58b", "#92c5b0", "#c2e0d3", "#e7f4ee"]
+      },
+      "amber": {
+        "role": "secondary",
+        "displayName": "Gate Amber",
+        "canonical": "oklch(49.5% 0.125 60)",
+        "tonalRamp": ["#321800", "#552900", "#763900", "#964a00", "#b66820", "#d28f52", "#e8be96", "#fbf0df"]
+      },
+      "amber-tint": {
+        "role": "secondary",
+        "displayName": "Gate Amber Tint",
+        "canonical": "oklch(95.5% 0.028 75)",
+        "tonalRamp": ["#2d1d06", "#4d3512", "#6e4e20", "#906b36", "#b28c56", "#cfb083", "#e8d2b2", "#fbf0df"]
+      },
+      "red": {
+        "role": "tertiary",
+        "displayName": "Alert Red",
+        "canonical": "oklch(46.5% 0.165 28)",
+        "tonalRamp": ["#370a07", "#5c110c", "#811a13", "#a6231a", "#c5453c", "#dc766e", "#eeb2ad", "#fceceb"]
+      },
+      "red-tint": {
+        "role": "tertiary",
+        "displayName": "Alert Red Tint",
+        "canonical": "oklch(94.5% 0.02 25)",
+        "tonalRamp": ["#33110f", "#54221f", "#763834", "#99534e", "#ba746f", "#d79d99", "#ecc7c4", "#fceceb"]
+      },
+      "cobalt": {
+        "role": "primary",
+        "displayName": "Optical Cobalt",
+        "canonical": "oklch(42.5% 0.14 256)",
+        "tonalRamp": ["#061634", "#0c285a", "#113a80", "#154c9b", "#3a6eb9", "#6994d0", "#a6c1e7", "#e6eef9"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display Headline",
+        "purpose": "Primary Korean and English landing page headlines only."
+      },
+      "heading": {
+        "displayName": "Section Heading",
+        "purpose": "Major band openers and policy document titles."
+      },
+      "body": {
+        "displayName": "Reading Copy",
+        "purpose": "Explanatory copy, policy clauses, and caption paragraphs with keep-all Korean wrapping."
+      },
+      "mono-label": {
+        "displayName": "Telemetry & Identifier",
+        "purpose": "Tabular dBm values, hex Company IDs, FIG. codes, package names, and Android permissions."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "reduced-motion-fallback",
+        "value": "scroll-behavior: auto under prefers-reduced-motion: reduce",
+        "purpose": "Disables smooth anchor scrolling when reduced motion is requested."
+      }
+    ],
+    "breakpoints": [
+      { "name": "tablet", "value": "1040px" },
+      { "name": "doc-collapse", "value": "900px" },
+      { "name": "mobile", "value": "640px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Solid Primary Action",
+      "kind": "button",
+      "refersTo": "button-solid",
+      "description": "Sharp-cornered carbon CTA anchoring primary navigation to screen captures.",
+      "html": "<a href=\"#screens\" class=\"ds-btn-solid\">실제 앱 화면 4장 보기</a>",
+      "css": ".ds-btn-solid { display: inline-flex; align-items: center; background: #14191e; color: #f5f6f3; padding: 13px 22px; border: 1px solid #14191e; font-family: 'Noto Sans KR', sans-serif; font-size: 14px; font-weight: 700; text-decoration: none; cursor: pointer; } .ds-btn-solid:hover { background: #273038; border-color: #273038; } .ds-btn-solid:focus-visible { outline: 2px solid #154c9b; outline-offset: 2px; }"
+    },
+    {
+      "name": "Outline Secondary Action",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Hairline-bordered plate action for secondary documentation links.",
+      "html": "<a href=\"privacy.html\" class=\"ds-btn-outline\">개인정보처리방침 확인</a>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; background: #ffffff; color: #14191e; padding: 13px 20px; border: 1px solid #9ca598; font-family: 'Noto Sans KR', sans-serif; font-size: 14px; font-weight: 600; text-decoration: none; cursor: pointer; } .ds-btn-outline:hover { background: #f5f6f3; border-color: #14191e; } .ds-btn-outline:focus-visible { outline: 2px solid #154c9b; outline-offset: 2px; }"
+    },
+    {
+      "name": "Bilingual KR/EN Switcher",
+      "kind": "nav",
+      "refersTo": "lang-switch",
+      "description": "Pinned two-state language toggle switching all copy between Korean and English.",
+      "html": "<div class=\"ds-lang-switch\" role=\"group\" aria-label=\"Language toggle\"><button type=\"button\" class=\"ds-lang-btn\" aria-pressed=\"true\">KR</button><button type=\"button\" class=\"ds-lang-btn\" aria-pressed=\"false\">EN</button></div>",
+      "css": ".ds-lang-switch { display: inline-flex; border: 1px solid #14191e; background: #ffffff; } .ds-lang-btn { appearance: none; border: 0; background: transparent; color: #14191e; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; padding: 6px 11px; cursor: pointer; } .ds-lang-btn[aria-pressed='true'] { background: #14191e; color: #f5f6f3; } .ds-lang-btn:focus-visible { outline: 2px solid #154c9b; outline-offset: 2px; }"
+    },
+    {
+      "name": "Gate Trigger Badge",
+      "kind": "chip",
+      "refersTo": "gate-badge",
+      "description": "Calibrated RF proximity state label mapped directly to Guard, Near, and Gate tiers.",
+      "html": "<span class=\"ds-gate-badge\">-52 dBm · GATE RED</span>",
+      "css": ".ds-gate-badge { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; padding: 3px 8px; border: 1px solid #a6231a; background: #fceceb; color: #a6231a; font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Perimeter Notice Banner",
+      "kind": "card",
+      "refersTo": "callout-notice",
+      "description": "1px perimeter hairline callout for physical detection limits and developer contact.",
+      "html": "<div class=\"ds-notice\"><strong>탐지 한계 고지:</strong> 이미 스마트폰과 연결되어 BLE 광고를 중단한 기기는 탐지되지 않을 수 있습니다.</div>",
+      "css": ".ds-notice { padding: 14px 16px; border: 1px solid #964a00; background: #fbf0df; color: #14191e; font-family: 'Noto Sans KR', sans-serif; font-size: 14px; line-height: 1.6; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Daylight Signal Bench",
+    "overview": "The Smart Glasses Detector web presence (docs/index.html and docs/privacy.html) replaces dark-glow software cliches with a bright, unhurried hardware inspection sheet (#f5f6f3 mineral paper over crisp #ffffff plates and #eceee8 calibrated workspace bays). Every claim is anchored to verifiable on-device facts—0 B network transmission, Android 12+ neverForLocation operation, interactive -90 to -30 dBm Gate proximity simulation (-55 dBm trigger), and actual Android screenshots displayed as numbered archival plates.",
+    "keyCharacteristics": [
+      "High-legibility daylight mineral ground (#f5f6f3) paired with carbon ink (#14191e) and strict 1px perimeter hairlines (#d4d8cf).",
+      "Clean typographic separation between Korean/English reading prose (Noto Sans KR) and tabular telemetry, hex signatures, and Android permission constants (JetBrains Mono).",
+      "Flat elevation hierarchy using surface tonal shifts (#ffffff / #f5f6f3 / #eceee8) and hairline compartments instead of drop shadows or blur glass."
+    ],
+    "rules": [
+      {
+        "name": "The Flat Ledger Rule",
+        "body": "Boundaries, status bays, and data matrices are always drawn with crisp 1px structural borders and muted mineral surface shifts rather than soft shadows, blur halos, or multi-pixel left stripe accents.",
+        "section": "overview"
+      },
+      {
+        "name": "The Signal Semantic Rule",
+        "body": "Never apply emerald, amber, or red purely for decorative branding; reserve those hues strictly for RF proximity tiers (GUARD, AMBER, GATE RED), privacy verification highlights, and high-visibility limit callouts.",
+        "section": "colors"
+      },
+      {
+        "name": "The Script Integrity Rule",
+        "body": "Never set Korean headings, table headers, or buttons in monospace fallback fonts; keep every Hangul phrase in Noto Sans KR and restrict JetBrains Mono strictly to identifiers, hex literals, and English telemetry labels.",
+        "section": "typography"
+      }
+    ],
+    "dos": [
+      "Do keep word-break: keep-all on Korean headings and body text so multi-syllable words never split awkwardly mid-line.",
+      "Do place figure codes (FIG. 01–04) strictly below headings as plate sub-labels rather than floating kickers above headlines.",
+      "Do align simulated threshold markers and percentage track boundaries directly to exact dBm values (58.33% for -55 dBm inside -90..-30 dBm)."
+    ],
+    "donts": [
+      "Don't place mini uppercase kickers or eyebrows directly above <h1>, <h2>, or <h3> headings.",
+      "Don't use drop shadows, glassmorphism blur, neon-on-dark gradients, or 2px–4px left accent border stripes (border-left) on callouts or navigation items.",
+      "Don't organize features or screenshots into padded 2x2 equal cards with leftover blank vertical voids inside each cell."
+    ]
+  }
+}

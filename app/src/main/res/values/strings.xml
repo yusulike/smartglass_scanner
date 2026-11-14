@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Smart Glasses Detector</string>
+
+    <!-- Confidence levels -->
+    <string name="confidence_high">High</string>
+    <string name="confidence_medium">Medium</string>
+    <string name="confidence_low">Low</string>
+    <string name="confidence_badge_high">High (HIGH)</string>
+    <string name="confidence_badge_medium">Medium (MEDIUM)</string>
+    <string name="confidence_badge_low">Low (LOW)</string>
+    <string name="category_camera">Camera-equipped</string>
+    <string name="category_display_ar">Display/Audio (No Camera)</string>
+    <string name="unknown_error">Unknown error</string>
+
+    <!-- Main Screen -->
+    <string name="action_gate_screening">Gate Check</string>
+    <string name="cd_open_settings">Settings and signature management</string>
+    <string name="banner_disclaimer">Alerts indicate nearby BLE advertisements matching smart-glasses signatures and cannot confirm active recording or identify the wearer.\nDevices already paired and actively connected to a smartphone may stop BLE advertising and may not be detected.</string>
+    <string name="scan_card_title">Proximity BLE Detection</string>
+    <string name="scan_card_desc">Analyzes BLE advertising packets locally without location permission and switches to balanced mode while on screen.</string>
+    <string name="status_stopped">Scan stopped</string>
+    <string name="status_foreground_balanced">Foreground scan · Balanced</string>
+    <string name="status_background_low_power">Background scan · Low Power</string>
+    <string name="status_waiting">Waiting to scan</string>
+    <string name="warning_no_ble_title">Bluetooth LE not supported</string>
+    <string name="warning_no_ble_body">BLE hardware was not found on this device, so scanning cannot start.</string>
+    <string name="warning_scan_status_title">Scan status notice</string>
+    <string name="permission_missing_title">BLE scan permission required</string>
+    <string name="permission_missing_body">On Android 12+, the app works with Nearby Devices (Bluetooth) permission alone without location access. If denied, please enable it in app settings.</string>
+    <string name="action_request_permission">Request Permission</string>
+    <string name="action_app_settings">App Settings</string>
+    <string name="notification_permission_title">Notification permission denied</string>
+    <string name="notification_permission_body">Scanning still works, but status bar notifications and proximity alerts will not be shown.</string>
+    <string name="action_allow">Allow</string>
+    <string name="bluetooth_disabled_title">Bluetooth is turned off</string>
+    <string name="bluetooth_disabled_body">Turn on Bluetooth on your device to start BLE scanning.</string>
+    <string name="action_turn_on">Turn On</string>
+    <string name="detected_list_header">Detected Nearby Devices</string>
+    <string name="detected_device_count">%1$d detected</string>
+    <string name="empty_scanning_title">Scanning for nearby BLE signals…</string>
+    <string name="empty_stopped_title">Scanning is stopped</string>
+    <string name="empty_scanning_body">Matching smart-glasses signatures that meet your thresholds will appear here.</string>
+    <string name="empty_stopped_body">Turn on the switch above to start proximity detection via foreground service.</string>
+    <string name="chip_alert_active">Alert Active</string>
+    <string name="chip_weak_signal">Weak Signal</string>
+    <string name="device_name_label">Name: %1$s</string>
+    <string name="device_id_label">ID: %1$s</string>
+    <string name="device_company_id_label">Company ID: %1$s</string>
+    <string name="device_rssi_format">Smoothed RSSI: %1$.1f dBm (raw %2$d dBm)</string>
+    <plurals name="device_observations_format">
+        <item quantity="one">%1$d hit in window · Last seen %2$s</item>
+        <item quantity="other">%1$d hits in window · Last seen %2$s</item>
+    </plurals>
+    <string name="action_ignore">Ignore</string>
+
+    <!-- Gate Screening Screen -->
+    <string name="gate_title">Exam Gate Screening</string>
+    <string name="cd_back_to_main">Back to normal mode</string>
+    <string name="gate_clear_title">Clear to Enter (CLEAR)</string>
+    <string name="gate_clear_subtitle">No close-range (-55 dBm+) smart-glasses signatures detected</string>
+    <string name="gate_caution_title">Visual Check Recommended (CAUTION)</string>
+    <string name="gate_caution_subtitle">Shared/generic manufacturer BLE ID detected nearby</string>
+    <string name="gate_alert_title">Smart Glasses Detected (ALERT)</string>
+    <string name="gate_alert_subtitle">High-confidence smart-glasses signature detected within 1 m</string>
+    <string name="gate_mode_permission_needed">No Permission</string>
+    <string name="gate_mode_bt_off">BT Off</string>
+    <string name="gate_mode_waiting">Standby</string>
+    <string name="gate_banner_notice">Devices already paired to a smartphone may stop emitting BLE signals; please also visually inspect temple thickness and lenses.</string>
+    <string name="gate_permission_needed">BLE scan permission is required to start screening.</string>
+    <string name="action_grant_permission">Grant Permission</string>
+    <string name="action_next_examinee">Next Examinee (Reset)</string>
+    <string name="gate_prompt_hold_near">Hold device near examinee\'s glasses (0.5–1 m)</string>
+    <string name="gate_threshold_hint">Threshold: -55 dBm or stronger · Silent vibration mode</string>
+    <string name="gate_device_meta_format">Confidence %1$s · %2$s · %3$s</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Settings &amp; Signatures</string>
+    <string name="cd_back">Navigate back</string>
+    <string name="settings_section_appearance">Appearance &amp; Skin</string>
+    <string name="settings_theme_mode_label">Theme Mode</string>
+    <string name="settings_skin_label">Color Skin</string>
+    <string name="theme_mode_system">System</string>
+    <string name="theme_mode_light">Light</string>
+    <string name="theme_mode_dark">Dark</string>
+    <string name="skin_ocean_blue">Ocean Blue</string>
+    <string name="skin_emerald">Emerald</string>
+    <string name="skin_amethyst">Amethyst</string>
+    <string name="skin_amber_guard">Amber Guard</string>
+    <string name="skin_monochrome">Stealth Mono</string>
+    <string name="skin_dynamic">Material You</string>
+    <string name="settings_section_sensitivity">Detection Sensitivity &amp; Cooldown</string>
+    <string name="settings_rssi_entry_label">RSSI Entry Threshold</string>
+    <string name="settings_rssi_hysteresis_desc">Exit threshold is automatically set below %1$d dBm with %2$d dB hysteresis.</string>
+    <string name="settings_cooldown_label">Duplicate Alert Cooldown</string>
+    <string name="settings_cooldown_value">%1$d sec</string>
+    <string name="settings_section_custom_hex">Custom Hex Company ID</string>
+    <string name="settings_custom_hex_desc">Add a Bluetooth SIG Manufacturer ID (1–4 hex digits, optional 0x prefix) to automatically update active scanner filters.</string>
+    <string name="settings_custom_hex_input_label">Company ID (e.g. 0x058E or 058E)</string>
+    <string name="settings_custom_hex_hint">Hex digits from 0000 to FFFF</string>
+    <string name="settings_custom_hex_preview">Normalized preview: %1$s</string>
+    <string name="settings_custom_hex_error">Only 1–4 hex digits in 0x0000–0xFFFF are allowed</string>
+    <string name="action_add">Add</string>
+    <string name="settings_custom_hex_empty">No custom Hex IDs registered.</string>
+    <string name="cd_remove_hex">Remove %1$s</string>
+    <string name="settings_section_bundled">Built-in Signatures (%1$d)</string>
+    <plurals name="settings_sig_detail_format">
+        <item quantity="one">%1$s%2$s · Confirmed after %3$d hit</item>
+        <item quantity="other">%1$s%2$s · Confirmed after %3$d hits</item>
+    </plurals>
+    <string name="settings_section_whitelist">Ignored Devices (Whitelist · %1$d)</string>
+    <string name="settings_whitelist_empty">No ignored devices. Tap Ignore on a detected device card to add one.</string>
+    <string name="cd_remove_whitelist">Remove %1$s from whitelist</string>
+    <string name="settings_section_logs">Local Detection Logs &amp; Privacy</string>
+    <string name="settings_logs_desc">Persisted on-device detection logs: %1$d (includes [ALERT] &amp; [OBSERVED]). All BLE MAC addresses and manufacturer IDs are processed strictly on-device and never uploaded.</string>
+    <string name="action_export_logs">Export .txt Log</string>
+    <string name="action_clear">Clear</string>
+    <string name="error_open_file">Unable to open file.</string>
+    <string name="feedback_export_success">Detection logs saved to .txt file.</string>
+    <string name="feedback_export_failed">Export failed: %1$s</string>
+    <string name="feedback_custom_hex_added">Added custom signature %1$s.</string>
+    <string name="feedback_custom_hex_removed">Removed signature %1$s.</string>
+    <string name="feedback_logs_cleared">Cleared local detection logs.</string>
+    <string name="error_invalid_hex_company_id">Only 1–4 hex digits in 0000–FFFF are allowed.</string>
+
+    <!-- Foreground Service & Notifications -->
+    <string name="service_status_bt_off">Paused (Bluetooth is off)</string>
+    <string name="service_error_bt_off">Scanning will resume once Bluetooth is turned on.</string>
+    <string name="service_error_permission_denied">Cannot start service because BLE scan permission was denied.</string>
+    <string name="service_error_fgs_permission">Missing foreground service permission.</string>
+    <string name="service_status_preparing">Preparing scan…</string>
+    <string name="service_status_gate">Gate screening (Low Latency)</string>
+    <string name="service_status_balanced">Scanning (On-screen · Balanced)</string>
+    <string name="service_status_low_power">Scanning (Background · Low Power)</string>
+    <string name="service_status_standby">Scan standby</string>
+    <string name="channel_ongoing_name">BLE Background Scan Status</string>
+    <string name="channel_ongoing_desc">Persistent notification while smart-glasses proximity scanning is running</string>
+    <string name="channel_alerts_name">Smart Glasses Proximity Alerts</string>
+    <string name="channel_alerts_desc">Alerts when a smart-glasses BLE signature is detected nearby</string>
+    <string name="notif_ongoing_bt_waiting">Waiting for Bluetooth · Tap to check status</string>
+    <string name="notif_ongoing_gate">Exam gate screening active (Low Latency)</string>
+    <string name="notif_ongoing_balanced">Scanning nearby smart-glasses BLE (Balanced)</string>
+    <string name="notif_ongoing_low_power">Scanning nearby smart-glasses BLE (Low Power)</string>
+    <string name="action_stop_scan">Stop Scan</string>
+    <string name="notif_alert_title">[%1$s] %2$s detected</string>
+    <string name="notif_alert_text">Signal %1$.0f dBm · Camera-capable model; active recording cannot be verified.</string>
+    <string name="notif_alert_text_display_ar">Signal %1$.0f dBm · Display/Audio smart glasses (no camera).</string>
+
+    <!-- BLE Scanner errors -->
+    <string name="scanner_error_no_signatures">No active signatures configured.</string>
+    <string name="scanner_error_no_ble">Bluetooth LE is not supported on this device.</string>
+    <string name="scanner_reason_no_ble">Bluetooth LE unsupported</string>
+    <string name="scanner_error_bt_disabled">Bluetooth is turned off.</string>
+    <string name="scanner_reason_bt_disabled">Bluetooth disabled</string>
+    <string name="scanner_error_no_scanner">BLE scanner is unavailable.</string>
+    <string name="scanner_error_no_filters">Unable to build valid BLE ScanFilters.</string>
+    <string name="scanner_reason_no_filters">No valid ScanFilter</string>
+    <string name="scanner_error_permission">BLE scan permission required.</string>
+    <string name="scanner_error_start_failed">Failed to start BLE scan: %1$s</string>
+    <string name="scanner_error_scan_failed">BLE scan error (%1$d): %2$s</string>
+    <string name="scan_fail_already_started">BLE scan is already running.</string>
+    <string name="scan_fail_app_reg_failed">App scan registration failed. Toggle Bluetooth off and on.</string>
+    <string name="scan_fail_internal_error">Internal BLE system scan error.</string>
+    <string name="scan_fail_unsupported">Device does not support requested BLE scan feature.</string>
+    <string name="scan_fail_too_frequently">Scan restarts throttled due to excessive frequency (SCAN_FAILED_SCANNING_TOO_FREQUENTLY).</string>
+    <string name="scan_fail_unknown">Unknown scan error</string>
+</resources>

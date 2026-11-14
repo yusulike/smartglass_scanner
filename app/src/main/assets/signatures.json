@@ -1,0 +1,195 @@
+{
+  "version": 1,
+  "signatures": [
+    {
+      "id": "meta_rayban_tech",
+      "companyId": "0x058E",
+      "label": "Ray-Ban Meta (Meta Platforms Tech)",
+      "payloadAscii": "META_RB_GLASS",
+      "serviceUuid": null,
+      "baseConfidence": "HIGH"
+    },
+    {
+      "id": "luxottica_rayban",
+      "companyId": "0x0D53",
+      "label": "Ray-Ban Meta Frame (Luxottica)",
+      "payloadAscii": null,
+      "serviceUuid": null,
+      "baseConfidence": "HIGH"
+    },
+    {
+      "id": "meta_platforms_general",
+      "companyId": "0x01AB",
+      "label": "Meta Platforms Device",
+      "payloadAscii": null,
+      "serviceUuid": null,
+      "baseConfidence": "LOW"
+    },
+    {
+      "id": "snap_spectacles",
+      "companyId": "0x03C2",
+      "label": "Snap Spectacles",
+      "payloadAscii": null,
+      "serviceUuid": null,
+      "baseConfidence": "MEDIUM"
+    },
+    {
+      "id": "tcl_rayneo",
+      "companyId": "0x0BC6",
+      "label": "TCL / RayNeo Smart Glasses",
+      "payloadAscii": null,
+      "serviceUuid": null,
+      "baseConfidence": "MEDIUM"
+    },
+    {
+      "id": "meizu_myvu",
+      "companyId": "0x03AB",
+      "label": "Meizu MYVU AR Glasses",
+      "payloadAscii": null,
+      "serviceUuid": null,
+      "category": "DISPLAY_AR",
+      "baseConfidence": "MEDIUM"
+    },
+    {
+      "id": "zhuhai_jieli",
+      "companyId": "0x05D6",
+      "label": "Zhuhai Jieli Chipset Glasses",
+      "payloadAscii": null,
+      "serviceUuid": null,
+      "baseConfidence": "LOW"
+    },
+    {
+      "id": "heycyan_sdk",
+      "companyId": null,
+      "label": "HeyCyan SDK Smart Glasses",
+      "payloadAscii": null,
+      "serviceUuid": "7905FFF0-B5CE-4E99-A40F-4B1E122D00D0",
+      "baseConfidence": "HIGH"
+    },
+    {
+      "id": "rokid_ai_glasses",
+      "companyId": null,
+      "label": "Rokid AI Glasses",
+      "payloadAscii": null,
+      "serviceUuid": "00009100-0000-1000-8000-00805F9B34FB",
+      "baseConfidence": "HIGH"
+    },
+    {
+      "id": "da_echo_glasses",
+      "companyId": null,
+      "label": "Da Echo Smart Glasses",
+      "payloadAscii": null,
+      "serviceUuid": "0000FEA8-0000-1000-8000-00805F9B34FB",
+      "serviceDataHex": "413149010000",
+      "baseConfidence": "HIGH"
+    },
+    {
+      "id": "heycyan_name_prefix",
+      "companyId": null,
+      "label": "HeyCyan Smart Glasses (Name Prefix)",
+      "payloadAscii": null,
+      "serviceUuid": null,
+      "deviceNamePrefix": "HeyCyan-",
+      "baseConfidence": "MEDIUM"
+    },
+    {
+      "id": "vuzix_corp",
+      "companyId": "0x060C",
+      "label": "Vuzix Smart Glasses",
+      "payloadAscii": null,
+      "serviceUuid": null,
+      "baseConfidence": "HIGH"
+    },
+    {
+      "id": "kopin_solos",
+      "companyId": "0x041F",
+      "label": "Kopin / Solos Smart Glasses",
+      "payloadAscii": null,
+      "serviceUuid": null,
+      "baseConfidence": "MEDIUM"
+    },
+    {
+      "id": "north_focals",
+      "companyId": "0x0562",
+      "label": "Thalmic Labs / North Focals",
+      "payloadAscii": null,
+      "serviceUuid": null,
+      "category": "DISPLAY_AR",
+      "baseConfidence": "MEDIUM"
+    },
+    {
+      "id": "meta_ble_service",
+      "companyId": null,
+      "label": "Meta BLE Service (Ray-Ban / Quest)",
+      "payloadAscii": null,
+      "serviceUuid": "0000FD5F-0000-1000-8000-00805F9B34FB",
+      "baseConfidence": "MEDIUM"
+    },
+    {
+      "id": "rayban_name",
+      "companyId": null,
+      "label": "Ray-Ban Meta (Device Name)",
+      "payloadAscii": null,
+      "serviceUuid": null,
+      "deviceNamePatterns": ["Ray-Ban", "RayBan", "Ray Ban", "META_RB"],
+      "baseConfidence": "MEDIUM"
+    },
+    {
+      "id": "spectacles_name",
+      "companyId": null,
+      "label": "Snap Spectacles (Device Name)",
+      "payloadAscii": null,
+      "serviceUuid": null,
+      "deviceNamePrefix": "Spectacles",
+      "baseConfidence": "MEDIUM"
+    },
+    {
+      "id": "even_realities_name",
+      "companyId": null,
+      "label": "Even Realities Smart Glasses (Name)",
+      "payloadAscii": null,
+      "serviceUuid": null,
+      "deviceNamePrefix": "Even G",
+      "category": "DISPLAY_AR",
+      "baseConfidence": "MEDIUM"
+    },
+    {
+      "id": "inmo_ar_name",
+      "companyId": null,
+      "label": "INMO AR Glasses (Name)",
+      "payloadAscii": null,
+      "serviceUuid": null,
+      "deviceNamePrefix": "INMO",
+      "baseConfidence": "MEDIUM"
+    },
+    {
+      "id": "xreal_name",
+      "companyId": null,
+      "label": "XREAL / Nreal AR Glasses (Name)",
+      "payloadAscii": null,
+      "serviceUuid": null,
+      "deviceNamePatterns": ["XREAL", "NREAL"],
+      "category": "DISPLAY_AR",
+      "baseConfidence": "MEDIUM"
+    },
+    {
+      "id": "echo_frames_focals_name",
+      "companyId": null,
+      "label": "Echo Frames / Focals (Device Name)",
+      "payloadAscii": null,
+      "serviceUuid": null,
+      "deviceNamePatterns": ["Echo Frames", "Focals"],
+      "category": "DISPLAY_AR",
+      "baseConfidence": "MEDIUM"
+    },
+    {
+      "id": "glasses_brand_names",
+      "companyId": null,
+      "label": "Smart Glasses (Device Name Pattern)",
+      "payloadAscii": null,
+      "serviceUuid": null,
+      "deviceNamePatterns": ["Rokid", "Vuzix", "RayNeo", "Moverio", "Solos"],
+      "baseConfidence": "MEDIUM"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Standard Clean App Page — Smart Glasses Detector</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1440px; height: 900px; overflow: hidden;
+    background: #ffffff; color: #111827;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  nav { height: 72px; max-width: 1160px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e5e7eb; }
+  .hero { max-width: 1160px; margin: 72px auto 0; display: grid; grid-template-columns: 1fr 340px; gap: 64px; align-items: center; }
+  h1 { font-size: 46px; line-height: 1.22; font-weight: 700; }
+  p { margin-top: 18px; font-size: 18px; line-height: 1.7; color: #4b5563; }
+  .btns { margin-top: 28px; display: flex; gap: 12px; }
+  .b1 { background: #2563eb; color: #ffffff; padding: 14px 24px; border-radius: 8px; text-decoration: none; font-weight: 700; }
+  .b2 { border: 1px solid #d1d5db; color: #111827; padding: 14px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; }
+  .phone { border: 1px solid #d1d5db; border-radius: 28px; height: 560px; background: #f9fafb; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; }
+  .grid3 { max-width: 1160px; margin: 56px auto 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .box { border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; }
+</style>
+</head>
+<body>
+  <nav><strong>Smart Glasses Detector</strong><span style="color:#4b5563;font-size:14px;">기능 소개 · 개인정보처리방침 · KR/EN</span></nav>
+  <section class="hero">
+    <div>
+      <h1>스마트 안경 BLE 신호를 기기 안에서 바로 탐지하세요</h1>
+      <p>Android 8.0 이상 기기에서 서버 연결과 위치 권한(Android 12+) 없이 주변 스마트 안경의 블루투스 광고를 감시합니다.</p>
+      <div class="btns">
+        <a class="b1" href="#screens">스크린샷 보기</a>
+        <a class="b2" href="privacy.html">개인정보처리방침</a>
+      </div>
+      <div class="grid3">
+        <div class="box"><strong>Background Guard</strong><p style="font-size:14px;margin-top:6px;">저전력 상시 감시 및 알림</p></div>
+        <div class="box"><strong>Gate Mode</strong><p style="font-size:14px;margin-top:6px;">-55 dBm 근접 무음 진동</p></div>
+        <div class="box"><strong>100% 온디바이스</strong><p style="font-size:14px;margin-top:6px;">외부 서버 전송 없음</p></div>
+      </div>
+    </div>
+    <div class="phone">
+      <strong>Dashboard</strong>
+      <div style="text-align:center;color:#2563eb;font-weight:700;">Radar Scanning Active</div>
+      <div style="font-size:13px;color:#4b5563;">이미 연결되어 광고를 중단한 기기는 탐지되지 않을 수 있습니다.</div>
+    </div>
+  </section>
+</body>
+</html>

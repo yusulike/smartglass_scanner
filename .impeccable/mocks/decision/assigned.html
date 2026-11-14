@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Daylight Signal Bench — Smart Glasses Detector</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1440px; height: 900px; overflow: hidden;
+    background: #f5f6f3; color: #14191e;
+    font-family: 'Noto Sans KR', system-ui, sans-serif;
+  }
+  .topbar {
+    height: 60px; padding: 0 40px; border-bottom: 1px solid #d4d8cf;
+    display: flex; align-items: center; justify-content: space-between;
+    background: #f5f6f3;
+  }
+  .brand { font-weight: 800; font-size: 17px; letter-spacing: -0.02em; display: flex; align-items: center; gap: 10px; }
+  .brand-mark { width: 14px; height: 14px; border: 2px solid #0b6e4f; border-radius: 50%; display: inline-block; position: relative; }
+  .nav-right { display: flex; align-items: center; gap: 24px; font-size: 13px; }
+  .nav-link { color: #475259; text-decoration: none; font-weight: 500; }
+  .lang-pill { display: inline-flex; border: 1px solid #14191e; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+  .lang-pill span { padding: 4px 10px; }
+  .lang-pill .on { background: #14191e; color: #f5f6f3; }
+  .bench {
+    height: 840px; display: grid; grid-template-columns: 1.15fr 0.85fr;
+  }
+  .left {
+    padding: 56px 52px 44px 40px; border-right: 1px solid #d4d8cf;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  h1 {
+    font-size: 54px; line-height: 1.14; font-weight: 800; letter-spacing: -0.03em; max-width: 680px;
+  }
+  .lead {
+    margin-top: 22px; font-size: 19px; line-height: 1.65; color: #3d464d; max-width: 580px;
+  }
+  .actions { margin-top: 32px; display: flex; gap: 14px; align-items: center; }
+  .btn-primary {
+    background: #14191e; color: #f5f6f3; padding: 14px 24px; font-size: 15px; font-weight: 700; text-decoration: none;
+  }
+  .btn-ghost {
+    border: 1px solid #14191e; color: #14191e; padding: 13px 20px; font-size: 15px; font-weight: 600; text-decoration: none;
+  }
+  .pledge-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #d4d8cf; border-left: 1px solid #d4d8cf;
+  }
+  .pledge-cell {
+    padding: 18px 20px; border-right: 1px solid #d4d8cf; border-bottom: 1px solid #d4d8cf; background: #ffffff;
+  }
+  .mono-k { font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 600; color: #0b6e4f; }
+  .pledge-cell strong { display: block; margin-top: 6px; font-size: 14px; }
+  .pledge-cell p { margin-top: 4px; font-size: 13px; color: #546069; line-height: 1.5; }
+  .right {
+    background: #eceee8; padding: 36px 40px; display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .ruler-box {
+    background: #ffffff; border: 1px solid #c6ccc1; padding: 20px 22px;
+  }
+  .ruler-head {
+    display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #475259;
+  }
+  .scale-track {
+    margin-top: 14px; height: 22px; border: 1px solid #14191e; display: grid; grid-template-columns: 50% 24% 26%;
+  }
+  .z-green { background: #dff2e8; border-right: 1px dashed #14191e; }
+  .z-amber { background: #fbe9d0; border-right: 2px solid #b85d00; }
+  .z-red { background: #f8d8d6; }
+  .scale-marks {
+    margin-top: 8px; display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  }
+  .gate-pin { color: #b85d00; font-weight: 600; }
+  .plate {
+    margin-top: 22px; display: grid; grid-template-columns: 270px 1fr; gap: 24px; align-items: end;
+  }
+  .phone-frame {
+    background: #14191e; border-radius: 26px; padding: 10px; border: 1px solid #0d1114; height: 540px; display: flex; flex-direction: column;
+  }
+  .phone-screen {
+    background: #ffffff; border-radius: 18px; flex: 1; padding: 18px 16px; display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .app-hdr { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; border-bottom: 1px solid #e5e8e2; padding-bottom: 10px; }
+  .badge-on { font-family: 'JetBrains Mono', monospace; color: #0b6e4f; font-size: 11px; }
+  .radar-box { border: 1px solid #d4d8cf; height: 210px; display: grid; place-items: center; position: relative; }
+  .ring1 { width: 150px; height: 150px; border: 1px solid #cbd2c7; border-radius: 50%; display: grid; place-items: center; }
+  .ring2 { width: 88px; height: 88px; border: 1px dashed #0b6e4f; border-radius: 50%; display: grid; place-items: center; }
+  .dot { width: 10px; height: 10px; background: #b85d00; border-radius: 50%; }
+  .row-stat { font-size: 12px; border-top: 1px solid #e5e8e2; padding-top: 10px; color: #475259; }
+  .caption-col { padding-bottom: 8px; }
+  .fig-num { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #154c9b; font-weight: 600; }
+  .caption-col h3 { margin-top: 6px; font-size: 18px; font-weight: 700; }
+  .caption-col p { margin-top: 8px; font-size: 14px; line-height: 1.6; color: #475259; }
+  .sig-strip { margin-top: 16px; border-top: 1px solid #c6ccc1; padding-top: 12px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #475259; }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark"></span>Smart Glasses Detector</div>
+    <nav class="nav-right">
+      <a class="nav-link" href="#features">기능 및 원리</a>
+      <a class="nav-link" href="#screens">실제 화면</a>
+      <a class="nav-link" href="#signatures">탐지 시그니처 8종</a>
+      <a class="nav-link" href="privacy.html">개인정보처리방침</a>
+      <div class="lang-pill"><span class="on">KR</span><span>EN</span></div>
+    </nav>
+  </header>
+  <main class="bench">
+    <section class="left">
+      <div>
+        <h1>주변 스마트 안경 BLE 신호를 기기 안에서만 조용히 감지합니다</h1>
+        <p class="lead">인터넷 권한과 서버 전송 없이 동작하는 Android BLE 패시브 스캐너입니다. Android 12 이상에서는 위치 권한 없이도 작동하며, -55 dBm 이하 근접 상황만 짚어내는 Gate Mode를 제공합니다.</p>
+        <div class="actions">
+          <a class="btn-primary" href="#screens">실제 동작 화면 4장 보기</a>
+          <a class="btn-ghost" href="privacy.html#ko">개인정보 무수집 정책 확인</a>
+        </div>
+      </div>
+      <div class="pledge-grid">
+        <div class="pledge-cell">
+          <div class="mono-k">0 B</div>
+          <strong>서버 전송 없음</strong>
+          <p>INTERNET 권한 자체를 요청하지 않고 단말 내부에서만 판단합니다.</p>
+        </div>
+        <div class="pledge-cell">
+          <div class="mono-k">-55 dBm</div>
+          <strong>1m 근접 Gate Mode</strong>
+          <p>소음 많은 실내에서도 무음 진동과 3단계 색상으로 즉시 알립니다.</p>
+        </div>
+        <div class="pledge-cell">
+          <div class="mono-k">8 IDs</div>
+          <strong>내장 + 사용자 ID</strong>
+          <p>Meta·Snap 등 8종 외에 0x0000~0xFFFF 커스텀 ID를 추가합니다.</p>
+        </div>
+      </div>
+    </section>
+    <aside class="right">
+      <div class="ruler-box">
+        <div class="ruler-head"><span>BLE SIGNAL PROXIMITY SCALE</span><span>GATE AT -55 dBm (<= 1m)</span></div>
+        <div class="scale-track"><div class="z-green"></div><div class="z-amber"></div><div class="z-red"></div></div>
+        <div class="scale-marks"><span>-90 dBm Far</span><span class="gate-pin">-55 dBm Gate Trigger</span><span>-30 dBm Close</span></div>
+      </div>
+      <div class="plate">
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="app-hdr"><span>Guard Monitor</span><span class="badge-on">BALANCED · ON</span></div>
+            <div class="radar-box"><div class="ring1"><div class="ring2"><div class="dot"></div></div></div></div>
+            <div class="row-stat">Meta Ray-Ban · EMA -53 dBm<br>이미 폰과 연결되어 광고를 끄면 미탐지</div>
+          </div>
+        </div>
+        <div class="caption-col">
+          <div class="fig-num">FIG. 01 / MAIN DASHBOARD</div>
+          <h3>실시간 레이더와 한계 고지</h3>
+          <p>주변 광고 패킷을 지수이동평균(EMA)과 8 dBm 히스테리시스로 안정화해 표시하며, 페어링 완료 기기의 미탐지 한계도 숨기지 않고 안내합니다.</p>
+          <div class="sig-strip">META · SNAP · GLASS · BOSE · XIAOMI · BRILLIANT LABS · SOLOS</div>
+        </div>
+      </div>
+    </aside>
+  </main>
+</body>
+</html>

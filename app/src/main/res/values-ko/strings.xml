@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">스마트글래스 검출기</string>
+
+    <!-- Confidence levels -->
+    <string name="confidence_high">유력</string>
+    <string name="confidence_medium">보통</string>
+    <string name="confidence_low">주의</string>
+    <string name="confidence_badge_high">유력 (HIGH)</string>
+    <string name="confidence_badge_medium">보통 (MEDIUM)</string>
+    <string name="confidence_badge_low">주의 (LOW)</string>
+    <string name="category_camera">카메라 탑재 가능</string>
+    <string name="category_display_ar">디스플레이·오디오형 (카메라 없음)</string>
+    <string name="unknown_error">알 수 없는 오류</string>
+
+    <!-- Main Screen -->
+    <string name="action_gate_screening">입실 스크리닝</string>
+    <string name="cd_open_settings">설정 및 시그니처 관리</string>
+    <string name="banner_disclaimer">주변에 해당 제조사 기기의 BLE신호가 감지되었음을 알리며, 실제 녹화 여부나 착용자를 단정할 수 없습니다. 이미 스마트폰과 연결되어 BLE 광고를 중단한 기기는 탐지되지 않을 수 있습니다.</string>
+    <string name="scan_card_title">근접 BLE 탐지</string>
+    <string name="scan_card_desc">위치 권한 없이 BLE 광고 패킷만 로컬에서 분석하며, 화면 활성 시 균형 모드로 전환됩니다.</string>
+    <string name="status_stopped">스캔 중지됨</string>
+    <string name="status_foreground_balanced">포그라운드 스캔 중 · 균형 모드</string>
+    <string name="status_background_low_power">백그라운드 스캔 중 · 절전 모드</string>
+    <string name="status_waiting">스캔 대기 중</string>
+    <string name="warning_no_ble_title">Bluetooth LE 미지원 기기</string>
+    <string name="warning_no_ble_body">이 기기에서는 BLE 하드웨어를 찾을 수 없어 스캔을 실행할 수 없습니다.</string>
+    <string name="warning_scan_status_title">스캔 상태 알림</string>
+    <string name="permission_missing_title">BLE 스캔 권한이 필요합니다</string>
+    <string name="permission_missing_body">Android 12+에서는 위치 권한 없이 \'근처 기기(Bluetooth)\' 권한만으로 동작합니다. 권한을 거부한 경우 설정에서 허용해 주세요.</string>
+    <string name="action_request_permission">권한 요청</string>
+    <string name="action_app_settings">앱 설정</string>
+    <string name="notification_permission_title">알림 권한 미허용</string>
+    <string name="notification_permission_body">스캔은 가능하지만 상단 알림 및 근접 경고가 표시되지 않습니다.</string>
+    <string name="action_allow">허용</string>
+    <string name="bluetooth_disabled_title">Bluetooth가 꺼져 있습니다</string>
+    <string name="bluetooth_disabled_body">BLE 스캔을 시작하려면 기기의 Bluetooth를 켜 주세요.</string>
+    <string name="action_turn_on">켜기</string>
+    <string name="detected_list_header">탐지된 주변 기기</string>
+    <string name="detected_device_count">%1$d대</string>
+    <string name="empty_scanning_title">주변 BLE 신호를 탐색 중입니다</string>
+    <string name="empty_stopped_title">스캔이 중지되어 있습니다</string>
+    <string name="empty_scanning_body">등록된 스마트글래스 시그니처가 조건을 충족하면 여기에 표시됩니다.</string>
+    <string name="empty_stopped_body">상단 스위치를 켜면 포그라운드 서비스로 근접 탐지를 시작합니다.</string>
+    <string name="chip_alert_active">알림 활성</string>
+    <string name="chip_weak_signal">약신호 추적</string>
+    <string name="device_name_label">이름: %1$s</string>
+    <string name="device_id_label">식별자: %1$s</string>
+    <string name="device_company_id_label">Company ID: %1$s</string>
+    <string name="device_rssi_format">스무딩 RSSI: %1$.1f dBm (원시 %2$d dBm)</string>
+    <plurals name="device_observations_format">
+        <item quantity="other">윈도우 관측 %1$d회 · 마지막 관측 %2$s</item>
+    </plurals>
+    <string name="action_ignore">무시</string>
+
+    <!-- Gate Screening Screen -->
+    <string name="gate_title">시험장 입실 스크리닝</string>
+    <string name="cd_back_to_main">일반 모드로 돌아가기</string>
+    <string name="gate_clear_title">통과 가능 (CLEAR)</string>
+    <string name="gate_clear_subtitle">초근접(-55 dBm 이상) 스마트글래스 시그니처 미탐지</string>
+    <string name="gate_caution_title">2차 육안 확인 권장 (CAUTION)</string>
+    <string name="gate_caution_subtitle">공용·기타 제조사 BLE ID 근접 감지</string>
+    <string name="gate_alert_title">스마트글래스 근접 감지 (ALERT)</string>
+    <string name="gate_alert_subtitle">고신뢰 스마트글래스 시그니처가 1m 이내에서 포착됨</string>
+    <string name="gate_mode_permission_needed">권한 필요</string>
+    <string name="gate_mode_bt_off">BT 꺼짐</string>
+    <string name="gate_mode_waiting">대기 중</string>
+    <string name="gate_banner_notice">이미 스마트폰과 연결된 기기는 BLE 신호가 잡히지 않을 수 있으므로 안경다리 두께·렌즈 육안 점검을 병행하세요.</string>
+    <string name="gate_permission_needed">BLE 스캔 권한이 허용되어야 스크리닝이 시작됩니다.</string>
+    <string name="action_grant_permission">권한 허용</string>
+    <string name="action_next_examinee">다음 응시자 (초기화)</string>
+    <string name="gate_prompt_hold_near">응시자 안경 근처(0.5~1m)로 기기를 가까이 대세요</string>
+    <string name="gate_threshold_hint">판정 기준: -55 dBm 이상 · 무음 진동 모드</string>
+    <string name="gate_device_meta_format">신뢰도 %1$s · %2$s · %3$s</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">설정 및 시그니처 관리</string>
+    <string name="cd_back">뒤로 가기</string>
+    <string name="settings_section_appearance">화면 및 스킨 설정</string>
+    <string name="settings_theme_mode_label">화면 모드</string>
+    <string name="settings_skin_label">컬러 스킨</string>
+    <string name="theme_mode_system">시스템</string>
+    <string name="theme_mode_light">라이트</string>
+    <string name="theme_mode_dark">다크</string>
+    <string name="skin_ocean_blue">오션 블루</string>
+    <string name="skin_emerald">에메랄드</string>
+    <string name="skin_amethyst">아메시스트</string>
+    <string name="skin_amber_guard">앰버 가드</string>
+    <string name="skin_monochrome">모노 스텔스</string>
+    <string name="skin_dynamic">시스템 동적</string>
+    <string name="settings_section_sensitivity">탐지 민감도 및 알림 쿨다운</string>
+    <string name="settings_rssi_entry_label">RSSI 진입 임계값</string>
+    <string name="settings_rssi_hysteresis_desc">이탈 임계값은 히스테리시스(%2$d dB)를 적용해 %1$d dBm 미만으로 자동 설정됩니다.</string>
+    <string name="settings_cooldown_label">중복 알림 쿨다운</string>
+    <string name="settings_cooldown_value">%1$d초</string>
+    <string name="settings_section_custom_hex">커스텀 Hex Company ID</string>
+    <string name="settings_custom_hex_desc">Bluetooth SIG 제조사 ID(1~4자리 Hex, 0x 접두사 허용)를 추가하면 실행 중인 스캐너 필터가 자동 갱신됩니다.</string>
+    <string name="settings_custom_hex_input_label">Company ID (예: 0x058E 또는 058E)</string>
+    <string name="settings_custom_hex_hint">0000~FFFF 범위의 16진수</string>
+    <string name="settings_custom_hex_preview">정규화 미리보기: %1$s</string>
+    <string name="settings_custom_hex_error">0x0000~0xFFFF 형식의 1~4자리 Hex만 허용됩니다</string>
+    <string name="action_add">추가</string>
+    <string name="settings_custom_hex_empty">등록된 커스텀 Hex ID가 없습니다.</string>
+    <string name="cd_remove_hex">%1$s 삭제</string>
+    <string name="settings_section_bundled">기본 내장 시그니처 (%1$d종)</string>
+    <plurals name="settings_sig_detail_format">
+        <item quantity="other">%1$s%2$s · %3$d회 관측 확정</item>
+    </plurals>
+    <string name="settings_section_whitelist">무시 목록 (화이트리스트 · %1$d건)</string>
+    <string name="settings_whitelist_empty">무시된 기기가 없습니다. 메인 화면 카드에서 \'무시\'를 눌러 추가할 수 있습니다.</string>
+    <string name="cd_remove_whitelist">%1$s 화이트리스트 해제</string>
+    <string name="settings_section_logs">로컬 탐지 로그 및 데이터 보안</string>
+    <string name="settings_logs_desc">기기에 저장된 로컬 탐지 로그: %1$d건 ([ALERT]·[OBSERVED] 포함). 모든 BLE MAC 주소와 제조사 ID는 외부 서버로 전송되지 않고 기기 내에서만 처리됩니다.</string>
+    <string name="action_export_logs">로그 .txt 내보내기</string>
+    <string name="action_clear">비우기</string>
+    <string name="error_open_file">파일을 열 수 없습니다.</string>
+    <string name="feedback_export_success">탐지 로그를 .txt 파일로 저장했습니다.</string>
+    <string name="feedback_export_failed">내보내기 실패: %1$s</string>
+    <string name="feedback_custom_hex_added">%1$s 커스텀 시그니처가 추가되었습니다.</string>
+    <string name="feedback_custom_hex_removed">%1$s 시그니처가 삭제되었습니다.</string>
+    <string name="feedback_logs_cleared">로컬 탐지 로그를 비웠습니다.</string>
+    <string name="error_invalid_hex_company_id">0000~FFFF 범위의 1~4자리 Hex ID만 입력 가능합니다.</string>
+
+    <!-- Foreground Service & Notifications -->
+    <string name="service_status_bt_off">Bluetooth가 꺼져 대기 중입니다.</string>
+    <string name="service_error_bt_off">Bluetooth를 켜면 스캔을 재개합니다.</string>
+    <string name="service_error_permission_denied">BLE 스캔 권한이 거부되어 서비스를 시작할 수 없습니다.</string>
+    <string name="service_error_fgs_permission">포그라운드 서비스 실행 권한이 부족합니다.</string>
+    <string name="service_status_preparing">스캔 준비 중...</string>
+    <string name="service_status_gate">입실 스크리닝 중 (초고빈도 모드)</string>
+    <string name="service_status_balanced">스캔 중 (화면 활성 · 균형 모드)</string>
+    <string name="service_status_low_power">스캔 중 (백그라운드 · 절전 모드)</string>
+    <string name="service_status_standby">스캔 대기 중</string>
+    <string name="channel_ongoing_name">BLE 백그라운드 스캔 상태</string>
+    <string name="channel_ongoing_desc">스마트글래스 근접 탐지 스캔이 실행 중일 때 표시되는 고정 알림</string>
+    <string name="channel_alerts_name">스마트글래스 근접 감지 알림</string>
+    <string name="channel_alerts_desc">주변에서 스마트글래스 BLE 시그니처가 감지되었을 때 알림</string>
+    <string name="notif_ongoing_bt_waiting">Bluetooth 대기 중 · 탭하여 상태 확인</string>
+    <string name="notif_ongoing_gate">시험장 입실 스크리닝 실행 중 (초고빈도 모드)</string>
+    <string name="notif_ongoing_balanced">주변 스마트글래스 BLE 신호 스캔 중 (균형 모드)</string>
+    <string name="notif_ongoing_low_power">주변 스마트글래스 BLE 신호 스캔 중 (절전 모드)</string>
+    <string name="action_stop_scan">스캔 중지</string>
+    <string name="notif_alert_title">[%1$s] %2$s 감지</string>
+    <string name="notif_alert_text">신호 %1$.0f dBm · 카메라 탑재 모델 (실제 녹화 여부는 단정할 수 없습니다).</string>
+    <string name="notif_alert_text_display_ar">신호 %1$.0f dBm · 디스플레이·오디오 전용 (카메라 미탑재 모델).</string>
+
+    <!-- BLE Scanner errors -->
+    <string name="scanner_error_no_signatures">활성화된 시그니처가 없습니다.</string>
+    <string name="scanner_error_no_ble">이 기기는 Bluetooth LE를 지원하지 않습니다.</string>
+    <string name="scanner_reason_no_ble">Bluetooth LE 미지원</string>
+    <string name="scanner_error_bt_disabled">Bluetooth가 꺼져 있습니다.</string>
+    <string name="scanner_reason_bt_disabled">Bluetooth 비활성화</string>
+    <string name="scanner_error_no_scanner">BLE 스캐너를 사용할 수 없습니다.</string>
+    <string name="scanner_error_no_filters">유효한 BLE ScanFilter를 생성할 수 없습니다.</string>
+    <string name="scanner_reason_no_filters">유효한 ScanFilter 없음</string>
+    <string name="scanner_error_permission">BLE 스캔 권한이 필요합니다.</string>
+    <string name="scanner_error_start_failed">BLE 스캔 시작 실패: %1$s</string>
+    <string name="scanner_error_scan_failed">BLE 스캔 오류 (%1$d): %2$s</string>
+    <string name="scan_fail_already_started">이미 스캔이 시작되어 있습니다.</string>
+    <string name="scan_fail_app_reg_failed">앱 스캔 등록에 실패했습니다. Bluetooth를 껐다 켜 주세요.</string>
+    <string name="scan_fail_internal_error">시스템 내부 BLE 스캔 오류입니다.</string>
+    <string name="scan_fail_unsupported">기기가 요청된 BLE 스캔 기능을 지원하지 않습니다.</string>
+    <string name="scan_fail_too_frequently">단시간 내 과도한 스캔 재시작으로 제한되었습니다 (SCAN_FAILED_SCANNING_TOO_FREQUENTLY).</string>
+    <string name="scan_fail_unknown">알 수 없는 스캔 오류</string>
+</resources>

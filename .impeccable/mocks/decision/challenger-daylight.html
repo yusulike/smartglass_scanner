@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Daylight Spatial Section — Smart Glasses Detector</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1440px; height: 900px; overflow: hidden;
+    background: #f6f6f2; color: #1b2024;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  header {
+    height: 64px; padding: 0 48px; border-bottom: 1px solid #d5d7cf;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .logo { font-weight: 800; font-size: 16px; }
+  .links { display: flex; gap: 28px; font-size: 14px; color: #464e54; }
+  .hero { padding: 44px 48px 28px; display: grid; grid-template-columns: 1fr 420px; gap: 40px; align-items: end; }
+  h1 { font-size: 50px; line-height: 1.16; font-weight: 800; letter-spacing: -0.025em; }
+  .desc { font-size: 17px; line-height: 1.65; color: #464e54; }
+  .cta { display: inline-block; margin-top: 16px; background: #1b2024; color: #f6f6f2; padding: 12px 22px; text-decoration: none; font-weight: 700; font-size: 14px; }
+  .section-band {
+    margin: 16px 48px 0; border: 2px solid #1b2024; background: #ffffff;
+    height: 450px; display: grid; grid-template-columns: 1.1fr 0.9fr 0.75fr;
+  }
+  .zone { padding: 28px; border-right: 1px solid #d5d7cf; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
+  .zone-far { background: #f9faf8; }
+  .zone-mid { background: #eef3f7; }
+  .zone-gate { background: #fdf3df; border-right: none; border-left: 3px solid #d48c1d; }
+  .dist { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: #2a5078; }
+  .zone-gate .dist { color: #a86400; }
+  .zone h2 { font-size: 26px; font-weight: 800; margin-top: 10px; }
+  .zone p { margin-top: 12px; font-size: 14px; line-height: 1.6; color: #3d454c; }
+  .device-card { border: 1px solid #1b2024; background: #ffffff; padding: 14px; font-size: 13px; }
+  .foot-cut {
+    height: 44px; margin: 0 48px; background: #1b2024; color: #f6f6f2;
+    padding: 0 24px; display: flex; align-items: center; justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo">Smart Glasses Detector</div>
+    <div class="links"><span>공간 거리별 동작</span><span>실제 화면 4종</span><span>개인정보처리방침</span><span>KR / EN</span></div>
+  </header>
+  <section class="hero">
+    <h1>거리 구역별로 반응하는<br>온디바이스 스마트 안경 스캐너</h1>
+    <div>
+      <p class="desc">서버 연결 없이 BLE 신호 세기를 측정해, 원거리 백그라운드 감시부터 1m 이내 Gate 무음 진동까지 단계적으로 작동합니다.</p>
+      <a class="cta" href="privacy.html">개인정보처리방침 · 권한 구조 보기</a>
+    </div>
+  </section>
+  <div class="section-band">
+    <div class="zone zone-far">
+      <div>
+        <div class="dist">ZONE A · &gt; 3m (-85 ~ -65 dBm)</div>
+        <h2>Background Guard</h2>
+        <p>BALANCED / LOW_POWER 프리셋으로 상시 감시하며, EMA 평활화와 8 dBm 히스테리시스로 오경보를 줄입니다.</p>
+      </div>
+      <div class="device-card">상태바 알림 · 연속 1~3회 관측 시 경고</div>
+    </div>
+    <div class="zone zone-mid">
+      <div>
+        <div class="dist">ZONE B · 1~3m (-65 ~ -55 dBm)</div>
+        <h2>Amber 접근 추적</h2>
+        <p>신호가 강해지면 접근 추세를 기록하고, 본인 기기는 MAC 또는 기기명 화이트리스트로 즉시 제외합니다.</p>
+      </div>
+      <div class="device-card">내장 8종 + 0x0000~0xFFFF 커스텀 ID</div>
+    </div>
+    <div class="zone zone-gate">
+      <div>
+        <div class="dist">ZONE C · &le; 1m (-55 dBm TRIGGER)</div>
+        <h2>Gate Mode</h2>
+        <p>회의실이나 혼잡한 실내에서도 소리 대신 진동과 전체 화면 Green/Amber/Red 상태로 즉시 경고합니다.</p>
+      </div>
+      <div class="device-card"><strong>GATE RED</strong> · -52 dBm · 진동 경보</div>
+    </div>
+  </div>
+  <div class="foot-cut">
+    <span>ZERO SERVER TRANSMISSION · NO LOCATION PERMISSION ON ANDROID 12+</span>
+    <span>NOTE: ALREADY-PAIRED DEVICES STOPPING BLE ADVERTISING CANNOT BE DETECTED</span>
+  </div>
+</body>
+</html>

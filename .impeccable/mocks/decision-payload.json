@@ -1,0 +1,247 @@
+{
+  "title": "시각 방향 선택 — Smart Glasses Detector",
+  "question": "배정된 방향(Daylight Signal Bench)으로 진행할지, 대안 방향을 택할지, 또는 다른 조합으로 다시 뽑을지 선택해 주세요.",
+  "options": [
+    {
+      "id": "assigned",
+      "kind": "assigned",
+      "label": "Daylight Signal Bench",
+      "kicker": "THE ROLL",
+      "lineage": "주광 전파 계측대 및 소비자 개인정보 검증 시트",
+      "thesis": "기존 AI풍 다크 네온 화면을 완전히 걷어내고, 밝은 검사대 지면 위에 -55 dBm Gate 감도 눈금과 실제 앱 화면을 나란히 세운 신뢰 중심 유틸리티.",
+      "palette": [
+        "#f5f6f3",
+        "#14191e",
+        "#0b6e4f",
+        "#b85d00",
+        "#154c9b"
+      ],
+      "materials": [
+        "matte mineral paper",
+        "1px hairline grid",
+        "calibrated dBm ruler"
+      ],
+      "viewport": "좌측에 앱의 핵심 약속('서버 전송 0건 · 위치 권한 없음')과 한/영 전환을 두고, 우측에 실제 메인 스크린샷과 -55 dBm 근접 경보 눈금을 직접 배치.",
+      "risk": "계측 눈금 인터랙션이 과해지면 기술 문서처럼 보일 수 있어 일반 사용자용 한국어 문구를 명료하게 유지해야 함.",
+      "raised": [
+        {
+          "from": "challenger-wuxia",
+          "raise": "제목과 한/영 전환 장치를 흩어 놓지 않고 상단 프레임 모서리에 단단히 고정해 첫 인상을 세움."
+        },
+        {
+          "from": "challenger-atelier",
+          "raise": "4장의 실제 스크린샷을 똑같은 4칸 카드에 넣지 않고 번호 매긴 도판(Fig. 01~04)과 여백 캡션으로 차별화."
+        },
+        {
+          "from": "challenger-arcade",
+          "raise": "장식용 블러·그림자 대신 8종 시그니처와 상태 표를 엄격한 1px 격자 칸에 맞춰 정밀감 확보."
+        },
+        {
+          "from": "challenger-orizuru",
+          "raise": "Background Guard·Gate Mode·Whitelist를 끊기지 않는 하나의 연속 거리/눈금 기준선으로 연결."
+        }
+      ],
+      "html": ".impeccable/mocks/decision/assigned.html",
+      "comp": ".impeccable/mocks/decision/assigned.png"
+    },
+    {
+      "id": "model-pick",
+      "kind": "pick",
+      "label": "Consumer Spec Sheet",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "한국어/영어 정밀 광학기기 설명서 & 소비자 스펙 시트",
+      "thesis": "신뢰할 수 있는 가전·광학기기 매뉴얼처럼 단정한 미색 종이 위에 핵심 기능·8종 기기 목록·실기 화면을 가장 읽기 쉽게 정리한 구성.",
+      "palette": [
+        "#f4f3ee",
+        "#161614",
+        "#154c9b",
+        "#c8372d"
+      ],
+      "materials": [
+        "unbleached technical paper",
+        "hairline table rules",
+        "editorial captions"
+      ],
+      "viewport": "비대칭 상단 표제와 무수집·권한 요약표를 좌우로 열고 바로 실제 메인 대시보드 도판을 크게 배치한 매뉴얼 첫 장.",
+      "risk": "가독성이 가장 높고 안정적이지만, 전문 기술 문서/설명서 계열에서 비교적 익숙한 인상일 수 있음.",
+      "html": ".impeccable/mocks/decision/model-pick.html",
+      "comp": ".impeccable/mocks/decision/model-pick.png"
+    },
+    {
+      "id": "challenger-daylight",
+      "kind": "challenger",
+      "catalogId": "architecture-inhabitable-space-daylight-section",
+      "verdict": "competitive",
+      "label": "Daylight Spatial Section",
+      "lineage": "건축 주광 단면도(Daylight Section) 기반 거리 구역 시각화",
+      "thesis": "실내 공간을 가로로 자른 단면선 위에 >3m 일상 감시 구역과 ≤1m(-55 dBm) Gate 근접 경보 구역을 빛과 음영처럼 구획한 공간형 소개 페이지.",
+      "palette": [
+        "#f6f6f2",
+        "#1b2024",
+        "#d48c1d",
+        "#2a5078"
+      ],
+      "materials": [
+        "limewash white ground",
+        "charcoal cut-line",
+        "amber proximity band"
+      ],
+      "viewport": "상단 제호 아래 공간을 가로지르는 거리 단면띠(>3m / 1~3m / ≤1m -55 dBm)와 실제 알림·게이트 스크린샷을 맞물려 배치.",
+      "case": "물리적 거리별 BLE 탐지 원리를 공간 단면으로 가장 직관적으로 풀어내지만, 약관 문서(privacy.html)에서는 장식 절제가 더 필요함.",
+      "risk": "단면선 그래픽이 너무 도드라지면 앱 자체보다 다이어그램이 먼저 눈에 들어올 수 있음.",
+      "html": ".impeccable/mocks/decision/challenger-daylight.html",
+      "comp": ".impeccable/mocks/decision/challenger-daylight.png",
+      "hero": "https://impeccable.style/worlds/cards/architecture-inhabitable-space-daylight-section-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/architecture-inhabitable-space-daylight-section.webp"
+    },
+    {
+      "id": "challenger-sevenseg",
+      "kind": "challenger",
+      "catalogId": "signals-instruments-seven-segment-alarm-clock",
+      "verdict": "competitive",
+      "label": "Instrument Mask Readout",
+      "lineage": "7세그먼트 정밀 계측기(Seven-Segment Display) 주광 LCD 변주",
+      "thesis": "-55 dBm 임계치·8종 시그니처·0 B 전송량이라는 객관적 수치를 고정 계기 슬롯으로 전면 배치한 전자 계측기 톤.",
+      "palette": [
+        "#edeff0",
+        "#171b1e",
+        "#147a4c",
+        "#c9382b"
+      ],
+      "materials": [
+        "matte LCD face",
+        "fixed numeric slots",
+        "hairline bezel"
+      ],
+      "viewport": "상단에 -55 dBm / 0 B SENT / 8 IDs 계기판 슬롯이 고정되어 있고 아래에 실기 화면과 제한 사항 안내가 이어짐.",
+      "case": "신호 강도와 수치 기준을 다루는 제품 특성에는 잘 맞지만, 일반 Android 사용자와 Play 정책 검토자 관점에선 다소 기계적으로 보일 수 있음.",
+      "risk": "어두운 LED 톤으로 흐르면 기존 다크 템플릿과 겹치므로 반드시 밝은 반사형 LCD 톤을 유지해야 함.",
+      "html": ".impeccable/mocks/decision/challenger-sevenseg.html",
+      "comp": ".impeccable/mocks/decision/challenger-sevenseg.png",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-seven-segment-alarm-clock-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/signals-instruments-seven-segment-alarm-clock.webp"
+    },
+    {
+      "id": "challenger-wuxia",
+      "kind": "challenger",
+      "catalogId": "posters-covers-sleeves-wuxia-painted-hoarding",
+      "verdict": "declined",
+      "label": "Wuxia Painted Hoarding",
+      "lineage": "수묵·주홍 무협 극장 간판 포스터",
+      "thesis": "구름 배경과 세로 붓글씨 제호로 극적인 영화 간판처럼 구성하는 포스터형 연출.",
+      "palette": [
+        "#f1ebe0",
+        "#b73326",
+        "#1f1c18"
+      ],
+      "materials": [
+        "ink wash",
+        "vertical brush titles"
+      ],
+      "viewport": "우측 세로 제호와 대형 일러스트 중심 포스터 화면.",
+      "case": "일반 사용자 대상 모바일 개인정보·BLE 유틸리티 앱의 신뢰성과 기술 정확성을 전달하기엔 장르 이질감이 큼.",
+      "risk": "무협 포스터 형식은 개인정보처리방침이나 권한 설명에 어울리지 않음.",
+      "kept": "제호와 전환 스위치를 프레임 모서리에 한 번의 단호한 타이포 제스처로 고정하는 규율.",
+      "hero": "https://impeccable.style/worlds/cards/posters-covers-sleeves-wuxia-painted-hoarding-hero.webp"
+    },
+    {
+      "id": "challenger-atelier",
+      "kind": "challenger",
+      "catalogId": "pop-culture-shelf-couture-doll-atelier",
+      "verdict": "declined",
+      "label": "Couture Doll Atelier",
+      "lineage": "1:6 미니어처 쿠튀르 룩북 & 아틀리에",
+      "thesis": "아이보리·블러시·골드 스크립트 라벨과 번호 매긴 룩북 도판 형식.",
+      "palette": [
+        "#f7f2ea",
+        "#e6c8c1",
+        "#1a1817"
+      ],
+      "materials": [
+        "ivory box board",
+        "didone numerals"
+      ],
+      "viewport": "번호 매긴 도판 플레이트와 작은 라벨 캡션 중심 첫 화면.",
+      "case": "패션 아틀리에 문법이 Android 보안·프라이버시 스캐너 사용자 및 스토어 심사자의 기대와 맞지 않음.",
+      "risk": "장치·전파 탐지 신뢰성이 약화됨.",
+      "kept": "스크린샷을 균등 카드에 몰아넣지 않고 번호 매긴 도판과 여백 캡션으로 전시하는 규율.",
+      "hero": "https://impeccable.style/worlds/cards/pop-culture-shelf-couture-doll-atelier-hero.webp"
+    },
+    {
+      "id": "challenger-arcade",
+      "kind": "challenger",
+      "catalogId": "medium-native-crt-arcade-pixel-glow",
+      "verdict": "declined",
+      "label": "CRT Arcade Pixel Glow",
+      "lineage": "16색 CRT 아케이드 픽셀 스캔라인",
+      "thesis": "어두운 배경 위 픽셀 그리드와 주사선 발광을 사용하는 레트로 아케이드 UI.",
+      "palette": [
+        "#101218",
+        "#38e89e",
+        "#f2c94c"
+      ],
+      "materials": [
+        "pixel tiles",
+        "scanline grid"
+      ],
+      "viewport": "상단 8x8 픽셀 점수바와 격자형 타일 배치.",
+      "case": "어두운 발광 배경은 피하려는 AI 다크 테마 느낌과 가깝고 장문 한국어·약관 가독성을 해침.",
+      "risk": "보안 유틸리티가 아닌 게임처럼 인식됨.",
+      "kept": "시그니처 목록과 상태 표에서 흐릿한 장식을 빼고 엄격한 격자 칸에 맞추는 규율.",
+      "hero": "https://impeccable.style/worlds/cards/medium-native-crt-arcade-pixel-glow-hero.webp"
+    },
+    {
+      "id": "challenger-orizuru",
+      "kind": "challenger",
+      "catalogId": "paper-folds-pleats-deployable-orizuru-crane-sequence",
+      "verdict": "declined",
+      "label": "Orizuru Crease Sequence",
+      "lineage": "주홍 화지 32단계 종이접기 도해도",
+      "thesis": "한 장의 정사각형 지면 위에 순차 번호 1~32 접선 안내로 구조를 푸는 도해도.",
+      "palette": [
+        "#d94230",
+        "#f8f4ee",
+        "#171715"
+      ],
+      "materials": [
+        "vermilion paper",
+        "crease lines"
+      ],
+      "viewport": "사각 전개도와 우측 순차 단계 여백 열 배치.",
+      "case": "순차 종이접기 절차 은유가 실시간 상시 감시·근접 게이트 기능을 병렬로 비교해야 하는 앱 소개에 맞지 않음.",
+      "risk": "기능 탐색보다 절차 암기처럼 느껴질 수 있음.",
+      "kept": "여러 기능을 따로 떼어놓지 않고 하나의 연속 기준선 위에서 연결해 보여주는 규율.",
+      "hero": "https://impeccable.style/worlds/cards/paper-folds-pleats-deployable-orizuru-crane-sequence-hero.webp"
+    }
+  ],
+  "reroll": {
+    "registers": [
+      "safer",
+      "bolder"
+    ]
+  },
+  "buildPath": {
+    "value": "code",
+    "toggle": true
+  },
+  "canon": true,
+  "canonCard": {
+    "kind": "canon",
+    "label": "Standard Clean App Page",
+    "thesis": "군더더기 없는 밝은 모바일 앱 공식 소개 페이지의 표준 구도.",
+    "palette": [
+      "#ffffff",
+      "#111827",
+      "#2563eb"
+    ],
+    "materials": [
+      "clean white surface",
+      "device screenshot frames"
+    ],
+    "viewport": "좌측 소개·우측 앱 화면 1장 구성 후 하단 기능 및 스크린샷 전개.",
+    "risk": "무난하고 안정적이지만 일반 앱 소개 페이지와 크게 구별되지는 않음.",
+    "html": ".impeccable/mocks/decision/canon.html",
+    "comp": ".impeccable/mocks/decision/canon.png"
+  },
+  "steer": true
+}
