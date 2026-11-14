@@ -110,13 +110,11 @@
 - **카테고리**: 도구 (`Tools`)
 - **개발자 연락처 이메일**: `yusu.kang@gmail.com`
 
-### B. 개인정보처리방침 URL (필수 — 공개 URL 확인!)
-- 현재 개인정보처리방침 파일이 [docs/privacy.html](../docs/privacy.html)에 준비되어 있습니다.
-- **주의**: GitHub 저장소를 **Private**으로 만든 경우, 무료(GitHub Free) 계정에서는 Private 저장소의 GitHub Pages 공개 배포가 제한될 수 있습니다.
-- Play Console의 개인정보처리방침 URL에는 **로그인 없이 누구나 브라우저로 열람 가능한 공개 URL**을 입력해야 하므로, 아래 중 하나로 호스팅한 뒤 그 URL을 입력하세요:
-  1. 문서 전용 Public GitHub 저장소(예: `yusulike/smartglass-scanner-docs`)에 `docs/` 내용만 올려 GitHub Pages 활성화
-  2. Cloudflare Pages / Netlify / Vercel 정적 호스팅으로 `docs/` 폴더 배포
-  3. 현재 저장소를 Public 오픈소스로 전환 후 GitHub Pages (`Settings → Pages`) 활성화
+### B. 개인정보처리방침 & 앱 웹페이지 URL (공개 호스팅 완료)
+- **개인정보처리방침 URL (Play Console 입력용)**: `https://yusulike.github.io/smartglass-scanner/privacy.html`
+- **앱 소개 페이지 URL (웹사이트 슬롯용)**: `https://yusulike.github.io/smartglass-scanner/`
+- 공개 호스팅 저장소: `https://github.com/yusulike/yusulike.github.io` (`smartglass-scanner/` 경로, 소스코드 저장소 `yusulike/smartglass_scanner`는 Private 유지)
+- 추후 [docs/](../docs/) 내용 수정 시 `yusulike/yusulike.github.io`의 `smartglass-scanner/` 폴더에 동일하게 복사·푸시하면 자동 반영됩니다.
 
 ### C. 앱 콘텐츠 → 포그라운드 서비스 권한 (`FOREGROUND_SERVICE_CONNECTED_DEVICE`)
 > Google Play는 `FOREGROUND_SERVICE_CONNECTED_DEVICE` 사용 목적을 매우 엄격하게 심사합니다.
