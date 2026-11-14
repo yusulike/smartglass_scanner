@@ -22,6 +22,40 @@
 
 ---
 
+## 탐지 가능 기기 및 시그니처 목록 (22종)
+
+내장 [signatures.json](file:///e:/myWork/projects/smartglass_scanner/app/src/main/assets/signatures.json)에 정의된 22종 시그니처 기준이며, 설정 화면에서 사용자 커스텀 16-bit Hex Company ID(`0x0000`~`0xFFFF`, `LOW` 신뢰도 / 3회 관측)를 추가로 등록할 수 있습니다.
+
+| # | 시그니처 ID | 표시 라벨 | 매칭 조건 (`Company ID` / `Service UUID` / `Service Data` / 기기명) | 카테고리 | 신뢰도 (일반 필요 관측 / Gate) | 동작 범위 및 비고 |
+|:-:|:---|:---|:---|:---:|:---|:---|
+| 1 | `meta_rayban_tech` | Ray-Ban Meta (Meta Platforms Tech) | Company ID `0x058E` + Payload ASCII `META_RB_GLASS` | `CAMERA` | `HIGH` (1회 / `ALERT`) | Quest VR(`META_QUEST_3`) 오탐 배제 |
+| 2 | `luxottica_rayban` | Ray-Ban Meta Frame (Luxottica) | Company ID `0x0D53` | `CAMERA` | `HIGH` (1회 / `ALERT`) | 백그라운드·포그라운드 상시 |
+| 3 | `meta_platforms_general` | Meta Platforms Device | Company ID `0x01AB` | `CAMERA` | `LOW` (3회 / `CAUTION`) | 공용 Meta BLE 기기 포함 (주의) |
+| 4 | `snap_spectacles` | Snap Spectacles | Company ID `0x03C2` | `CAMERA` | `MEDIUM` (2회 / `ALERT`) | 백그라운드·포그라운드 상시 |
+| 5 | `tcl_rayneo` | TCL / RayNeo Smart Glasses | Company ID `0x0BC6` | `CAMERA` | `MEDIUM` (2회 / `ALERT`) | 백그라운드·포그라운드 상시 |
+| 6 | `meizu_myvu` | Meizu MYVU AR Glasses | Company ID `0x03AB` | `DISPLAY_AR` | `MEDIUM` (2회 / `ALERT`) | 카메라 미탑재 디스플레이 AR 알림 구분 |
+| 7 | `zhuhai_jieli` | Zhuhai Jieli Chipset Glasses | Company ID `0x05D6` | `CAMERA` | `LOW` (3회 / `CAUTION`) | 범용 중국계 글래스/오디오 칩셋 (주의) |
+| 8 | `heycyan_sdk` | HeyCyan SDK Smart Glasses | Service UUID `7905FFF0-B5CE-4E99-A40F-4B1E122D00D0` | `CAMERA` | `HIGH` (1회 / `ALERT`) | GATT 서비스 UUID 매칭 |
+| 9 | `rokid_ai_glasses` | Rokid AI Glasses | Service UUID `00009100-0000-1000-8000-00805F9B34FB` (`0x9100`) | `CAMERA` | `HIGH` (1회 / `ALERT`) | GATT 서비스 UUID 매칭 |
+| 10 | `da_echo_glasses` | Da Echo Smart Glasses | Service UUID `0xFEA8` + Service Data Hex `413149010000` | `CAMERA` | `HIGH` (1회 / `ALERT`) | Service Data 바이트 검증 |
+| 11 | `heycyan_name_prefix` | HeyCyan Smart Glasses (Name Prefix) | 기기명 접두사 `HeyCyan-` (대소문자 무시) | `CAMERA` | `MEDIUM` (2회 / `ALERT`) | 포그라운드 + Android 13+ 백그라운드(`0x09` 필터) |
+| 12 | `vuzix_corp` | Vuzix Smart Glasses | Company ID `0x060C` | `CAMERA` | `HIGH` (1회 / `ALERT`) | 백그라운드·포그라운드 상시 |
+| 13 | `kopin_solos` | Kopin / Solos Smart Glasses | Company ID `0x041F` | `CAMERA` | `MEDIUM` (2회 / `ALERT`) | 백그라운드·포그라운드 상시 |
+| 14 | `north_focals` | Thalmic Labs / North Focals | Company ID `0x0562` | `DISPLAY_AR` | `MEDIUM` (2회 / `ALERT`) | 디스플레이 AR 알림 구분 |
+| 15 | `meta_ble_service` | Meta BLE Service (Ray-Ban / Quest) | Service UUID `0000FD5F-0000-1000-8000-00805F9B34FB` (`0xFD5F`) | `CAMERA` | `MEDIUM` (2회 / `ALERT`) | Quest/Ray-Ban 공용 BLE 서비스 |
+| 16 | `rayban_name` | Ray-Ban Meta (Device Name) | 기기명 부분 일치 `Ray-Ban`, `RayBan`, `Ray Ban`, `META_RB` | `CAMERA` | `MEDIUM` (2회 / `ALERT`) | 포그라운드 비필터 스캔 중심 |
+| 17 | `spectacles_name` | Snap Spectacles (Device Name) | 기기명 접두사 `Spectacles` (대소문자 무시) | `CAMERA` | `MEDIUM` (2회 / `ALERT`) | 포그라운드 + Android 13+ 백그라운드(`0x09` 필터) |
+| 18 | `even_realities_name` | Even Realities Smart Glasses (Name) | 기기명 접두사 `Even G` (대소문자 무시) | `DISPLAY_AR` | `MEDIUM` (2회 / `ALERT`) | 카메라 없는 디스플레이 AR(Even G1/G2) |
+| 19 | `inmo_ar_name` | INMO AR Glasses (Name) | 기기명 접두사 `INMO` (대소문자 무시) | `CAMERA` | `MEDIUM` (2회 / `ALERT`) | 포그라운드 + Android 13+ 백그라운드(`0x09` 필터) |
+| 20 | `xreal_name` | XREAL / Nreal AR Glasses (Name) | 기기명 부분 일치 `XREAL`, `NREAL` | `DISPLAY_AR` | `MEDIUM` (2회 / `ALERT`) | 디스플레이 AR (포그라운드 비필터 스캔 중심) |
+| 21 | `echo_frames_focals_name` | Echo Frames / Focals (Device Name) | 기기명 부분 일치 `Echo Frames`, `Focals` | `DISPLAY_AR` | `MEDIUM` (2회 / `ALERT`) | 디스플레이/오디오 안경 (포그라운드 스캔 중심) |
+| 22 | `glasses_brand_names` | Smart Glasses (Device Name Pattern) | 기기명 부분 일치 `Rokid`, `Vuzix`, `RayNeo`, `Moverio`, `Solos` | `CAMERA` | `MEDIUM` (2회 / `ALERT`) | 포그라운드 비필터 스캔 중심 |
+
+> * **`CAMERA` vs `DISPLAY_AR`**: `CAMERA`는 카메라 탑재형 스마트글래스 경보 문구로 표시되며, `DISPLAY_AR`은 카메라가 없거나 디스플레이 중심인 AR 글래스임을 구분해 안내합니다(시험장 부정행위 방지 목적 시 동일하게 탐지 대상에 포함).
+> * **기기명 전용 규칙 한계**: `deviceNamePatterns`(부분 일치) 기반 규칙은 Android `ScanFilter` 하드웨어 제약상 화면이 켜진 포그라운드(`BALANCED` / `LOW_LATENCY`) 스캔에서 주로 탐지됩니다. `deviceNamePrefix` 규칙은 Android 13+(API 33+)에서 AD `0x09` 하드웨어 필터로 백그라운드 스캔에도 등록됩니다(단, 대소문자 및 Scan Response 여부에 따라 OS 필터 동작이 달라질 수 있음).
+
+---
+
 ## 기술 스택 및 환경
 
 | 항목 | 구성 |
