@@ -11,7 +11,7 @@
 | **릴리스 앱 번들 (AAB)** | R8 난독화·리소스 축소·릴리스 서명 적용 | `app/build/outputs/bundle/release/app-release.aab` | `.gitignore`로 Git 추적 제외됨 (`./gradlew bundleRelease`로 생성) |
 | **앱 아이콘** | 512 × 512 px PNG (32-bit) | `store/icon_512x512.png` | Play Console 앱 아이콘 슬롯 업로드용 |
 | **그래픽 이미지 (Feature Graphic)** | 1024 × 500 px PNG | `store/feature_graphic_1024x500.png` | Play Console 필수 배너 슬롯 |
-| **휴대전화 스크린샷** | 720 × 1560 px PNG (4장) | `store/screenshots/*.png` (`docs/screenshots/`와 동기화) | 대시보드 / 입실 스크리닝 / 알림 / 설정 화면 |
+| **휴대전화 스크린샷** | 1080 × 1920 px (9:16) 24-bit RGB PNG (4장) | `store/screenshots/01_dashboard.png` ~ `04_settings_signatures.png` | 대시보드 / 입실 스크리닝 / 알림 / 설정 화면 (타사 알림·상태바 제거, 알파 채널 없음) |
 
 > **중요 (서명 키 보관)**: 릴리스 서명 키(`windyflow.jks`)와 `keystore.properties`는 보안상 Git에서 제외되어 있습니다. 반드시 안전한 클라우드/오프라인 백업(예: Google Drive / 암호화 보관소)에 사본을 보관하세요. Play Console 업로드 시 **Google Play 앱 서명(Play App Signing)** 사용을 권장합니다.
 
