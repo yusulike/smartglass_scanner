@@ -193,6 +193,7 @@ v1.0에서는 Wi-Fi 스캔을 제외하여 API 31+ 환경에서 `ACCESS_FINE_LOC
 * `0x058E`는 `META_RB_GLASS` 페이로드 일치 시 Quest VR 헤드셋과의 오탐을 배제할 수 있고([Hackster.io](https://www.hackster.io/kevin-loeffler/spectacle-a-smart-glasses-detecting-keychain-576576)), `0x0D53` 및 `0x060C`(Vuzix)는 안경 전문 제조사 ID이므로 추가 페이로드 없이도 높은 신뢰도로 판정합니다([Nearby Glasses](https://github.com/yjeanrenaud/yj_nearbyglasses)).
 * 중국계 및 AR 스마트글래스 시그니처로 `Rokid AI Glasses`(Service UUID `00009100-...`), `Da Echo`(`0xFEA8` + Service Data `413149010000`), `TCL / RayNeo`(`0x0BC6`), `Meizu MYVU`(`0x03AB`, `DISPLAY_AR`), `Kopin / Solos`(`0x041F`), `North Focals`(`0x0562`, `DISPLAY_AR`), `Meta BLE Service`(`0xFD5F`), 그리고 기기명 접두사/패턴(`HeyCyan-`, `Even G`, `INMO`, `XREAL`/`NREAL`, `Ray-Ban`, `Spectacles`, `Echo Frames`/`Focals`, `Rokid`/`Vuzix`/`RayNeo`/`Moverio`/`Solos`)까지 총 22종을 내장했습니다([ESP-GlassHole](https://github.com/surveillancewatch/ESP-GlassHole), [Nearby Glasses](https://github.com/yjeanrenaud/yj_nearbyglasses)).
 * `Xiaomi AI Glasses`(`0x038F`)는 샤오미 스마트폰·밴드·IoT 전 제품이 ID를 공유해 단독 매칭 시 오탐이 다발하므로 실기기 패킷(`Xiaomi` 전용 페이로드/서비스) 확보 후 추가 반영할 예정입니다([Bluetooth Assigned Numbers](https://www.bluetooth.com/wp-content/uploads/Files/Specification/Assigned_Numbers.pdf)).
+* **실물 하드웨어 검증 범위**: 내장 22종 시그니처는 공개 Bluetooth SIG/SDK 자료·커뮤니티 시그니처 및 Windows BLE 비콘 에뮬레이션(`SM-S948N` 실기기 E2E 검증)을 기준으로 구성되었으며, **모든 실물 스마트글래스 기종 및 모든 Android 제조사 단말에서 일일이 실측 테스트를 완료한 것은 아닙니다.** 펌웨어·지역·연결 상태에 따라 패킷 형식이 다를 수 있습니다.
 
 ### 3.2 `SignatureRepository.kt` 구현 명세
 

@@ -16,7 +16,7 @@
     <!-- Main Screen -->
     <string name="action_gate_screening">입실 스크리닝</string>
     <string name="cd_open_settings">설정 및 시그니처 관리</string>
-    <string name="banner_disclaimer">주변에 해당 제조사 기기의 BLE신호가 감지되었음을 알리며, 실제 녹화 여부나 착용자를 단정할 수 없습니다. 이미 스마트폰과 연결되어 BLE 광고를 중단한 기기는 탐지되지 않을 수 있습니다.</string>
+    <string name="banner_disclaimer">주변에 해당 제조사 기기의 BLE 신호가 감지되었음을 알리며, 실제 녹화 여부나 착용자를 단정할 수 없습니다. 이미 스마트폰과 연결되어 BLE 광고를 중단한 기기는 탐지되지 않을 수 있으며, 내장 시그니처 전 기종을 실물 하드웨어로 일일이 검증한 것은 아닙니다.</string>
     <string name="scan_card_title">근접 BLE 탐지</string>
     <string name="scan_card_desc">위치 권한 없이 BLE 광고 패킷만 로컬에서 분석하며, 화면 활성 시 균형 모드로 전환됩니다.</string>
     <string name="status_stopped">스캔 중지됨</string>
@@ -103,6 +103,7 @@
     <string name="settings_custom_hex_empty">등록된 커스텀 Hex ID가 없습니다.</string>
     <string name="cd_remove_hex">%1$s 삭제</string>
     <string name="settings_section_bundled">기본 내장 시그니처 (%1$d종)</string>
+    <string name="settings_bundled_disclaimer">공개 Bluetooth SIG/SDK 문서 및 BLE 에뮬레이션 기준으로 구성되었으며, 모든 실물 스마트글래스 기기에서 일일이 테스트되지 않았으므로 펌웨어·페어링 상태에 따라 광고 패킷이 다를 수 있습니다.</string>
     <plurals name="settings_sig_detail_format">
         <item quantity="other">%1$s%2$s · %3$d회 관측 확정</item>
     </plurals>

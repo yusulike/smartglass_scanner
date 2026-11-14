@@ -16,7 +16,7 @@
     <!-- Main Screen -->
     <string name="action_gate_screening">Gate Check</string>
     <string name="cd_open_settings">Settings and signature management</string>
-    <string name="banner_disclaimer">Alerts indicate nearby BLE advertisements matching smart-glasses signatures and cannot confirm active recording or identify the wearer.\nDevices already paired and actively connected to a smartphone may stop BLE advertising and may not be detected.</string>
+    <string name="banner_disclaimer">Alerts indicate nearby BLE advertisements matching smart-glasses signatures and cannot confirm active recording or identify the wearer.\nDevices already paired and actively connected to a smartphone may stop BLE advertising, and listed models have not all been individually verified on physical hardware.</string>
     <string name="scan_card_title">Proximity BLE Detection</string>
     <string name="scan_card_desc">Analyzes BLE advertising packets locally without location permission and switches to balanced mode while on screen.</string>
     <string name="status_stopped">Scan stopped</string>
@@ -104,6 +104,7 @@
     <string name="settings_custom_hex_empty">No custom Hex IDs registered.</string>
     <string name="cd_remove_hex">Remove %1$s</string>
     <string name="settings_section_bundled">Built-in Signatures (%1$d)</string>
+    <string name="settings_bundled_disclaimer">Compiled from public Bluetooth SIG/SDK specs and BLE beacon emulation; not every retail hardware unit has been individually verified in person, and firmware or pairing states may alter advertised packets.</string>
     <plurals name="settings_sig_detail_format">
         <item quantity="one">%1$s%2$s · Confirmed after %3$d hit</item>
         <item quantity="other">%1$s%2$s · Confirmed after %3$d hits</item>

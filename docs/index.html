@@ -1182,10 +1182,10 @@
           </p>
           <div class="limit-banner">
             <span data-copy="ko">
-              <strong>탐지 한계 고지:</strong> 본 앱은 주변 BLE 광고 패킷 감지만 수행하며, 실제 녹화·촬영 여부나 착용자를 단정하지 않습니다. 또한 <strong>이미 스마트폰과 연결(페어링)되어 BLE 광고를 중단한 기기는 탐지되지 않을 수 있으므로</strong> 보안 검사 시 육안 확인과 병행하는 것을 권장합니다.
+              <strong>탐지 한계 및 검증 범위 고지:</strong> 본 앱은 주변 BLE 광고 패킷 감지만 수행하며, 실제 녹화·촬영 여부나 착용자를 단정하지 않습니다. 내장 시그니처는 공개 자료 및 BLE 비콘 테스트를 바탕으로 구성되어 <strong>시중 모든 실물 스마트글래스 기기에서 일일이 테스트되지는 않았으며</strong>, <strong>이미 스마트폰과 연결(페어링)되어 BLE 광고를 중단한 기기</strong>나 펌웨어 차이로 패킷이 다른 기기는 탐지되지 않을 수 있으므로 보안 검사 시 육안 확인과 병행하는 것을 권장합니다.
             </span>
             <span data-copy="en">
-              <strong>Detection boundary notice:</strong> This app detects nearby BLE advertisements only and cannot verify active video/photo recording or identify the wearer. Devices <strong>already paired with a smartphone that stop broadcasting BLE advertisements</strong> may not appear; always pair with visual inspection for security checks.
+              <strong>Detection boundary &amp; testing scope notice:</strong> This app detects nearby BLE advertisements only and cannot verify active video/photo recording or identify the wearer. Built-in rules are derived from public specifications and BLE beacon tests—<strong>not every commercial smart-glasses hardware unit has been individually tested in person</strong>. Devices with firmware variations or devices <strong>already paired with a smartphone that stop broadcasting BLE advertisements</strong> may not appear; always pair with visual inspection for security checks.
             </span>
           </div>
         </div>
@@ -1423,6 +1423,10 @@
             </tr>
           </tbody>
         </table>
+        <p class="sig-footnote" style="margin-top: 12px; font-size: 0.875rem; color: var(--muted);">
+          <span data-copy="ko">※ 위 시그니처는 공개 Bluetooth SIG/SDK 문서 및 테스트 비콘을 기준으로 작성되었으며, 모든 실물 제조사·모델 기기에서 개별 테스트가 완료된 목록은 아닙니다.</span>
+          <span data-copy="en">※ Signatures above are compiled from public Bluetooth SIG/SDK documentation and BLE beacon testing; not every physical retail model has been individually verified on hardware.</span>
+        </p>
       </div>
     </section>
 

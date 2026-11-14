@@ -341,6 +341,11 @@ internal fun SettingsScreen(
               style = MaterialTheme.typography.titleMedium,
               fontWeight = FontWeight.SemiBold
             )
+            Text(
+              text = stringResource(R.string.settings_bundled_disclaimer),
+              style = MaterialTheme.typography.bodySmall,
+              color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
             state.bundledSignatures.forEach { sig ->
               Row(
                 modifier = Modifier.fillMaxWidth(),
