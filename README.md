@@ -15,7 +15,7 @@
    * 감독관용 포그라운드 전용 `SCAN_MODE_LOW_LATENCY` 초근접(`-55 dBm` 이상, 약 0.5~1m) 즉시 판정 모드.
    * 빠른 EMA(`α = 0.7`) 및 즉시 3단계 판정(`CLEAR` 녹색 / `CAUTION` 황색 / `ALERT` 적색), `2초` 쿨다운 무음 진동(`VIBRATE`), **다음 응시자(초기화)** 버튼 제공.
 3. **시그니처 DB + 사용자 커스텀 Hex ID**
-   * [signatures.json](file:///e:/myWork/projects/smartglass_scanner/app/src/main/assets/signatures.json) 기반 내장 시그니처와 DataStore에 저장되는 사용자 커스텀 16-bit Company ID(`0x0000`~`0xFFFF`)를 실시간 `Flow`로 병합해 동적 `ScanFilter`를 재구성합니다.
+   * [signatures.json](app/src/main/assets/signatures.json) 기반 내장 시그니처와 DataStore에 저장되는 사용자 커스텀 16-bit Company ID(`0x0000`~`0xFFFF`)를 실시간 `Flow`로 병합해 동적 `ScanFilter`를 재구성합니다.
 4. **Google Play v1.0 BLE-Only 정책 준수**
    * Android 12+(API 31+)에서 `BLUETOOTH_SCAN`에 `neverForLocation` 플래그를 선언하여 `ACCESS_FINE_LOCATION` 런타임 요청 없이 동작합니다(`maxSdkVersion="30"` 하위 호환만 유지).
    * Android 14+ `connectedDevice` 포그라운드 서비스 상단 고정 알림 및 즉시 **스캔 중지(Stop)** 액션 제공.
@@ -24,7 +24,7 @@
 
 ## 탐지 가능 기기 및 시그니처 목록 (22종)
 
-내장 [signatures.json](file:///e:/myWork/projects/smartglass_scanner/app/src/main/assets/signatures.json)에 정의된 22종 시그니처 기준이며, 설정 화면에서 사용자 커스텀 16-bit Hex Company ID(`0x0000`~`0xFFFF`, `LOW` 신뢰도 / 3회 관측)를 추가로 등록할 수 있습니다.
+내장 [signatures.json](app/src/main/assets/signatures.json)에 정의된 22종 시그니처 기준이며, 설정 화면에서 사용자 커스텀 16-bit Hex Company ID(`0x0000`~`0xFFFF`, `LOW` 신뢰도 / 3회 관측)를 추가로 등록할 수 있습니다.
 
 | # | 시그니처 ID | 표시 라벨 | 매칭 조건 (`Company ID` / `Service UUID` / `Service Data` / 기기명) | 카테고리 | 신뢰도 (일반 필요 관측 / Gate) | 동작 범위 및 비고 |
 |:-:|:---|:---|:---|:---:|:---|:---|
@@ -131,7 +131,7 @@
 
 ### 릴리스 앱 사이닝 & 빌드
 `keystore.properties`와 `.jks` 파일은 `.gitignore`로 추적에서 제외됩니다.
-1. [keystore.properties.example](file:///e:/myWork/projects/smartglass_scanner/keystore.properties.example)을 루트에 `keystore.properties`로 복사하고 키스토어 비밀번호·별칭을 입력합니다.
+1. [keystore.properties.example](keystore.properties.example)을 루트에 `keystore.properties`로 복사하고 키스토어 비밀번호·별칭을 입력합니다.
 2. 프로젝트 루트에 키스토어 파일(기본 `windyflow.jks`)을 배치합니다.
 3. 릴리스 APK / AAB 생성:
    ```bash
@@ -172,5 +172,5 @@
 
 ## 상세 문서
 
-* [smart_glasses_detector_spec.md](file:///e:/myWork/projects/smartglass_scanner/smart_glasses_detector_spec.md) — v1.0 MVP 아키텍처, 권한/Play 심사, 시그니처 DB, BLE 필터, 사이닝·아이콘 명세
-* [gate_screening_mode_addon.md](file:///e:/myWork/projects/smartglass_scanner/gate_screening_mode_addon.md) — 시험장 입실 스크리닝(`GATE_SCREENING`) 모드 동작·컴포넌트 명세
+* [smart_glasses_detector_spec.md](smart_glasses_detector_spec.md) — v1.0 MVP 아키텍처, 권한/Play 심사, 시그니처 DB, BLE 필터, 사이닝·아이콘 명세
+* [gate_screening_mode_addon.md](gate_screening_mode_addon.md) — 시험장 입실 스크리닝(`GATE_SCREENING`) 모드 동작·컴포넌트 명세

@@ -66,7 +66,7 @@ app/src/main/
 
 ## 2. 권한 및 Google Play 심사 준수 (`AndroidManifest.xml`)
 
-v1.0에서는 Wi-Fi 스캔을 제외하여 API 31+ 환경에서 `ACCESS_FINE_LOCATION` 요청을 완전히 없앱니다. Android 12+에서는 `BLUETOOTH_SCAN`에 `neverForLocation` 플래그를 적용하고([Android Developers](https://developer.android.com/develop/connectivity/bluetooth/bt-permissions)), 하위 버전용 위치 권한은 `maxSdkVersion="30"`으로 제한합니다([Offline Protocol](https://www.offlineprotocol.com/learning/bluetooth-le/bluetooth-permissions-on-android-explained)). [PermissionHelper.kt](file:///e:/myWork/projects/smartglass_scanner/app/src/main/kotlin/com/windyflow/glassesdetector/ble/PermissionHelper.kt)도 SDK 버전별로 API 31+에서는 `ACCESS_FINE_LOCATION`을 절대 요청하지 않도록 분기합니다.
+v1.0에서는 Wi-Fi 스캔을 제외하여 API 31+ 환경에서 `ACCESS_FINE_LOCATION` 요청을 완전히 없앱니다. Android 12+에서는 `BLUETOOTH_SCAN`에 `neverForLocation` 플래그를 적용하고([Android Developers](https://developer.android.com/develop/connectivity/bluetooth/bt-permissions)), 하위 버전용 위치 권한은 `maxSdkVersion="30"`으로 제한합니다([Offline Protocol](https://www.offlineprotocol.com/learning/bluetooth-le/bluetooth-permissions-on-android-explained)). [PermissionHelper.kt](app/src/main/kotlin/com/windyflow/glassesdetector/ble/PermissionHelper.kt)도 SDK 버전별로 API 31+에서는 `ACCESS_FINE_LOCATION`을 절대 요청하지 않도록 분기합니다.
 
 ```xml
 <uses-feature
@@ -211,7 +211,7 @@ v1.0에서는 Wi-Fi 스캔을 제외하여 API 31+ 환경에서 `ACCESS_FINE_LOC
 1. **동적 `ScanFilter` 및 포그라운드 비필터 분리 (`resolveActiveScanFilters`)**: 화면이 꺼진 `LOW_POWER` 백그라운드 모드에서는 OS 중단 방지를 위해 `companyId`, `serviceUuid`, `serviceDataHex`(`setServiceData`), 그리고 Android 13+(API 33+)의 `deviceNamePrefix`(`0x09` `setAdvertisingDataTypeWithData`) 조건을 중복 제거한 하드웨어 `ScanFilter` 목록으로 전달합니다([Android Developers](https://developer.android.com/reference/android/bluetooth/le/BluetoothLeScanner)). 반면 앱 화면 활성(`BALANCED` / `LOW_LATENCY`) 상태에서 기기명 규칙이 활성화된 경우에는 대소문자 무시 부분 일치(`deviceNamePatterns`)와 Scan Response 기기명을 누락하지 않도록 빈 필터(`emptyList()`) 스캔을 수행합니다.
 2. **포그라운드/백그라운드 스캔 모드 분리 (`resolveScanMode`)**:
    * `BACKGROUND_GUARD`에서 앱 화면 포그라운드 활성 시 `SCAN_MODE_BALANCED`로 스캔 주기를 높여 재연결 직후 짧은 광고 패킷 누락을 줄이고, 백그라운드 대기 시에만 `SCAN_MODE_LOW_POWER`로 전환합니다([Punch Through](https://punchthrough.com/android-ble-scan-filter/)).
-   * `GATE_SCREENING` 프로파일에서는 포그라운드 활성 중 `SCAN_MODE_LOW_LATENCY`로 동작합니다(상세 내용은 [gate_screening_mode_addon.md](file:///e:/myWork/projects/smartglass_scanner/gate_screening_mode_addon.md) 참조).
+   * `GATE_SCREENING` 프로파일에서는 포그라운드 활성 중 `SCAN_MODE_LOW_LATENCY`로 동작합니다(상세 내용은 [gate_screening_mode_addon.md](gate_screening_mode_addon.md) 참조).
 3. **시그니처/모드 변경 시 자동 재시작**: `BleScannerService`가 `combine(signatureRepository.activeSignatures, scanModeFlow)`를 `distinctUntilChanged()` + `collectLatest`로 구독해, 커스텀 ID 추가·삭제나 화면 전환 시 최소 6.5초 스로틀링 가드를 준수해 `startScan()`을 재적용합니다.
 4. **스로틀링 방어 (30초당 5회 제한, `ScanThrottleGate`)**: Android는 30초 내 `startScan()`을 5회 초과 호출하면 스캔을 조용히 차단하므로([Punch Through](https://punchthrough.com/android-ble-scan-errors/)), 재시작 간 최소 **6.5초(`6,500ms`) 디바운스**를 강제하고 지연 재스케줄링(`ScannerStartResult.Scheduled`) 및 `onScanFailed()` 에러 매핑을 수행합니다.
 5. **장기 스캔 갱신**: 30분 이상 연속 스캔 시 시스템이 Opportunistic 스캔으로 강제 전환할 수 있으므로([ProAndroidDev](https://proandroiddev.com/android-restrictions-you-may-encounter-during-development-process-c39ede513813)), 20분(`REFRESH_INTERVAL_MS`) 주기로 `stopScan()` 후 `startScan()`을 재호출합니다.
@@ -246,15 +246,15 @@ v1.0에서는 Wi-Fi 스캔을 제외하여 API 31+ 환경에서 `ACCESS_FINE_LOC
 3. **알림 및 포그라운드 서비스 (`BleScannerService.kt`)**:
    * 두 개의 알림 채널 운영: `ble_scan_ongoing` (`IMPORTANCE_LOW`), `ble_glasses_alerts` (`IMPORTANCE_HIGH`)
    * 동일 기기 중복 알림 방지 쿨다운 (기본 `10초`, 설정 범위 `5~60초`)
-   * 상단 고정 알림에 **스캔 중지(Stop)** 액션 버튼 포함, Status Bar 전용 단색 아이콘([ic_stat_glasses_scan.xml](file:///e:/myWork/projects/smartglass_scanner/app/src/main/res/drawable/ic_stat_glasses_scan.xml)) 사용
+   * 상단 고정 알림에 **스캔 중지(Stop)** 액션 버튼 포함, Status Bar 전용 단색 아이콘([ic_stat_glasses_scan.xml](app/src/main/res/drawable/ic_stat_glasses_scan.xml)) 사용
 4. **설정 및 커스텀 ID 관리 (`ui/settings/SettingsScreen.kt`)**:
    * RSSI 임계값 슬라이더 (`-95 ~ -50 dBm`, 기본 `-75 dBm`), 알림 쿨다운 슬라이더 (`5 ~ 60초`, 기본 `10초`)
    * 커스텀 Hex Company ID 입력 UI: `^[0-9A-Fa-f]{1,4}$`(`0x` 접두사 허용) 검증 및 `InputChip` 개별 삭제
    * 화이트리스트 개별 해제, 최대 500건 로컬 탐지·관측 로그(`files/detection_logs.json` 영속 보관, 1회/임계치 미만 패킷 `[OBSERVED]` 스로틀 기록) 조회/초기화 및 Android SAF(`ActivityResultContracts.CreateDocument("text/plain")`) 기반 `.txt` 파일 내보내기
 5. **앱 아이콘 (`Adaptive Icon` + `Monochrome`)**:
-   * [ic_launcher_background.xml](file:///e:/myWork/projects/smartglass_scanner/app/src/main/res/drawable/ic_launcher_background.xml), [ic_launcher_foreground.xml](file:///e:/myWork/projects/smartglass_scanner/app/src/main/res/drawable/ic_launcher_foreground.xml), [ic_launcher_monochrome.xml](file:///e:/myWork/projects/smartglass_scanner/app/src/main/res/drawable/ic_launcher_monochrome.xml) 및 `mipmap-mdpi~xxxhdpi` WebP 아이콘 구성
+   * [ic_launcher_background.xml](app/src/main/res/drawable/ic_launcher_background.xml), [ic_launcher_foreground.xml](app/src/main/res/drawable/ic_launcher_foreground.xml), [ic_launcher_monochrome.xml](app/src/main/res/drawable/ic_launcher_monochrome.xml) 및 `mipmap-mdpi~xxxhdpi` WebP 아이콘 구성
 6. **릴리스 앱 사이닝 (`app/build.gradle.kts`)**:
-   * 루트의 `keystore.properties`([keystore.properties.example](file:///e:/myWork/projects/smartglass_scanner/keystore.properties.example) 참고)와 `windyflow.jks`를 읽어 `release` `signingConfig`에 연결 (Git 추적 제외)
+   * 루트의 `keystore.properties`([keystore.properties.example](keystore.properties.example) 참고)와 `windyflow.jks`를 읽어 `release` `signingConfig`에 연결 (Git 추적 제외)
 
 ---
 

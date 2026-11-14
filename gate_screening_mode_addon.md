@@ -2,7 +2,7 @@
 
 > **문서 상태**: 구현 완료 (현재 코드베이스 `BleModels.kt`, `BleSignalFilter.kt`, `SmartGlassesScanner.kt`, `BleScannerService.kt`, `ui/gate/*` 기준 현행화)
 
-기존 [smart_glasses_detector_spec.md](file:///e:/myWork/projects/smartglass_scanner/smart_glasses_detector_spec.md) (v1.0 MVP)에 국가 시험장·보안 구역 입실 통제용 **초근접(약 1m 이내) 스크리닝 모드**를 추가한 확장 기능 명세서입니다.
+기존 [smart_glasses_detector_spec.md](smart_glasses_detector_spec.md) (v1.0 MVP)에 국가 시험장·보안 구역 입실 통제용 **초근접(약 1m 이내) 스크리닝 모드**를 추가한 확장 기능 명세서입니다.
 
 ---
 
@@ -29,11 +29,11 @@
 
 ### 3.1 `BleModels.kt` & `SmartGlassesScanner.kt` (프로파일·스캔 모드 전환)
 
-* [BleModels.kt](file:///e:/myWork/projects/smartglass_scanner/app/src/main/kotlin/com/windyflow/glassesdetector/ble/BleModels.kt):
+* [BleModels.kt](app/src/main/kotlin/com/windyflow/glassesdetector/ble/BleModels.kt):
   * `enum class ScanProfile { BACKGROUND_GUARD, GATE_SCREENING }`
   * `enum class BleScanMode { BALANCED, LOW_POWER, LOW_LATENCY }`
   * `enum class GateStatus { CLEAR, CAUTION, ALERT }` 및 `data class GateResult` (`status`, `device`, `matchedSignature`, `rawRssi`, `effectiveRssi`, `shouldVibrate`, `vibrationNonce`, `timestampMs`)
-* [SmartGlassesScanner.kt](file:///e:/myWork/projects/smartglass_scanner/app/src/main/kotlin/com/windyflow/glassesdetector/ble/SmartGlassesScanner.kt):
+* [SmartGlassesScanner.kt](app/src/main/kotlin/com/windyflow/glassesdetector/ble/SmartGlassesScanner.kt):
   * `resolveScanMode(profile, isForegroundUi)`로 포그라운드 `GATE_SCREENING` 시 `BleScanMode.LOW_LATENCY`(`ScanSettings.SCAN_MODE_LOW_LATENCY`)를 선택합니다([Punch Through](https://punchthrough.com/android-ble-scan-filter/)).
   * 모드 전환 시에도 Android의 30초당 `startScan()` 5회 제한을 넘기지 않도록 `ScanThrottleGate`의 **최소 6.5초 디바운스** 가드를 동일하게 적용합니다([Punch Through](https://punchthrough.com/android-ble-scan-errors/)).
 
@@ -49,7 +49,7 @@
 
 ### 3.3 `GateScreeningScreen.kt` & `GateScreeningViewModel.kt` (감독관 전용 Compose UI)
 
-* [MainScreen.kt](file:///e:/myWork/projects/smartglass_scanner/app/src/main/kotlin/com/windyflow/glassesdetector/ui/main/MainScreen.kt) 상단 앱바 액션 아이콘을 통해 `GateScreening` 화면으로 진입하며, 진입 시 자동으로 `ScanProfile.GATE_SCREENING` 전환 및 서비스 자동 시작(권한 보유 시)을 수행합니다.
+* [MainScreen.kt](app/src/main/kotlin/com/windyflow/glassesdetector/ui/main/MainScreen.kt) 상단 앱바 액션 아이콘을 통해 `GateScreening` 화면으로 진입하며, 진입 시 자동으로 `ScanProfile.GATE_SCREENING` 전환 및 서비스 자동 시작(권한 보유 시)을 수행합니다.
 * **무음 진동 알림 (`VIBRATE`)**: `vibrationNonce` 증가 시 소리 대신 `VibrationEffect`(`ALERT`: 2회 파형 `[0, 180, 90, 260] ms`, `CAUTION`: 단일 진동 `150ms`)와 애니메이션 배경색 전환으로만 피드백합니다.
 * **탐지 카드**: 탐지된 제조사 라벨, 실시간/빠른 스무딩 RSSI(`dBm`), 신뢰도 등급을 크게 표시합니다.
 * **다음 응시자(초기화) 버튼**: `DetectionStateHolder.requestGateReset()` → `gateResetEvents`를 통해 서비스 필터 상태와 화면 경보를 즉시 비워 다음 응시자를 지체 없이 검사합니다.
