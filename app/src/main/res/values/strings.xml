@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Smart Glasses Detector</string>
+    <string name="app_name">SmartGlass Scanner</string>
 
     <!-- Confidence levels -->
     <string name="confidence_high">High</string>

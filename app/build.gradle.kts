@@ -14,10 +14,10 @@ val keystoreProps = Properties().apply {
 }
 
 android {
-  namespace = "com.windyflow.glassesdetector"
+  namespace = "com.windyflow.smartglassscanner"
   compileSdk = 37
   defaultConfig {
-    applicationId = "com.windyflow.glassesdetector"
+    applicationId = "com.windyflow.smartglassscanner"
     minSdk = 26
     targetSdk = 37
     versionCode = 1

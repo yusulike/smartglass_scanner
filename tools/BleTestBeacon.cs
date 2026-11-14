@@ -216,7 +216,7 @@ public static class BleTestBeacon {
 
   private static void PrintMenu() {
     Console.WriteLine();
-    Console.WriteLine("=== Smart Glasses Detector - Windows BLE Test Beacon ===");
+    Console.WriteLine("=== SmartGlass Scanner - Windows BLE Test Beacon ===");
     foreach (Scenario s in Scenarios) {
       Console.WriteLine("  [" + s.Key + "] " + s.Description);
     }

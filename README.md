@@ -1,6 +1,6 @@
-# Smart Glasses Detector (Android Native)
+# SmartGlass Scanner (스마트글래스 스캐너)
 
-**Smart Glasses Detector**(`com.windyflow.glassesdetector`)는 주변 스마트글래스(Ray-Ban Meta, Snap Spectacles, HeyCyan SDK 등)의 BLE 광고 패킷을 백그라운드에서 상시 탐지하고, 오탐 최소화 필터링 및 시험장·보안 구역 입실 스크리닝 모드를 제공하는 **위치 권한 없는(BLE 전용)** Android 네이티브 앱입니다.
+**스마트글래스 스캐너 (SmartGlass Scanner)**(`com.windyflow.smartglassscanner`)는 주변 스마트글래스(Ray-Ban Meta, Snap Spectacles, HeyCyan SDK 등)의 BLE 광고 패킷을 백그라운드에서 상시 탐지하고, 오탐 최소화 필터링 및 시험장·보안 구역 입실 스크리닝 모드를 제공하는 **위치 권한 없는(BLE 전용)** Android 네이티브 앱입니다.
 
 ---
 
@@ -64,7 +64,7 @@
 
 | 항목 | 구성 |
 | :--- | :--- |
-| **패키지 / 버전** | `com.windyflow.glassesdetector` / `versionCode = 1`, `versionName = "1.0"` |
+| **패키지 / 버전** | `com.windyflow.smartglassscanner` / `versionCode = 1`, `versionName = "1.0"` |
 | **SDK** | `minSdk = 26` (Android 8.0), `compileSdk = 37`, `targetSdk = 37` |
 | **빌드 도구** | AGP `9.0.1`, Kotlin `2.3.20`, Java `17` Toolchain |
 | **UI / 내비게이션** | Jetpack Compose (BOM `2026.03.01`), Material 3, AndroidX Navigation 3 (`1.0.1`) |
@@ -93,7 +93,7 @@
 │       │   ├── res/
 │       │   │   ├── drawable/                  # Adaptive/Monochrome 런처 및 알림 small icon
 │       │   │   └── mipmap-*/                  # Adaptive Icon v26 XML & 레거시 WebP 아이콘
-│       │   └── kotlin/com/windyflow/glassesdetector/
+│       │   └── kotlin/com/windyflow/smartglassscanner/
 │       │       ├── MainActivity.kt
 │       │       ├── Navigation.kt / NavigationKeys.kt
 │       │       ├── ble/

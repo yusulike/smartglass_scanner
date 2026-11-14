@@ -1,5 +1,5 @@
 ---
-name: Smart Glasses Detector — Daylight Signal Bench
+name: SmartGlass Scanner — Daylight Signal Bench
 description: Crisp matte mineral paper inspection bench pairing calibrated 1px grids with tactile RSSI distance telemetry.
 colors:
   ground: "#f5f6f3"
@@ -88,7 +88,7 @@ components:
 
 **Creative North Star: "Daylight Signal Bench"**
 
-The Smart Glasses Detector web presence (`docs/index.html` and `docs/privacy.html`) replaces dark-glow software clichés with a bright, unhurried hardware inspection sheet (`#f5f6f3` mineral paper over crisp `#ffffff` plates and `#eceee8` calibrated workspace bays). Every claim is anchored to verifiable on-device facts—`0 B` network transmission, Android 12+ `neverForLocation` operation, interactive `-90` to `-30 dBm` Gate proximity simulation (`-55 dBm` trigger), and actual Android screenshots displayed as numbered archival plates.
+The SmartGlass Scanner web presence (`docs/index.html` and `docs/privacy.html`) replaces dark-glow software clichés with a bright, unhurried hardware inspection sheet (`#f5f6f3` mineral paper over crisp `#ffffff` plates and `#eceee8` calibrated workspace bays). Every claim is anchored to verifiable on-device facts—`0 B` network transmission, Android 12+ `neverForLocation` operation, interactive `-90` to `-30 dBm` Gate proximity simulation (`-55 dBm` trigger), and actual Android screenshots displayed as numbered archival plates.
 
 **Key Characteristics:**
 - High-legibility daylight mineral ground (`#f5f6f3`) paired with carbon ink (`#14191e`) and strict `1px` perimeter hairlines (`#d4d8cf`).
@@ -112,7 +112,7 @@ Roles map directly to real physical inspection states and RF threshold signals:
 Two typefaces split narrative comprehension from machine telemetry cleanly:
 
 - **Reading & Display Face (`Noto Sans KR`):** Handles all Korean and English display headlines (`display`, `heading`), body copy (`body`), table headers, and UI labels with `word-break: keep-all` so Hangul headlines never split awkwardly mid-word.
-- **Technical Monospace (`JetBrains Mono`):** Strictly reserved for tabular numbers (`tabular-nums`), RF measurements (`-55 dBm`, `8 dBm`), hex Company IDs (`0x058E`, `0x0000`–`0xFFFF`), figure codes (`FIG. 01`), package identifiers (`com.windyflow.glassesdetector`), and Android permission constants (`BLUETOOTH_SCAN`).
+- **Technical Monospace (`JetBrains Mono`):** Strictly reserved for tabular numbers (`tabular-nums`), RF measurements (`-55 dBm`, `8 dBm`), hex Company IDs (`0x058E`, `0x0000`–`0xFFFF`), figure codes (`FIG. 01`), package identifiers (`com.windyflow.smartglassscanner`), and Android permission constants (`BLUETOOTH_SCAN`).
 
 **The Script Integrity Rule.** Never set Korean headings, table headers, or buttons in monospace fallback fonts; keep every Hangul phrase in `Noto Sans KR` and restrict `JetBrains Mono` strictly to identifiers, hex literals, and English telemetry labels.
 

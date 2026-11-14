@@ -236,7 +236,7 @@ def run_scenario(scenario: Scenario, duration: int = 0) -> None:
 
 
 def print_menu() -> None:
-    print("\n=== Smart Glasses Detector - Python WinRT BLE Beacon ===")
+    print("\n=== SmartGlass Scanner - Python WinRT BLE Beacon ===")
     for s in SCENARIOS:
         print(f"  [{s.key}] {s.description} (alias: {s.alias})")
 

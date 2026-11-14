@@ -1,4 +1,4 @@
-# Smart Glasses Detector (Android Native) 기술 명세서
+# SmartGlass Scanner (스마트글래스 스캐너) 기술 명세서
 
 > **문서 상태**: v1.0 MVP + 튜닝 포인트 + 입실 스크리닝 모드 + 앱 사이닝 + 커스텀 앱 아이콘 + Windows 테스트 비콘 구현 완료 (현재 코드베이스 기준 현행화)
 
@@ -9,7 +9,7 @@ Native Kotlin(Jetpack Compose) 기반 스마트글래스 근접 탐지 Android �
 ## 1. 프로젝트 목표 및 기술 스택
 
 * **v1.0 MVP 목표**: 주변 스마트글래스(Ray-Ban Meta, Snap Spectacles 등)의 BLE 광고 패킷을 백그라운드에서 상시 탐지하고, 오탐 필터링을 거쳐 사용자에게 알림을 제공하는 **BLE 전용 Google Play 출시용** 앱 개발
-* **빌드 및 SDK 구성 (`com.windyflow.glassesdetector`, v1.0 / `versionCode = 1`)**:
+* **빌드 및 SDK 구성 (`com.windyflow.smartglassscanner`, v1.0 / `versionCode = 1`)**:
   * `minSdk = 26` (Android 8.0), `compileSdk = 37`, `targetSdk = 37`, Java `17`
   * AGP `9.0.1`, Kotlin `2.3.20`
 * **언어 및 UI**: Kotlin, Jetpack Compose (BOM `2026.03.01`, Material 3, `material-icons-extended`), AndroidX Navigation 3 (`1.0.1`)
@@ -30,7 +30,7 @@ app/src/main/
 │   │   ├── ic_launcher_monochrome.xml  # Android 13+ 테마 아이콘용 단색 전경
 │   │   └── ic_stat_glasses_scan.xml    # 24dp 알림(Status Bar) 전용 단색 아이콘
 │   └── mipmap-*/                       # anydpi-v26 XML 및 mdpi~xxxhdpi WebP 아이콘
-└── kotlin/com/windyflow/glassesdetector/
+└── kotlin/com/windyflow/smartglassscanner/
     ├── MainActivity.kt                 # Edge-to-edge 호스트 액티비티
     ├── Navigation.kt                   # Navigation 3 NavDisplay 라우팅
     ├── NavigationKeys.kt               # Main / GateScreening / Settings NavKey
@@ -43,7 +43,7 @@ app/src/main/
     ├── service/
     │   └── BleScannerService.kt        # Android 14+ connectedDevice ForegroundService & 알림
     ├── data/
-    │   ├── AppPreferences.kt           # 공용 DataStore("glasses_detector_prefs")
+    │   ├── AppPreferences.kt           # 공용 DataStore("smartglass_scanner_prefs")
     │   ├── DetectionStateHolder.kt     # 서비스↔UI 상태 브리지, detection_logs.json(500건) 영속 저장 & .txt 포맷터
     │   └── WhitelistRepository.kt      # DataStore 기반 RSSI/쿨다운/화이트리스트 저장
     └── ui/
@@ -66,7 +66,7 @@ app/src/main/
 
 ## 2. 권한 및 Google Play 심사 준수 (`AndroidManifest.xml`)
 
-v1.0에서는 Wi-Fi 스캔을 제외하여 API 31+ 환경에서 `ACCESS_FINE_LOCATION` 요청을 완전히 없앱니다. Android 12+에서는 `BLUETOOTH_SCAN`에 `neverForLocation` 플래그를 적용하고([Android Developers](https://developer.android.com/develop/connectivity/bluetooth/bt-permissions)), 하위 버전용 위치 권한은 `maxSdkVersion="30"`으로 제한합니다([Offline Protocol](https://www.offlineprotocol.com/learning/bluetooth-le/bluetooth-permissions-on-android-explained)). [PermissionHelper.kt](app/src/main/kotlin/com/windyflow/glassesdetector/ble/PermissionHelper.kt)도 SDK 버전별로 API 31+에서는 `ACCESS_FINE_LOCATION`을 절대 요청하지 않도록 분기합니다.
+v1.0에서는 Wi-Fi 스캔을 제외하여 API 31+ 환경에서 `ACCESS_FINE_LOCATION` 요청을 완전히 없앱니다. Android 12+에서는 `BLUETOOTH_SCAN`에 `neverForLocation` 플래그를 적용하고([Android Developers](https://developer.android.com/develop/connectivity/bluetooth/bt-permissions)), 하위 버전용 위치 권한은 `maxSdkVersion="30"`으로 제한합니다([Offline Protocol](https://www.offlineprotocol.com/learning/bluetooth-le/bluetooth-permissions-on-android-explained)). [PermissionHelper.kt](app/src/main/kotlin/com/windyflow/smartglassscanner/ble/PermissionHelper.kt)도 SDK 버전별로 API 31+에서는 `ACCESS_FINE_LOCATION`을 절대 요청하지 않도록 분기합니다.
 
 ```xml
 <uses-feature

@@ -17,7 +17,7 @@ Static HTML/CSS and minimal vanilla JS served directly from `docs/` on GitHub Pa
 
 ## Product Purpose
 
-`Smart Glasses Detector` (`com.windyflow.glassesdetector`) passively scans nearby Bluetooth Low Energy (BLE) advertising packets locally on Android (Android 8.0 / API 26+) to alert users when known smart glasses hardware signatures appear nearby—without internet access, servers, tracking, or ads.
+`SmartGlass Scanner` (`com.windyflow.smartglassscanner`) passively scans nearby Bluetooth Low Energy (BLE) advertising packets locally on Android (Android 8.0 / API 26+) to alert users when known smart glasses hardware signatures appear nearby—without internet access, servers, tracking, or ads.
 
 `docs/index.html` introduces the app's capabilities, screenshots, supported hardware signatures, and honest detection boundaries to visitors; `docs/privacy.html` publishes the official Korean/English Privacy Policy effective `2026-11-14`.
 
@@ -40,15 +40,15 @@ A 100% on-device Android BLE utility that refuses network permissions (`INTERNET
   4. **Detection Limits Notice:** Clearly discloses that built-in rules are compiled from public Bluetooth/SDK specs and BLE beacon tests—not individually verified on every retail hardware unit—and that already-paired glasses stopping BLE ads or different firmware packets may not be detected.
 - **Built-in Hardware Signatures (25 Signatures across `CAMERA` & `DISPLAY_AR`):** Ray-Ban Meta (`0x058E` / `0x01AB` + payload, `0xFD5F`), Luxottica Frame (`0x0D53`), Snap Spectacles (`0x03C2`), TCL / RayNeo (`0x0BC6`), Meizu MYVU (`0x03AB`), Rokid AI (`0x9100`), Da Echo (`0xFEA8` + Service Data `413149010000`), HeyCyan SDK (`7905FFF0-...` & name prefix), Even Realities (`0x10F9`, `Even G`), Vuzix (`0x060C`), Kopin / Solos (`0x041F`), North Focals (`0x0562`), Brilliant Labs (`Monocle`), Meta / Jieli shared IDs (`0x01AB`, `0x05D6`), and device-name rules (`INMO`, `XREAL`, `Ray-Ban`, `Spectacles`, `Echo Frames`, `AirGo`, `Rokid`/`Vuzix`/`RayNeo`/`Moverio`/`Solos`).
 - **Privacy Policy Facts (`docs/privacy.html`):**
-  - Package: `com.windyflow.glassesdetector` | Effective Date: `2026-11-14` | Contact: `yusu.kang@gmail.com`
+  - Package: `com.windyflow.smartglassscanner` | Effective Date: `2026-11-14` | Contact: `yusu.kang@gmail.com`
   - Collects or transmits **zero** personal information, location logs, analytics, or advertising identifiers; processes BLE data on-device; retains up to 500 local detection/observation logs on-device (`files/detection_logs.json`, `.txt` export only on explicit Storage Access Framework save); stores local user preferences (RSSI threshold, cooldown, whitelist, custom Hex IDs) in Android Jetpack DataStore, deleted upon uninstall or settings clear.
   - Android permissions listed in `privacy.html`: `BLUETOOTH_SCAN` (`neverForLocation` on Android 12+), `ACCESS_FINE_LOCATION` (Android 11 / API 30 and below only, compatibility requirement), `FOREGROUND_SERVICE` / `FOREGROUND_SERVICE_CONNECTED_DEVICE`, `POST_NOTIFICATIONS` (Android 13+), `VIBRATE`.
 - **Undecided Facts:** Public Google Play Store URL is not yet confirmed/published; no live store badge or download URL should be fabricated.
 
 ## Brand Commitments
 
-- **Product Name:** `Smart Glasses Detector`
-- **Package ID & Contact:** `com.windyflow.glassesdetector`, `yusu.kang@gmail.com`
+- **Product Name:** `SmartGlass Scanner`
+- **Package ID & Contact:** `com.windyflow.smartglassscanner`, `yusu.kang@gmail.com`
 - **Existing Assets:** 4 portrait Android screenshots under `docs/screenshots/` and the app's optical/radar identity (`index.html`).
 - **Anchor Compatibility:** `docs/privacy.html` must retain `#ko` and `#en` section anchors cleanly.
 
