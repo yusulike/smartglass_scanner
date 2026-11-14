@@ -114,7 +114,7 @@
 - **개인정보처리방침 URL (Play Console 입력용)**: `https://yusulike.github.io/smartglass-scanner/privacy.html`
 - **앱 소개 페이지 URL (웹사이트 슬롯용)**: `https://yusulike.github.io/smartglass-scanner/`
 - 공개 호스팅 저장소: `https://github.com/yusulike/yusulike.github.io` (`smartglass-scanner/` 경로, 소스코드 저장소 `yusulike/smartglass_scanner`는 Private 유지)
-- 추후 [docs/](../docs/) 내용 수정 시 `yusulike/yusulike.github.io`의 `smartglass-scanner/` 폴더에 동일하게 복사·푸시하면 자동 반영됩니다.
+- 추후 [docs/](../docs/) 내용 수정 후 `main`에 푸시하면 [`.github/workflows/sync-docs.yml`](../.github/workflows/sync-docs.yml) GitHub Actions 워크플로우가 `yusulike/yusulike.github.io`의 `smartglass-scanner/` 폴더로 자동 동기화·배포합니다.
 
 ### C. 앱 콘텐츠 → 포그라운드 서비스 권한 (`FOREGROUND_SERVICE_CONNECTED_DEVICE`)
 > Google Play는 `FOREGROUND_SERVICE_CONNECTED_DEVICE` 사용 목적을 매우 엄격하게 심사합니다.
