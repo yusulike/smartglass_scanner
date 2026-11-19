@@ -17,6 +17,7 @@
 </p>
 
 <p align="center">
+  <a href="https://yusulike.github.io/smartglass-scanner/">앱 소개 페이지</a> ·
   <a href="https://play.google.com/store/apps/details?id=com.windyflow.smartglassscanner">Google Play 스토어에서 설치하기</a>
 </p>
 

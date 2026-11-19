@@ -17,6 +17,7 @@
 </p>
 
 <p align="center">
+  <a href="https://yusulike.github.io/smartglass-scanner/">App Homepage</a> ·
   <a href="https://play.google.com/store/apps/details?id=com.windyflow.smartglassscanner">Install on Google Play</a>
 </p>
 
