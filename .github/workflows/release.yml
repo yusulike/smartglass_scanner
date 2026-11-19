@@ -1,0 +1,90 @@
+name: Build & Publish Signed Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Decode signing keystore & write keystore.properties
+        env:
+          SIGNING_KEY_BASE64: ${{ secrets.SIGNING_KEY_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          echo "$SIGNING_KEY_BASE64" | base64 --decode > release.jks
+          cat <<EOF > keystore.properties
+          storeFile=release.jks
+          storePassword=${KEYSTORE_PASSWORD}
+          keyAlias=${KEY_ALIAS}
+          keyPassword=${KEY_PASSWORD}
+          EOF
+
+      - name: Run unit tests & build signed release APK
+        run: ./gradlew testDebugUnitTest assembleRelease --no-daemon
+
+      - name: Verify APK signature & prepare release asset
+        id: asset
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          SRC_APK="app/build/outputs/apk/release/app-release.apk"
+          OUT_APK="SmartGlassScanner-${TAG}.apk"
+          cp "$SRC_APK" "$OUT_APK"
+
+          APKSIGNER="$(find "${ANDROID_HOME:-$ANDROID_SDK_ROOT}/build-tools" -name apksigner | sort -V | tail -n 1)"
+          "$APKSIGNER" verify --verbose "$OUT_APK"
+
+          SHA256="$(sha256sum "$OUT_APK" | awk '{print $1}')"
+          echo "apk_file=${OUT_APK}" >> "$GITHUB_OUTPUT"
+          echo "sha256=${SHA256}" >> "$GITHUB_OUTPUT"
+
+      - name: Create or update GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
+          APK_FILE: ${{ steps.asset.outputs.apk_file }}
+          APK_SHA256: ${{ steps.asset.outputs.sha256 }}
+        run: |
+          cat <<EOF > release_notes.md
+          ## SmartGlass Scanner ${TAG}
+
+          - **Google Play**: [스마트글래스 스캐너 - Google Play 앱](https://play.google.com/store/apps/details?id=com.windyflow.smartglassscanner)
+          - **APK**: \`${APK_FILE}\`
+          - **APK SHA-256**: \`${APK_SHA256}\`
+
+          > GitHub Release APK는 개발자 키로 직접 서명된 빌드입니다. Google Play 스토어에서 설치한 앱과는 서명 키가 다르므로 교차 설치 시 기존 앱을 제거한 뒤 설치해 주세요.
+          EOF
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$APK_FILE" --clobber
+          else
+            gh release create "$TAG" "$APK_FILE" \
+              --title "${TAG} — SmartGlass Scanner" \
+              --notes-file release_notes.md \
+              --generate-notes
+          fi
+
+      - name: Clean up signing files
+        if: always()
+        run: rm -f release.jks keystore.properties release_notes.md
