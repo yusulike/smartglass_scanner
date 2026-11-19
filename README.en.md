@@ -145,7 +145,28 @@ Based on the 25 signatures defined in [signatures.json](app/src/main/assets/sign
 
 ## Build & Test
 
-### Debug Build · Unit Tests · Lint
+You can build a debug APK right after cloning without any keystore or local configuration files. (Pre-built signed APKs are also available on [Google Play](https://play.google.com/store/apps/details?id=com.windyflow.smartglassscanner) and [GitHub Releases](https://github.com/yusulike/smartglass_scanner/releases).)
+
+### Prerequisites
+* **Android SDK** (`compileSdk 37` — open the project in Android Studio or set `ANDROID_HOME`)
+* **JDK 17** (automatically provisioned via Gradle `foojay-resolver` if not installed)
+
+### Clone & Build APK
+```bash
+git clone https://github.com/yusulike/smartglass_scanner.git
+cd smartglass_scanner
+
+# macOS / Linux
+./gradlew assembleDebug
+
+# Windows (PowerShell / CMD)
+.\gradlew.bat assembleDebug
+```
+* **Output APK path**: `app/build/outputs/apk/debug/app-debug.apk`
+* **Install directly to a connected device**: `./gradlew installDebug` (Windows: `.\gradlew.bat installDebug`)
+* **Self-signed Release APK (Optional)**: Copy [keystore.properties.example](keystore.properties.example) to `keystore.properties` with your own keystore credentials and run `./gradlew assembleRelease`. (Without `keystore.properties`, an unsigned `app-release-unsigned.apk` is produced.)
+
+### Unit Tests · Lint · Instrumented Tests
 ```bash
 ./gradlew assembleDebug testDebugUnitTest lintDebug --no-daemon
 ```

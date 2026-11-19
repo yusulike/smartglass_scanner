@@ -145,7 +145,28 @@
 
 ## 빌드 및 테스트
 
-### Debug 빌드 · 유닛 테스트 · Lint
+별도의 키스토어나 설정 파일 없이 `git clone` 후 바로 디버그 APK를 빌드할 수 있습니다. (공식 서명 APK는 [Google Play](https://play.google.com/store/apps/details?id=com.windyflow.smartglassscanner) 또는 [GitHub Releases](https://github.com/yusulike/smartglass_scanner/releases)에서 바로 다운로드할 수 있습니다.)
+
+### 사전 요구사항
+* **Android SDK** (`compileSdk 37` — Android Studio로 프로젝트를 열거나 `ANDROID_HOME` 환경 변수 설정)
+* **JDK 17** (미설치 시 Gradle `foojay-resolver`가 자동 다운로드 지원)
+
+### 클론 및 APK 빌드
+```bash
+git clone https://github.com/yusulike/smartglass_scanner.git
+cd smartglass_scanner
+
+# macOS / Linux
+./gradlew assembleDebug
+
+# Windows (PowerShell / CMD)
+.\gradlew.bat assembleDebug
+```
+* **생성된 APK 경로**: `app/build/outputs/apk/debug/app-debug.apk`
+* **연결된 Android 기기에 바로 설치**: `./gradlew installDebug` (Windows: `.\gradlew.bat installDebug`)
+* **직접 서명된 릴리스 APK 빌드(선택)**: 본인 키스토어를 준비한 뒤 [keystore.properties.example](keystore.properties.example)을 `keystore.properties`로 복사해 값을 채우고 `./gradlew assembleRelease`를 실행합니다. (`keystore.properties`가 없으면 미서명 `app-release-unsigned.apk`가 생성됩니다.)
+
+### 유닛 테스트 · Lint · 계측 테스트
 ```bash
 ./gradlew assembleDebug testDebugUnitTest lintDebug --no-daemon
 ```
