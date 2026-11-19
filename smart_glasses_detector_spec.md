@@ -254,7 +254,7 @@ v1.0에서는 Wi-Fi 스캔을 제외하여 API 31+ 환경에서 `ACCESS_FINE_LOC
 5. **앱 아이콘 (`Adaptive Icon` + `Monochrome`)**:
    * [ic_launcher_background.xml](app/src/main/res/drawable/ic_launcher_background.xml), [ic_launcher_foreground.xml](app/src/main/res/drawable/ic_launcher_foreground.xml), [ic_launcher_monochrome.xml](app/src/main/res/drawable/ic_launcher_monochrome.xml) 및 `mipmap-mdpi~xxxhdpi` WebP 아이콘 구성
 6. **릴리스 앱 사이닝 (`app/build.gradle.kts`)**:
-   * 루트의 `keystore.properties`([keystore.properties.example](keystore.properties.example) 참고)와 `windyflow.jks`를 읽어 `release` `signingConfig`에 연결 (Git 추적 제외)
+   * Git 추적에서 제외된 외부 서명 설정 및 릴리스 키스토어를 읽어 `release` `signingConfig`에 연결
 
 ---
 
@@ -289,7 +289,7 @@ v1.0에서는 Wi-Fi 스캔을 제외하여 API 31+ 환경에서 `ACCESS_FINE_LOC
 * [x] **Step 2**: `assets/signatures.json`, `BleModels.kt`, `SignatureRepository.kt`, `BleSignalFilter.kt`(유연 N-of-M 포함), `SmartGlassesScanner.kt`(포그라운드/백그라운드 모드 분리 포함) 구현 및 유닛 테스트
 * [x] **Step 3**: `BleScannerService.kt` (`connectedDevice`, `activeSignatures`·모드 구독 재시작, 2종 알림 채널, Stop 액션) 구현
 * [x] **Step 4**: `WhitelistRepository.kt`, `DetectionStateHolder.kt` 및 `MainScreen` / `GateScreeningScreen` / `SettingsScreen` 구현·UI 계측 테스트
-* [x] **Step 5**: 릴리스 앱 사이닝(`keystore.properties`), 커스텀 Adaptive/Monochrome/알림 아이콘 적용, Windows BLE 테스트 비콘(`tools/`) 구축 및 실기기 E2E 검증
+* [x] **Step 5**: 릴리스 앱 사이닝 설정, 커스텀 Adaptive/Monochrome/알림 아이콘 적용, Windows BLE 테스트 비콘(`tools/`) 구축 및 실기기 E2E 검증
 
 ---
 
