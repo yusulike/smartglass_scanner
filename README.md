@@ -1,4 +1,24 @@
-# SmartGlass Scanner (스마트글래스 스캐너)
+<p align="center">
+  <a href="https://play.google.com/store/apps/details?id=com.windyflow.smartglassscanner">
+    <img src="store/icon_512x512.png" width="112" alt="SmartGlass Scanner 앱 아이콘" />
+  </a>
+</p>
+
+<h1 align="center">SmartGlass Scanner (스마트글래스 스캐너)</h1>
+
+<p align="center">
+  <strong>한국어</strong> | <a href="README.en.md">English</a>
+</p>
+
+<p align="center">
+  <a href="https://play.google.com/store/apps/details?id=com.windyflow.smartglassscanner">
+    <img src="https://play.google.com/intl/ko_kr/badges/static/images/badges/ko_badge_web_generic.png" height="60" alt="다운로드하기 Google Play" />
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://play.google.com/store/apps/details?id=com.windyflow.smartglassscanner">Google Play 스토어에서 설치하기</a>
+</p>
 
 **스마트글래스 스캐너 (SmartGlass Scanner)**(`com.windyflow.smartglassscanner`)는 주변 스마트글래스(Ray-Ban Meta, Snap Spectacles, HeyCyan SDK 등)의 BLE 광고 패킷을 백그라운드에서 상시 탐지하고, 오탐 최소화 필터링 및 시험장·보안 구역 입실 스크리닝 모드를 제공하는 **위치 권한 없는(BLE 전용)** Android 네이티브 앱입니다.
 
@@ -76,16 +96,16 @@
 
 ```text
 .
-├── README.md                                  # 프로젝트 개요·빌드·테스트·사이닝 가이드
+├── README.md                                  # 프로젝트 개요·빌드·테스트 가이드 (한국어)
+├── README.en.md                               # 프로젝트 개요·빌드·테스트 가이드 (English)
 ├── docs/
 │   ├── index.html                             # GitHub Pages 앱 소개 랜딩 페이지
 │   ├── privacy.html                           # Play Store용 개인정보처리방침 (한/영)
 │   └── screenshots/                           # 소개 페이지용 앱 화면 스크린샷 4종
 ├── smart_glasses_detector_spec.md             # v1.0 MVP 기술 명세서 (현행화 완료)
 ├── gate_screening_mode_addon.md               # 시험장 입실 스크리닝 모드 명세서 (현행화 완료)
-├── keystore.properties.example                # 릴리스 앱 사이닝 설정 템플릿
 ├── app/
-│   ├── build.gradle.kts                       # Gradle & release signingConfig
+│   ├── build.gradle.kts                       # Gradle 빌드 설정
 │   └── src/
 │       ├── main/
 │       │   ├── AndroidManifest.xml            # BLE 전용 권한, VIBRATE, connectedDevice 서비스
@@ -132,15 +152,6 @@
 * **단위 테스트 (`app/src/test`)**: `BleSignalFilterTest`(15), `ScanThrottleAndPermissionTest`(4), `SignatureRepositoryTest`(4), `DetectionLogPersistenceTest`(2), `WhitelistRepositoryTest`(2) — 총 27건
 * **UI 계측 테스트 (`app/src/androidTest`)**: `MainScreenTest`(3), `GateScreeningScreenTest`(1), `SettingsScreenTest`(1) — 총 5건 (`./gradlew connectedDebugAndroidTest`)
 
-### 릴리스 앱 사이닝 & 빌드
-`keystore.properties`와 `.jks` 파일은 `.gitignore`로 추적에서 제외됩니다.
-1. [keystore.properties.example](keystore.properties.example)을 루트에 `keystore.properties`로 복사하고 키스토어 비밀번호·별칭을 입력합니다.
-2. 프로젝트 루트에 키스토어 파일(기본 `windyflow.jks`)을 배치합니다.
-3. 릴리스 APK / AAB 생성:
-   ```bash
-   ./gradlew assembleRelease bundleRelease --no-daemon
-   ```
-
 ---
 
 ## 실기기 BLE 탐지 테스트 (Windows PC / Android / Linux)
@@ -175,7 +186,7 @@
 
 ## 상세 문서
 
-* [smart_glasses_detector_spec.md](smart_glasses_detector_spec.md) — v1.0 MVP 아키텍처, 권한/Play 심사, 시그니처 DB, BLE 필터, 사이닝·아이콘 명세
+* [smart_glasses_detector_spec.md](smart_glasses_detector_spec.md) — v1.0 MVP 아키텍처, 권한/Play 심사, 시그니처 DB, BLE 필터, 아이콘 명세
 * [gate_screening_mode_addon.md](gate_screening_mode_addon.md) — 시험장 입실 스크리닝(`GATE_SCREENING`) 모드 동작·컴포넌트 명세
 
 ---
