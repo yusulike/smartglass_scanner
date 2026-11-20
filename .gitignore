@@ -22,3 +22,10 @@ keystore.properties
 tools/*.exe
 __pycache__/
 *.pyc
+
+# Internal AI design artifacts & Play Store submission assets (keep app icon for README)
+.impeccable/
+DESIGN.md
+PRODUCT.md
+store/*
+!store/icon_512x512.png
