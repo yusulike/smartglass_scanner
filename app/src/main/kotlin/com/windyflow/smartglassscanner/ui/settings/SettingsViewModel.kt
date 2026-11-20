@@ -26,6 +26,7 @@ data class SettingsUiState(
   val appSkin: AppSkin = AppSkin.OCEAN_BLUE,
   val rssiThresholdDbm: Int = DetectorSettings.DEFAULT_RSSI_THRESHOLD_DBM,
   val cooldownSeconds: Int = DetectorSettings.DEFAULT_COOLDOWN_SECONDS,
+  val includeGenericLowSignatures: Boolean = SignatureRepository.DEFAULT_INCLUDE_GENERIC_LOW_SIGNATURES,
   val customHexInput: String = "",
   val isCustomHexValid: Boolean = false,
   val normalizedHexPreview: String? = null,
@@ -55,20 +56,27 @@ class SettingsViewModel(
     DetectionStateHolder.initialize(application)
   }
 
+  private val signatureConfigFlow =
+    combine(
+      signatureRepository.customHexIds,
+      signatureRepository.includeGenericLowSignatures
+    ) { customIds, includeGenericLow -> customIds to includeGenericLow }
+
   val uiState: StateFlow<SettingsUiState> =
     combine(
       whitelistRepository.settings,
-      signatureRepository.customHexIds,
+      signatureConfigFlow,
       DetectionStateHolder.state,
       customHexInput,
       feedbackMessage
-    ) { settings, customIds, runtimeState, hexInput, feedback ->
+    ) { settings, (customIds, includeGenericLow), runtimeState, hexInput, feedback ->
       val normalized = SignatureJsonParser.normalizeHexCompanyId(hexInput)
       SettingsUiState(
         themeMode = settings.themeMode,
         appSkin = settings.appSkin,
         rssiThresholdDbm = settings.rssiThresholdDbm,
         cooldownSeconds = settings.cooldownSeconds,
+        includeGenericLowSignatures = includeGenericLow,
         customHexInput = hexInput,
         isCustomHexValid = normalized != null,
         normalizedHexPreview = normalized,
@@ -105,6 +113,12 @@ class SettingsViewModel(
   fun onCooldownSecondsChange(seconds: Int) {
     viewModelScope.launch {
       whitelistRepository.setCooldownSeconds(seconds)
+    }
+  }
+
+  fun onIncludeGenericLowSignaturesChange(enabled: Boolean) {
+    viewModelScope.launch {
+      signatureRepository.setIncludeGenericLowSignatures(enabled)
     }
   }
 

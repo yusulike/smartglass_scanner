@@ -61,7 +61,7 @@
     {
       "id": "zhuhai_jieli",
       "companyId": "0x05D6",
-      "label": "Zhuhai Jieli Chipset Glasses",
+      "label": "Zhuhai Jieli Generic Chipset (Audio / Glasses)",
       "payloadAscii": null,
       "serviceUuid": null,
       "baseConfidence": "LOW"

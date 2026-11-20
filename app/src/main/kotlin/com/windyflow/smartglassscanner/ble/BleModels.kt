@@ -87,6 +87,29 @@ data class BleSignature(
   /** Returns `true` when this rule relies on device-name matching (`prefix` or `patterns`). */
   fun hasNameCriterion(): Boolean =
     !deviceNamePrefix.isNullOrBlank() || !deviceNamePatterns.isNullOrEmpty()
+
+  /** Returns `true` for built-in generic `LOW`-confidence signatures (excluded when toggle is off). */
+  fun isBuiltInGenericLow(): Boolean =
+    !isCustom && baseConfidence == ConfidenceLevel.LOW
+
+  /** Summarizes the primary matching criterion of this signature for diagnostic logs. */
+  fun matchEvidenceSummary(): String =
+    when {
+      !companyId.isNullOrBlank() ->
+        buildString {
+          append("companyId=").append(companyId.trim())
+          if (!payloadAscii.isNullOrBlank()) append("+payload=").append(payloadAscii.trim())
+          if (!payloadHex.isNullOrBlank()) append("+hex=").append(payloadHex.trim())
+        }
+      !serviceUuid.isNullOrBlank() ->
+        buildString {
+          append("serviceUuid=").append(serviceUuid.trim())
+          if (!serviceDataHex.isNullOrBlank()) append("+data=").append(serviceDataHex.trim())
+        }
+      !deviceNamePrefix.isNullOrBlank() -> "namePrefix=${deviceNamePrefix.trim()}"
+      !deviceNamePatterns.isNullOrEmpty() -> "namePattern=${deviceNamePatterns.joinToString("/")}"
+      else -> id
+    }
   /**
    * Parses [companyId] (e.g. `"0x058E"`) into an unsigned 16-bit integer.
    * Returns `null` when [companyId] is missing or malformed.

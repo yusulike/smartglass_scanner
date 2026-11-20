@@ -31,7 +31,7 @@
    * **Foreground / Background Scan Mode Split**: Runs an unfiltered `SCAN_MODE_BALANCED` scan while the app is visible to capture device-name patterns and Scan Responses broadly, and automatically switches to `SCAN_MODE_LOW_POWER` with hardware `ScanFilter`s (Company ID / Service UUID / Service Data / Android 13+ device-name prefix) when idle in the background.
    * **False-Positive Signal Filtering (`BleSignalFilter`)**: Applies EMA RSSI smoothing (`α = 0.3`), hysteresis (`8 dBm` gap), and an 8-second sliding-window **flexible N-of-M** threshold (`HIGH = 1 hit`, `MEDIUM = 2 hits`, `LOW = 3 hits`), distinguishing alerts for camera-equipped (`CAMERA`) and display-only AR (`DISPLAY_AR`) glasses.
    * **Whitelist & Cooldown**: Permanently ignore whitelisted devices, configurable per-device alert cooldown (`5–60s`, default `10s`), and automatic cleanup of devices unseen for 120 seconds.
-   * **Persistent Local Logging & Export**: Persists up to 500 entries — both confirmed alerts and sub-threshold `[OBSERVED]` hits (per-device throttled) — locally in `files/detection_logs.json` across restarts, and exports `.txt` reports via Android SAF (`CreateDocument`) with zero external server transmission.
+   * **Persistent Local Logging & Export**: Persists up to 500 entries — both confirmed alerts and sub-threshold `[OBSERVED]` hits (with `match=...` evidence and per-device throttling) — locally in `files/detection_logs.json` across restarts, and exports `.txt` reports via Android SAF (`CreateDocument`) with zero external server transmission.
 2. **Gate Screening Mode (`GATE_SCREENING`)**
    * Foreground-only `SCAN_MODE_LOW_LATENCY` close-proximity (`≥ -55 dBm`, approx. 0.5–1m) instant screening mode for exam proctors and security checkpoints.
    * Fast EMA (`α = 0.7`), instant 3-level verdict (`CLEAR` green / `CAUTION` amber / `ALERT` red), `2s` cooldown silent vibration (`VIBRATE`), and a **Next Candidate (Reset)** button.
@@ -45,18 +45,18 @@
 
 ## Detectable Devices & Signatures (25 Built-in)
 
-Based on the 25 signatures defined in [signatures.json](app/src/main/assets/signatures.json). Additional custom 16-bit Hex Company IDs (`0x0000`–`0xFFFF`, `LOW` confidence / 3 hits) can be registered in Settings.
+Based on the 25 signatures defined in [signatures.json](app/src/main/assets/signatures.json). Additional custom 16-bit Hex Company IDs (`0x0000`–`0xFFFF`, `LOW` confidence / 3 hits) can be registered in Settings. Built-in generic `LOW` signatures (`0x01AB`, `0x05D6`) are enabled by default and can be toggled off via **Include generic chipset (LOW) signatures** in Settings to reduce false positives from budget earbuds and audio devices.
 
 | # | Signature ID | Display Label | Matching Rule (`Company ID` / `Service UUID` / `Service Data` / Device Name) | Category | Confidence (Guard Hits / Gate) | Scope & Notes |
 |:-:|:---|:---|:---|:---:|:---|:---|
 | 1 | `meta_rayban_tech` | Ray-Ban Meta (Meta Platforms Tech) | Company ID `0x058E` + Payload ASCII `META_RB_GLASS` | `CAMERA` | `HIGH` (1 hit / `ALERT`) | Excludes Quest VR (`META_QUEST_3`) false positives |
 | 2 | `meta_rayban_inc_confirmed` | Ray-Ban Meta (Meta Platforms Inc) | Company ID `0x01AB` + Payload ASCII `META_RB_GLASS` | `CAMERA` | `HIGH` (1 hit / `ALERT`) | Promotes shared `0x01AB` immediately on payload match |
 | 3 | `luxottica_rayban` | Ray-Ban Meta Frame (Luxottica) | Company ID `0x0D53` | `CAMERA` | `HIGH` (1 hit / `ALERT`) | Always active (background & foreground) |
-| 4 | `meta_platforms_general` | Meta Platforms Device | Company ID `0x01AB` | `CAMERA` | `LOW` (3 hits / `CAUTION`) | Includes general Meta BLE devices (caution) |
+| 4 | `meta_platforms_general` | Meta Platforms Device | Company ID `0x01AB` | `CAMERA` | `LOW` (3 hits / `CAUTION`) | Shared Meta BLE ID (caution · toggleable in Settings) |
 | 5 | `snap_spectacles` | Snap Spectacles | Company ID `0x03C2` | `CAMERA` | `MEDIUM` (2 hits / `ALERT`) | Always active (background & foreground) |
 | 6 | `tcl_rayneo` | TCL / RayNeo Smart Glasses | Company ID `0x0BC6` | `CAMERA` | `MEDIUM` (2 hits / `ALERT`) | Always active (background & foreground) |
 | 7 | `meizu_myvu` | Meizu MYVU AR Glasses | Company ID `0x03AB` | `DISPLAY_AR` | `MEDIUM` (2 hits / `ALERT`) | Distinct non-camera display AR alert |
-| 8 | `zhuhai_jieli` | Zhuhai Jieli Chipset Glasses | Company ID `0x05D6` | `CAMERA` | `LOW` (3 hits / `CAUTION`) | Generic Chinese glasses/audio chipset (caution) |
+| 8 | `zhuhai_jieli` | Zhuhai Jieli Generic Chipset (Audio / Glasses) | Company ID `0x05D6` | `CAMERA` | `LOW` (3 hits / `CAUTION`) | Generic Chinese audio/glasses chipset (caution · toggleable in Settings) |
 | 9 | `heycyan_sdk` | HeyCyan SDK Smart Glasses | Service UUID `7905FFF0-B5CE-4E99-A40F-4B1E122D00D0` | `CAMERA` | `HIGH` (1 hit / `ALERT`) | GATT Service UUID match |
 | 10 | `rokid_ai_glasses` | Rokid AI Glasses | Service UUID `00009100-0000-1000-8000-00805F9B34FB` (`0x9100`) | `CAMERA` | `HIGH` (1 hit / `ALERT`) | GATT Service UUID match |
 | 11 | `da_echo_glasses` | Da Echo Smart Glasses | Service UUID `0xFEA8` + Service Data Hex `413149010000` | `CAMERA` | `HIGH` (1 hit / `ALERT`) | Service Data byte verification |

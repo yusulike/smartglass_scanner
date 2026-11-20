@@ -94,6 +94,8 @@
     <string name="settings_rssi_hysteresis_desc">Exit threshold is automatically set below %1$d dBm with %2$d dB hysteresis.</string>
     <string name="settings_cooldown_label">Duplicate Alert Cooldown</string>
     <string name="settings_cooldown_value">%1$d sec</string>
+    <string name="settings_generic_low_label">Include generic chipset (LOW) signatures</string>
+    <string name="settings_generic_low_desc">Includes shared Meta (0x01AB) and Zhuhai Jieli (0x05D6) IDs also used by budget earbuds and speakers (on by default). Turn off to reduce everyday false positives.</string>
     <string name="settings_section_custom_hex">Custom Hex Company ID</string>
     <string name="settings_custom_hex_desc">Add a Bluetooth SIG Manufacturer ID (1–4 hex digits, optional 0x prefix) to automatically update active scanner filters.</string>
     <string name="settings_custom_hex_input_label">Company ID (e.g. 0x058E or 058E)</string>
@@ -109,6 +111,7 @@
         <item quantity="one">%1$s%2$s · Confirmed after %3$d hit</item>
         <item quantity="other">%1$s%2$s · Confirmed after %3$d hits</item>
     </plurals>
+    <string name="settings_sig_confidence_off">%1$s (OFF)</string>
     <string name="settings_section_whitelist">Ignored Devices (Whitelist · %1$d)</string>
     <string name="settings_whitelist_empty">No ignored devices. Tap Ignore on a detected device card to add one.</string>
     <string name="cd_remove_whitelist">Remove %1$s from whitelist</string>

@@ -173,7 +173,7 @@ v1.0에서는 Wi-Fi 스캔을 제외하여 API 31+ 환경에서 `ACCESS_FINE_LOC
     {
       "id": "zhuhai_jieli",
       "companyId": "0x05D6",
-      "label": "Zhuhai Jieli Chipset Glasses",
+      "label": "Zhuhai Jieli Generic Chipset (Audio / Glasses)",
       "payloadAscii": null,
       "serviceUuid": null,
       "baseConfidence": "LOW"

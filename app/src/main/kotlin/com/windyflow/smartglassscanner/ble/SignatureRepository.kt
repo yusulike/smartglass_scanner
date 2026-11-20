@@ -3,10 +3,12 @@ package com.windyflow.smartglassscanner.ble
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import com.windyflow.smartglassscanner.data.detectorDataStore
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.serialization.json.Json
 
@@ -60,9 +62,17 @@ class SignatureRepository(
   )
 
   private val customCompanyIdsKey = stringSetPreferencesKey("custom_company_ids")
+  private val includeGenericLowSignaturesKey =
+    booleanPreferencesKey("include_generic_low_signatures")
 
   /** Lazily loaded built-in signatures from `assets/signatures.json`. */
   val bundledSignatures: List<BleSignature> by lazy { bundledLoader() }
+
+  /** Whether built-in generic `LOW`-confidence signatures (`0x01AB`, `0x05D6`) are active. */
+  val includeGenericLowSignatures: Flow<Boolean> =
+    dataStore.data.map { prefs ->
+      prefs[includeGenericLowSignaturesKey] ?: DEFAULT_INCLUDE_GENERIC_LOW_SIGNATURES
+    }
 
   /** Sorted list of normalized custom hex company IDs (`0xXXXX`). */
   val customHexIds: Flow<List<String>> =
@@ -70,12 +80,25 @@ class SignatureRepository(
       prefs[customCompanyIdsKey]?.sorted().orEmpty()
     }
 
-  /** Reactive merged list of bundled signatures followed by user custom signatures. */
+  /** Reactive merged list of active bundled signatures followed by user custom signatures. */
   val activeSignatures: Flow<List<BleSignature>> =
-    customHexIds.map { customIds ->
+    combine(customHexIds, includeGenericLowSignatures) { customIds, includeGenericLow ->
+      val activeBundled =
+        if (includeGenericLow) {
+          bundledSignatures
+        } else {
+          bundledSignatures.filterNot(BleSignature::isBuiltInGenericLow)
+        }
       val customSignatures = customIds.map(SignatureJsonParser::customSignatureFor)
-      bundledSignatures + customSignatures
+      activeBundled + customSignatures
     }
+
+  /** Enables or disables built-in generic `LOW`-confidence signatures (`0x01AB`, `0x05D6`). */
+  suspend fun setIncludeGenericLowSignatures(enabled: Boolean) {
+    dataStore.edit { prefs ->
+      prefs[includeGenericLowSignaturesKey] = enabled
+    }
+  }
 
   /** Exception thrown when a user-supplied custom Company ID cannot be normalized as 1–4 hex digits. */
   class InvalidHexCompanyIdException :
@@ -103,5 +126,9 @@ class SignatureRepository(
       val current = prefs[customCompanyIdsKey].orEmpty()
       prefs[customCompanyIdsKey] = current - normalized
     }
+  }
+
+  companion object {
+    const val DEFAULT_INCLUDE_GENERIC_LOW_SIGNATURES = true
   }
 }

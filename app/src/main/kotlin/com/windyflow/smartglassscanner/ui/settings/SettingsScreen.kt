@@ -43,6 +43,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -106,6 +107,7 @@ fun SettingsScreen(
     onAppSkinChange = viewModel::onAppSkinChange,
     onRssiThresholdChange = viewModel::onRssiThresholdChange,
     onCooldownSecondsChange = viewModel::onCooldownSecondsChange,
+    onIncludeGenericLowSignaturesChange = viewModel::onIncludeGenericLowSignaturesChange,
     onCustomHexInputChange = viewModel::onCustomHexInputChange,
     onAddCustomHexId = viewModel::addCustomHexId,
     onRemoveCustomHexId = viewModel::removeCustomHexId,
@@ -129,6 +131,7 @@ internal fun SettingsScreen(
   onAppSkinChange: (AppSkin) -> Unit = {},
   onRssiThresholdChange: (Int) -> Unit,
   onCooldownSecondsChange: (Int) -> Unit,
+  onIncludeGenericLowSignaturesChange: (Boolean) -> Unit = {},
   onCustomHexInputChange: (String) -> Unit,
   onAddCustomHexId: () -> Unit,
   onRemoveCustomHexId: (String) -> Unit,
@@ -237,6 +240,30 @@ internal fun SettingsScreen(
                 valueRange =
                   DetectorSettings.MIN_COOLDOWN_SECONDS.toFloat()..
                     DetectorSettings.MAX_COOLDOWN_SECONDS.toFloat()
+              )
+            }
+
+            HorizontalDivider()
+
+            Row(
+              modifier = Modifier.fillMaxWidth(),
+              verticalAlignment = Alignment.CenterVertically,
+              horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+              Column(modifier = Modifier.weight(1f)) {
+                Text(
+                  text = stringResource(R.string.settings_generic_low_label),
+                  style = MaterialTheme.typography.bodyMedium
+                )
+                Text(
+                  text = stringResource(R.string.settings_generic_low_desc),
+                  style = MaterialTheme.typography.bodySmall,
+                  color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+              }
+              Switch(
+                checked = state.includeGenericLowSignatures,
+                onCheckedChange = onIncludeGenericLowSignaturesChange
               )
             }
           }
@@ -379,9 +406,19 @@ internal fun SettingsScreen(
                   )
                 }
                 Text(
-                  text = sig.baseConfidence.name,
+                  text =
+                    if (sig.isBuiltInGenericLow() && !state.includeGenericLowSignatures) {
+                      stringResource(R.string.settings_sig_confidence_off, sig.baseConfidence.name)
+                    } else {
+                      sig.baseConfidence.name
+                    },
                   style = MaterialTheme.typography.labelSmall,
-                  color = MaterialTheme.colorScheme.primary
+                  color =
+                    if (sig.isBuiltInGenericLow() && !state.includeGenericLowSignatures) {
+                      MaterialTheme.colorScheme.onSurfaceVariant
+                    } else {
+                      MaterialTheme.colorScheme.primary
+                    }
                 )
               }
             }

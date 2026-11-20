@@ -35,7 +35,8 @@ data class DetectionLogEntry(
   val category: GlassesCategory = GlassesCategory.CAMERA,
   val smoothedRssi: Double,
   val rawRssi: Int,
-  val notified: Boolean
+  val notified: Boolean,
+  val matchReason: String = ""
 )
 
 /** Atomic JSON file persistence for on-device [DetectionLogEntry] history. */
@@ -290,9 +291,10 @@ object DetectionStateHolder {
     logs.forEach { entry ->
       val ts = logTimeFormatter.format(Instant.ofEpochMilli(entry.timestampMs))
       val alertFlag = if (entry.notified) "ALERT" else "OBSERVED"
+      val matchSegment = if (entry.matchReason.isNotBlank()) "match=${entry.matchReason}, " else ""
       sb.appendLine(
         "[$ts] [$alertFlag] [${entry.confidence.name}] [${entry.category.name}] ${entry.label} " +
-          "(key=${entry.key}, smoothed=${"%.1f".format(entry.smoothedRssi)} dBm, raw=${entry.rawRssi} dBm)"
+          "(${matchSegment}key=${entry.key}, smoothed=${"%.1f".format(entry.smoothedRssi)} dBm, raw=${entry.rawRssi} dBm)"
       )
     }
     return sb.toString()

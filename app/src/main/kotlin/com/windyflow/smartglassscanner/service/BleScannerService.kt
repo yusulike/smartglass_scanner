@@ -414,7 +414,8 @@ class BleScannerService : Service() {
       category = device.signature.category,
       smoothedRssi = device.smoothedRssi,
       rawRssi = device.rawRssi,
-      notified = notified
+      notified = notified,
+      matchReason = device.signature.matchEvidenceSummary()
     )
 
   private fun stopScanningAndSelf() {

@@ -93,6 +93,8 @@
     <string name="settings_rssi_hysteresis_desc">이탈 임계값은 히스테리시스(%2$d dB)를 적용해 %1$d dBm 미만으로 자동 설정됩니다.</string>
     <string name="settings_cooldown_label">중복 알림 쿨다운</string>
     <string name="settings_cooldown_value">%1$d초</string>
+    <string name="settings_generic_low_label">범용 칩셋(LOW) 시그니처 포함</string>
+    <string name="settings_generic_low_desc">저가 이어폰·스피커 등에도 쓰이는 공용 Meta(0x01AB)·Zhuhai Jieli(0x05D6) ID를 포함합니다(기본 켜짐). 일상 오탐이 잦으면 끌 수 있습니다.</string>
     <string name="settings_section_custom_hex">커스텀 Hex Company ID</string>
     <string name="settings_custom_hex_desc">Bluetooth SIG 제조사 ID(1~4자리 Hex, 0x 접두사 허용)를 추가하면 실행 중인 스캐너 필터가 자동 갱신됩니다.</string>
     <string name="settings_custom_hex_input_label">Company ID (예: 0x058E 또는 058E)</string>
@@ -107,6 +109,7 @@
     <plurals name="settings_sig_detail_format">
         <item quantity="other">%1$s%2$s · %3$d회 관측 확정</item>
     </plurals>
+    <string name="settings_sig_confidence_off">%1$s (꺼짐)</string>
     <string name="settings_section_whitelist">무시 목록 (화이트리스트 · %1$d건)</string>
     <string name="settings_whitelist_empty">무시된 기기가 없습니다. 메인 화면 카드에서 \'무시\'를 눌러 추가할 수 있습니다.</string>
     <string name="cd_remove_whitelist">%1$s 화이트리스트 해제</string>

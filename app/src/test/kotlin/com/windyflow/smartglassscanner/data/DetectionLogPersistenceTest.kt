@@ -122,4 +122,46 @@ class DetectionLogPersistenceTest {
     DetectionStateHolder.resetForTest(file = logFile, syncPersist = true)
     assertTrue(DetectionStateHolder.state.value.detectionLogs.isEmpty())
   }
+
+  @Test
+  fun observationLogsPersistAndFormatMatchReason() {
+    val logFile = Files.createTempFile("logs_match_reason_", ".json").toFile().also(tempFiles::add)
+    logFile.delete()
+    DetectionStateHolder.resetForTest(file = logFile, syncPersist = true)
+
+    val observedWithMatch =
+      DetectionLogEntry(
+        timestampMs = 1_000L,
+        key = "A5:FC:C5:C8:2C:99",
+        label = "Zhuhai Jieli Generic Chipset (Audio / Glasses)",
+        confidence = ConfidenceLevel.LOW,
+        smoothedRssi = -88.0,
+        rawRssi = -88,
+        notified = false,
+        matchReason = "companyId=0x05D6"
+      )
+    assertTrue(DetectionStateHolder.appendObservationIfDue(observedWithMatch, cooldownMs = 10_000L))
+
+    val legacyWithoutMatch =
+      DetectionLogEntry(
+        timestampMs = 2_000L,
+        key = "11:22:33:44:55:66",
+        label = "Snap Spectacles",
+        confidence = ConfidenceLevel.MEDIUM,
+        smoothedRssi = -72.0,
+        rawRssi = -72,
+        notified = false
+      )
+    assertTrue(DetectionStateHolder.appendObservationIfDue(legacyWithoutMatch, cooldownMs = 10_000L))
+
+    val textReport = DetectionStateHolder.formatLogsAsText()
+    assertTrue(textReport.contains("(match=companyId=0x05D6, key=A5:FC:C5:C8:2C:99"))
+    assertTrue(textReport.contains("(key=11:22:33:44:55:66"))
+
+    DetectionStateHolder.resetForTest(file = logFile, syncPersist = true)
+    val reloaded = DetectionStateHolder.state.value.detectionLogs
+    assertEquals(2, reloaded.size)
+    assertEquals("", reloaded[0].matchReason)
+    assertEquals("companyId=0x05D6", reloaded[1].matchReason)
+  }
 }

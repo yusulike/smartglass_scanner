@@ -11,6 +11,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -117,6 +118,19 @@ class SignatureRepositoryTest {
     val echoFocals = db.signatures.first { it.id == "echo_frames_focals_name" }
     assertEquals(GlassesCategory.DISPLAY_AR, echoFocals.category)
     assertTrue(echoFocals.deviceNamePatterns.orEmpty().contains("Echo Frames"))
+
+    val jieli = db.signatures.first { it.id == "zhuhai_jieli" }
+    assertEquals("Zhuhai Jieli Generic Chipset (Audio / Glasses)", jieli.label)
+    assertEquals(ConfidenceLevel.LOW, jieli.baseConfidence)
+    assertTrue(jieli.isBuiltInGenericLow())
+    assertEquals("companyId=0x05D6", jieli.matchEvidenceSummary())
+
+    assertEquals("companyId=0x058E+payload=META_RB_GLASS", rayBan.matchEvidenceSummary())
+    assertEquals(
+      "serviceUuid=7905FFF0-B5CE-4E99-A40F-4B1E122D00D0",
+      heyCyan.matchEvidenceSummary()
+    )
+    assertFalse(rayBan.isBuiltInGenericLow())
   }
 
   @Test
@@ -180,6 +194,54 @@ class SignatureRepositoryTest {
 
     repo.removeCustomHexId("0x12AB")
     assertEquals(1, repo.activeSignatures.first().size)
+  }
+
+  @Test
+  fun genericLowSignatureToggle_filtersOnlyBuiltInLowAndPreservesCustomHexIds() = runTest {
+    val dataStore = InMemoryPreferencesStore()
+    val bundled =
+      listOf(
+        BleSignature(
+          id = "meta_rayban_tech",
+          companyId = "0x058E",
+          label = "Ray-Ban Meta (Meta Platforms Tech)",
+          payloadAscii = "META_RB_GLASS",
+          baseConfidence = ConfidenceLevel.HIGH
+        ),
+        BleSignature(
+          id = "meta_platforms_general",
+          companyId = "0x01AB",
+          label = "Meta Platforms Device",
+          baseConfidence = ConfidenceLevel.LOW
+        ),
+        BleSignature(
+          id = "zhuhai_jieli",
+          companyId = "0x05D6",
+          label = "Zhuhai Jieli Generic Chipset (Audio / Glasses)",
+          baseConfidence = ConfidenceLevel.LOW
+        )
+      )
+    val repo = SignatureRepository(dataStore = dataStore, bundledLoader = { bundled })
+
+    assertTrue(repo.includeGenericLowSignatures.first())
+    repo.addCustomHexId("1234")
+
+    val defaultActiveIds = repo.activeSignatures.first().map { it.id }
+    assertEquals(
+      listOf("meta_rayban_tech", "meta_platforms_general", "zhuhai_jieli", "custom_0x1234"),
+      defaultActiveIds
+    )
+
+    repo.setIncludeGenericLowSignatures(false)
+    assertFalse(repo.includeGenericLowSignatures.first())
+    assertEquals(listOf("meta_rayban_tech", "custom_0x1234"), repo.activeSignatures.first().map { it.id })
+
+    repo.setIncludeGenericLowSignatures(true)
+    assertTrue(repo.includeGenericLowSignatures.first())
+    assertEquals(
+      listOf("meta_rayban_tech", "meta_platforms_general", "zhuhai_jieli", "custom_0x1234"),
+      repo.activeSignatures.first().map { it.id }
+    )
   }
 
   private class InMemoryPreferencesStore : DataStore<Preferences> {

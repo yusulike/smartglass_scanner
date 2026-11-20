@@ -31,7 +31,7 @@
    * **포그라운드/백그라운드 스캔 모드 분리**: 앱 화면 활성 시 기기명 패턴·Scan Response까지 폭넓게 잡는 비필터 스캔(`SCAN_MODE_BALANCED`)으로 동작하고, 백그라운드 대기 시에는 하드웨어 `ScanFilter`(Company ID / Service UUID / Service Data / Android 13+ 기기명 접두사)를 적용한 `SCAN_MODE_LOW_POWER`로 자동 전환합니다.
    * **오탐 방지 신호 필터링 (`BleSignalFilter`)**: EMA RSSI 스무딩(`α = 0.3`), 히스테리시스(`8 dBm` 간격), 8초 슬라이딩 윈도우 기반 **유연 N-of-M**(`HIGH = 1회`, `MEDIUM = 2회`, `LOW = 3회`) 판정을 적용하고, 카메라 탑재형(`CAMERA`)과 디스플레이 AR형(`DISPLAY_AR`) 알림 문구를 구분합니다.
    * **화이트리스트 & 쿨다운**: 무시(화이트리스트) 기기 영구 제외, 동일 기기 중복 알림 쿨다운(`5~60초`, 기본 `10초`), 120초 미관측 기기 자동 정리.
-   * **로컬 로그 영속 보관 및 내보내기**: 확정 경보뿐 아니라 1회/임계치 미만 관측 패킷도 `[OBSERVED]`(기기별 스로틀 적용)로 앱 내부 `files/detection_logs.json`에 최대 500건 영속 보관(재시작 후 유지)하며, Android SAF(`CreateDocument`)를 통해 기기 내 `.txt` 리포트로 내보낼 수 있습니다(외부 서버 전송 없음).
+   * **로컬 로그 영속 보관 및 내보내기**: 확정 경보뿐 아니라 1회/임계치 미만 관측 패킷도 `[OBSERVED]`(매칭 근거 `match=...` 포함, 기기별 스로틀 적용)로 앱 내부 `files/detection_logs.json`에 최대 500건 영속 보관(재시작 후 유지)하며, Android SAF(`CreateDocument`)를 통해 기기 내 `.txt` 리포트로 내보낼 수 있습니다(외부 서버 전송 없음).
 2. **시험장 입실 스크리닝 모드 (`GATE_SCREENING`)**
    * 감독관용 포그라운드 전용 `SCAN_MODE_LOW_LATENCY` 초근접(`-55 dBm` 이상, 약 0.5~1m) 즉시 판정 모드.
    * 빠른 EMA(`α = 0.7`) 및 즉시 3단계 판정(`CLEAR` 녹색 / `CAUTION` 황색 / `ALERT` 적색), `2초` 쿨다운 무음 진동(`VIBRATE`), **다음 응시자(초기화)** 버튼 제공.
@@ -45,18 +45,18 @@
 
 ## 탐지 가능 기기 및 시그니처 목록 (25종)
 
-내장 [signatures.json](app/src/main/assets/signatures.json)에 정의된 25종 시그니처 기준이며, 설정 화면에서 사용자 커스텀 16-bit Hex Company ID(`0x0000`~`0xFFFF`, `LOW` 신뢰도 / 3회 관측)를 추가로 등록할 수 있습니다.
+내장 [signatures.json](app/src/main/assets/signatures.json)에 정의된 25종 시그니처 기준이며, 설정 화면에서 사용자 커스텀 16-bit Hex Company ID(`0x0000`~`0xFFFF`, `LOW` 신뢰도 / 3회 관측)를 추가로 등록할 수 있습니다. 범용 칩셋/공용 `LOW` 시그니처(`0x01AB`, `0x05D6`)는 기본 활성화되어 있으며, 저가 이어폰·스피커 등 일반 BLE 기기 오탐이 잦을 경우 설정의 **범용 칩셋(LOW) 시그니처 포함** 토글로 끌 수 있습니다.
 
 | # | 시그니처 ID | 표시 라벨 | 매칭 조건 (`Company ID` / `Service UUID` / `Service Data` / 기기명) | 카테고리 | 신뢰도 (일반 필요 관측 / Gate) | 동작 범위 및 비고 |
 |:-:|:---|:---|:---|:---:|:---|:---|
 | 1 | `meta_rayban_tech` | Ray-Ban Meta (Meta Platforms Tech) | Company ID `0x058E` + Payload ASCII `META_RB_GLASS` | `CAMERA` | `HIGH` (1회 / `ALERT`) | Quest VR(`META_QUEST_3`) 오탐 배제 |
 | 2 | `meta_rayban_inc_confirmed` | Ray-Ban Meta (Meta Platforms Inc) | Company ID `0x01AB` + Payload ASCII `META_RB_GLASS` | `CAMERA` | `HIGH` (1회 / `ALERT`) | `0x01AB` 공용 ID 중 페이로드 확정 시 즉시 상향 |
 | 3 | `luxottica_rayban` | Ray-Ban Meta Frame (Luxottica) | Company ID `0x0D53` | `CAMERA` | `HIGH` (1회 / `ALERT`) | 백그라운드·포그라운드 상시 |
-| 4 | `meta_platforms_general` | Meta Platforms Device | Company ID `0x01AB` | `CAMERA` | `LOW` (3회 / `CAUTION`) | 공용 Meta BLE 기기 포함 (주의) |
+| 4 | `meta_platforms_general` | Meta Platforms Device | Company ID `0x01AB` | `CAMERA` | `LOW` (3회 / `CAUTION`) | 공용 Meta BLE 기기 (주의 · 설정 토글) |
 | 5 | `snap_spectacles` | Snap Spectacles | Company ID `0x03C2` | `CAMERA` | `MEDIUM` (2회 / `ALERT`) | 백그라운드·포그라운드 상시 |
 | 6 | `tcl_rayneo` | TCL / RayNeo Smart Glasses | Company ID `0x0BC6` | `CAMERA` | `MEDIUM` (2회 / `ALERT`) | 백그라운드·포그라운드 상시 |
 | 7 | `meizu_myvu` | Meizu MYVU AR Glasses | Company ID `0x03AB` | `DISPLAY_AR` | `MEDIUM` (2회 / `ALERT`) | 카메라 미탑재 디스플레이 AR 알림 구분 |
-| 8 | `zhuhai_jieli` | Zhuhai Jieli Chipset Glasses | Company ID `0x05D6` | `CAMERA` | `LOW` (3회 / `CAUTION`) | 범용 중국계 글래스/오디오 칩셋 (주의) |
+| 8 | `zhuhai_jieli` | Zhuhai Jieli Generic Chipset (Audio / Glasses) | Company ID `0x05D6` | `CAMERA` | `LOW` (3회 / `CAUTION`) | 범용 중국계 오디오/글래스 칩셋 (주의 · 설정 토글) |
 | 9 | `heycyan_sdk` | HeyCyan SDK Smart Glasses | Service UUID `7905FFF0-B5CE-4E99-A40F-4B1E122D00D0` | `CAMERA` | `HIGH` (1회 / `ALERT`) | GATT 서비스 UUID 매칭 |
 | 10 | `rokid_ai_glasses` | Rokid AI Glasses | Service UUID `00009100-0000-1000-8000-00805F9B34FB` (`0x9100`) | `CAMERA` | `HIGH` (1회 / `ALERT`) | GATT 서비스 UUID 매칭 |
 | 11 | `da_echo_glasses` | Da Echo Smart Glasses | Service UUID `0xFEA8` + Service Data Hex `413149010000` | `CAMERA` | `HIGH` (1회 / `ALERT`) | Service Data 바이트 검증 |
